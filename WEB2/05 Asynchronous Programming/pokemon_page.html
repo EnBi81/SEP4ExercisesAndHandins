@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pokemon</title>
+    <link rel="stylesheet" href="pokemon_style.css">
+    <script defer src="pokemon_script.js"></script>
+    <!--<script defer src="exercises/1callback.js"></script>-->
+    <!--<script defer src="exercises/2promises.js"></script>-->
+    <!--<script defer src="exercises/3async.js"></script>-->
+    <script defer src="exercises/4ownPromise.js"></script>
+</head>
+<body>
+<div class="main">
+    <div class="top">
+        <div class="search-bar">
+            <input id="pokemon-search-input" type="text">
+        </div>
+        <button onclick="getPokemon(document.getElementById('pokemon-search-input').value)">Search</button>
+    </div>
+    <div class="content">
+        <div class="main-pokemon-info">
+            <div class="pokemon-id">Id: <span id="pok-id">1</span></div>
+            <div class="pokemon-name">Name: <span id="pok-name">Hello</span></div>
+            <div class="pokemon-base-xp">Experience: <span id="pok-base-xp">123 xp</span></div>
+            <div class="pokemon-height">Height: <span id="pok-height">12</span> decimeter</div>
+        </div>
+        <div class="pokemon-image">
+            <img src="notfound" alt="" onload="onImageLoad(this)">
+        </div>
+    </div>
+</div>
+</body>
+</html>
