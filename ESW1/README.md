@@ -1,0 +1,1 @@
+﻿I mostly use CLion for C programming, so the CMake file might be different for me.
