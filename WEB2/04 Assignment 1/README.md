@@ -6,7 +6,7 @@ Tic-tac-toe is played on a three-by-three grid by two players, who take turns pl
 
 In the following example, the first player (X) wins the game in seven steps:
 
-![Tic-Tac-Toe](/tic-tac-toe.png)
+<img src="tic-tac-toe.png">
 
 **Additional requirements:**
 
