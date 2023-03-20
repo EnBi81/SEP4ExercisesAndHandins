@@ -1,0 +1,460 @@
+:root{
+    --bgColor: black;
+
+    --display-hover-cursor: pointer;
+}
+
+html, body{
+    height: 100%;
+}
+
+body{
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+}
+
+#root{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    position: relative;
+
+    height: 100%;
+}
+
+
+
+.player1{
+    --playerBaseColor: var(--player1Color);
+}
+
+.player2{
+    --playerBaseColor: var(--player2Color);
+}
+
+.player2, .player1{
+    --playerColorGeneral: rgba(var(--playerBaseColor));
+    --playerColorBGActive: rgba(var(--playerBaseColor), 0.25);
+    --playerColorBGPassive: rgba(var(--playerBaseColor), 0.05);
+    --playerColorBGShapeActive: rgba(var(--playerBaseColor));
+    --playerColorBGShapePassive: rgba(var(--playerBaseColor), 0.30);
+    --playerColorBGWin: rgba(var(--playerBaseColor), 0.35);
+    --playerColorBGLoose: rgba(var(--playerBaseColor), 0.150);
+}
+
+
+.main{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Player data design */
+
+.player-data-wrapper{
+    width: 100%;
+    height: 200px;
+    display: flex;
+    pointer-events: none;
+}
+
+.flex-left{
+    justify-content: left;
+}
+.flex-right{
+    justify-content: right;
+}
+
+.player-data-box{
+    width: 400px;
+    height: 100%;
+    pointer-events: all;
+}
+
+.player-box-top, .player-box-bottom{
+    margin: 0 30px 0 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.player-box-top{
+    align-items: end;
+}
+
+.player-box-bottom{
+    align-items: start;
+}
+
+.name-input{
+    height: 100px;
+    width: 70%;
+    position: relative;
+
+    display: flex;
+
+    background: transparent;
+    transition: background-color 200ms, box-shadow 200ms;
+}
+
+.name-input:hover, .name-input:has(:focus){
+    background: white;
+    box-shadow: 6px 6px 20px #575757;
+}
+
+.name-input input[type="text"]{
+    height: 100%;
+    width: 100%;
+    font-size: 50px;
+
+    padding: 0;
+    border: none;
+    font-weight: 700;
+    text-align: center;
+    background: transparent;
+}
+
+.name-input input[type="color"]{
+    height: 100%;
+    width: 30px;
+    border: none;
+    padding: 0;
+    background: transparent;
+}
+
+.name-input input:focus{
+    outline: none;
+}
+
+.name-input input[type="text"]:focus{
+    box-shadow: inset 2px 2px 10px #868686;
+}
+
+.player-score{
+    width: 50%;
+
+    font-size: 30px;
+    display: flex;
+    gap: 5px;
+
+    position: relative;
+}
+
+.player-box-top .player-score{
+    margin-right: 15%;
+}
+.player-box-bottom .player-score{
+    margin-left: 15%;
+}
+
+.score-game-item{
+    width: 30px !important;
+    height: 30px !important;
+}
+
+.score-display{
+    position: absolute;
+    width: 320px;
+    display: flex;
+    gap: 2px;
+    flex-wrap: wrap;
+    justify-content: right;
+}
+
+.player-box-top .score-display{
+    justify-content: right;
+}
+.player-box-bottom .score-display{
+    justify-content: left;
+    bottom: 0;
+}
+
+/* Background design */
+.sides{
+    --transition-time: 2s;
+
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+
+    display: flex;
+    z-index: -1;
+
+    transform: scale(2);
+    filter: blur(10px);
+}
+
+.side-left, .side-right{
+    height: 100%;
+    width: 50%;
+    background: var(--playerColorBGPassive);
+
+    transition: background-color var(--transition-time);
+}
+
+.side-left.active, .side-right.active{
+    background: var(--playerColorBGActive);
+}
+
+.side-left.win, .side-right.win{
+    background: var(--playerColorBGWin);
+}
+
+.side-left.loose, .side-right.loose{
+    background: var(--playerColorBGLoose);
+}
+
+.side-left .game-item, .side-right .game-item{
+    height: 30%;
+    width: 30%;
+    left: 50%;
+
+    --playerColorGeneral: var(--playerColorBGShapePassive);
+}
+
+.side-left.active .game-item, .side-right.active .game-item{
+    --playerColorGeneral: var(--playerColorBGShapeActive);
+}
+
+.side-left .game-item{
+    transform: translate(-30%, -50%);
+    --playerColorGeneral: var(--playerColorBGShapePassive);
+    top: 40%;
+}
+
+.side-right .game-item{
+    transform: translate(-70%, -50%);
+    top: 60%;
+}
+
+/* Game grid design */
+.game{
+    --transition-time: 400ms;
+
+    max-width: 100%;
+    width: 400px;
+
+    aspect-ratio: 1;
+
+    background: #ffffff;
+}
+
+.game-bottom{
+    display: flex;
+    padding: 10px;
+    gap: 10px;
+    align-items: center;
+}
+
+.reset-button{
+    height: 40px;
+    min-width: 70px;
+    font-size: 16px;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    border: 1px solid #ccc;
+}
+
+.reset-button button{
+    font-size: inherit;
+    height: 100%;
+    width: 100%;
+    border: none;
+    cursor: pointer;
+}
+
+.reset-button button:hover{
+    background-color: #e8e8e8;
+}
+
+.grid-container label{
+    width: 100%;
+    height: 100%;
+}
+
+.grid-container {
+    --gap: 10px;
+
+    width: calc(400px - var(--gap) * 2);
+    height: calc(400px - var(--gap) * 2);
+
+    aspect-ratio: 1;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: var(--gap);
+    padding: var(--gap);
+
+}
+
+.grid-cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    font-size: 30px;
+    text-align: center;
+    position: relative;
+
+    height: 100%;
+    width: 100%;
+}
+
+.grid-cell{
+    cursor:  var(--display-hover-cursor);
+}
+
+.grid-cell.player2, .grid-cell.player1{
+    cursor: no-drop;
+}
+
+.grid-cell:hover{
+    background-color: #e8e8e8;
+}
+
+.grid-cell::before{
+    content: '';
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+    opacity: 0.3;
+    background: var(--playerColorBGActive);
+    transition: background-color var(--transition-time);
+}
+
+.latest.grid-cell::before{
+    opacity: 0.7;
+}
+
+/* Game Item design */
+
+.game-item{
+    width: 70%;
+    height: 70%;
+    position: relative;
+
+    transition: opacity var(--transition-time);
+    opacity: 0;
+}
+
+.player1 .game-item, .player2 .game-item{
+    opacity: 1;
+}
+
+
+.game-item::before, .game-item::after{
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+
+    transition: background-color var(--transition-time);
+}
+
+.player1 .game-item::before {
+    content: '';
+    position: absolute;
+    height: 100%;
+    left: 0;
+    top: 0;
+    border-radius: 50%;
+    background-color: var(--playerColorGeneral);
+    aspect-ratio: 1;
+
+    /* in webstorm the next line might look like an error,
+       but that line makes the circle look like as it should */
+    -webkit-mask: radial-gradient(transparent 49%, #000 51%);
+    mask: radial-gradient(transparent 49%, #000 51%);
+
+    transition: background-color var(--transition-time);
+}
+
+.player2 .game-item::before, .player2 .game-item::after{
+    transform: translate(-50%, -50%) rotate(45deg);
+
+    border-radius: 10px;
+    width: 15%;
+    height: 120%;
+    background: var(--playerColorGeneral);
+}
+
+.player2 .game-item::before{
+    transform: translate(-50%, -50%) rotate(135deg);
+}
+
+.player2 .game-item::after{
+    transition-delay: 200ms;
+}
+
+.grid-cell.player1 .game-item::before{
+    animation: scaleup 300ms;
+}
+
+
+@keyframes scaleup {
+    0%{
+        transform: scale(0.6);
+    }
+    60%{
+        transform: scale(0.6);
+    }
+    100%{
+        transform: scale(1);
+    }
+}
+
+.winner-animation{
+    animation: scale-infinite 1s infinite;
+}
+
+@keyframes scale-infinite {
+    0%, 100%{
+        transform: scale(1);
+    }
+    50%{
+        transform: scale(0.9);
+    }
+}
+
+.shake{
+    animation: shake 500ms;
+}
+
+@keyframes shake {
+    0%, 100%{
+        transform: translate(0);
+    }
+    30%, 50%, 70%{
+        transform: translate(-5px);
+    }
+    15%, 40%, 60%, 85%{
+        transform: translate(5px);
+    }
+}
+
+/*  Confetti  */
+.confetti-wrapper{
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    pointer-events: none;
+    user-select: none;
+    cursor: inherit;
+    z-index: 1;
+}
