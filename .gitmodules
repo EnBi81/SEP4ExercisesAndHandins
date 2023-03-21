@@ -1,0 +1,3 @@
+[submodule "ESW1/Lesson4/Google_tests/lib/googletest"]
+	path = ESW1/Lesson4/Google_tests/lib/googletest
+	url = https://github.com/google/googletest.git
