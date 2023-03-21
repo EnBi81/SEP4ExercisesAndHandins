@@ -9,6 +9,10 @@ typedef struct LinkedListNode{
 
 } LinkedListNode_t;
 
+typedef struct LinkedList {
+    LinkedListNode_t* head;
+} LinkedList_t;
+
 LinkedListNode_t* linkedListNode_createWithValue(int value){
     LinkedListNode_t* node = malloc(sizeof(LinkedListNode_t));
     node->next = NULL;
@@ -16,11 +20,6 @@ LinkedListNode_t* linkedListNode_createWithValue(int value){
 
     return node;
 }
-
-typedef struct LinkedList {
-    LinkedListNode_t* head;
-} LinkedList_t;
-
 
 LinkedList_t* linkedList_create(){
     LinkedList_t* list = malloc(sizeof(LinkedList_t));
