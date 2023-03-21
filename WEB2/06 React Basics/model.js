@@ -4,6 +4,7 @@ class TicTacToeGame{
     #getWinnerName;
     #winnerPlayerNum;
     #winnerIndexes;
+    #latestInsertCellIndex;
 
     player1;
     player2;
@@ -95,6 +96,7 @@ class TicTacToeGame{
         if(this.#isClosed)
             return;
 
+        this.#latestInsertCellIndex = tableIndex;
         let playerNumber = this.getNextPlayerNumber();
 
         this.table[tableIndex] = playerNumber;
@@ -112,10 +114,15 @@ class TicTacToeGame{
         return this.#winnerPlayerNum;
     }
 
+    getLatestInsertedCellIndex(){
+        return this.#latestInsertCellIndex;
+    }
+
     reset(){
         this.#getWinnerName = null;
         this.#winnerIndexes = null;
         this.#isClosed = false;
+        this.#latestInsertCellIndex = null;
         this.previousPlayerStep = Math.random() > 0.5 ?
             this.player1.getPlayerNumber() :
             this.player2.getPlayerNumber();
@@ -517,13 +524,4 @@ function canvasO(size, color){
     const radius = size / Math.PI;
 
     context.beginPath();
-    context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
-    context.fillStyle = 'transparent';
-    context.fill();
-    context.lineWidth = size / 10;
-    context.strokeStyle = color;
-    context.stroke();
-    context.closePath();
-
-    return canvas;
-}
+    context.arc(centerX, centerY, radius, 0, 2 * Math.PI

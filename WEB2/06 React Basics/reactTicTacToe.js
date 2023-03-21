@@ -348,6 +348,8 @@ function GameCell({cellNumber}){
         game.isPlayer1OnCell(cellNumber) ? ' player1' : ' player2'
         ) : '';
 
+    let latestClass = game.getLatestInsertedCellIndex() === cellNumber ? ' latest' : '';
+
     let winnerCellClass = game.isGameClosed() && game.isWinnerCellIndex(cellNumber) ? ' winner-animation' : '';
 
     let onCellPress = () => {
@@ -370,8 +372,4 @@ function GameCell({cellNumber}){
 
 
     return (
-        <div tabIndex="4" className={"grid-cell" + playerClass + winnerCellClass} onKeyPress={onCellEnter} onClick={onCellPress}>
-            <div className={"game-item " + shake}></div>
-        </div>
-    )
-}
+        <div tabIndex="4" className={"grid-cell" + playerClass + winnerCellClass + latestClass} onKeyPress={onCellEnter} 
