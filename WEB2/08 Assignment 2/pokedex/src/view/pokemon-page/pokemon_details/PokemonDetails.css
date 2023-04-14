@@ -94,7 +94,7 @@ Image
     transition: filter calc(var(--pokemon-details-transition-time) / 2);
 }
 .pokemon-details-content-layer-1:hover .pokemon-image-container{
-    filter: drop-shadow(10px 15px 5px rgba(0, 0, 0, 0.63));
+    filter: drop-shadow(10px 15px 6px rgba(0, 0, 0, 0.63));
 }
 
 .flip-card{

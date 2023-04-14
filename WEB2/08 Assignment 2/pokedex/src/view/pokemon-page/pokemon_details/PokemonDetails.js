@@ -75,13 +75,11 @@ export default function PokemonDetails({ pokemonToShow, setPokemonToShow }){
 
             })
             .catch(err => {
-                console.log(err);
-
                 if(pokemonDetailedState.loadingTimeOut != null)
                     clearTimeout(pokemonDetailedState.loadingTimeOut);
 
                 layer1Ref.current.classList.remove('load-error');
-                let a = layer1Ref.current.scrollHeight;
+                (() => layer1Ref.current.scrollHeight)(); // no more warning xddd
                 layer1Ref.current.classList.add('load-error');
 
                 setPokemonDetailedState({
@@ -217,9 +215,9 @@ function PokemonImageContainer({pokemonDetailed}){
     return (
         <div className={'pokemon-details-grid-item pokemon-image-container'}>
             <div className={'flip-card'} ref={flipCardRef} onAnimationEnd={onFlipAnimationEnd}>
-                <div className="face">{oldImageUrl !== undefined && <img src={oldImageUrl} alt="Image of the pokemon"/>}</div>
+                <div className="face">{oldImageUrl !== undefined && <img src={oldImageUrl} alt="Pokemon"/>}</div>
                 <div className="face back"><img src={imageUrl}
-                                                alt="Image of the pokemon"
+                                                alt="Pokemon"
                                                 onLoad={() => onMainImageLoad(imageUrl)}/></div>
             </div>
         </div>

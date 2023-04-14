@@ -1,12 +1,10 @@
 import React, {useEffect} from "react";
-import {pokemonSimple} from "../../../model";
 import PokemonListItem from "./PokemonListItem";
 import MouseGrabScroll from "../ViewUtils/MouseGrabScroll";
 import SmoothOverscroll from "../ViewUtils/SmoothOverscroll";
 import ScrollHeightHelper from "../ViewUtils/ScrollHeightHelper";
 import './PokemonList.css'
 import Color from "color";
-import {findRenderedComponentWithType} from "react-dom/test-utils";
 
 // this will help us do the hue ordering easter egg
 let easterEggArray = [];
@@ -113,5 +111,6 @@ console.log('     .-.            .-.\n' +
 Object.defineProperty(window, 'hue', {
     get: function() {
         console.log("But not in the console, type it just somewhere in the pokemon window!");
+        return undefined;
     }
 });

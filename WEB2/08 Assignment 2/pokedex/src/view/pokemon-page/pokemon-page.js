@@ -3,7 +3,6 @@ import React, {useEffect, useState} from 'react'
 import PokemonList from './pokemon_list/PokemonList'
 import PokemonDetails from "./pokemon_details/PokemonDetails";
 import {getPokemonList} from '../../model/pokemon-list-model';
-import {PokemonPageBackground} from "./PokemonPageBackground/PokemonPageBackground";
 
 
 export function PokemonPage(){

@@ -16,7 +16,6 @@ export function PokemonExtendedInfoContainer({pokemonDetailed}){
 }
 
 function BaseInfoContainer({pokemonDetailed}){
-    let weight = pokemonDetailed.weight / 10;
     let generationCount = getGenerationCount(pokemonDetailed);
 
     let typesElement = (

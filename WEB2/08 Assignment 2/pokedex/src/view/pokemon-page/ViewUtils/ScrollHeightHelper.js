@@ -4,9 +4,6 @@ export default class ScrollHeightHelper{
     scrollContainer;
     list;
 
-    constructor() {
-    }
-
 
     init(scrollContainer, listElement){
         this.scrollContainer = scrollContainer;
