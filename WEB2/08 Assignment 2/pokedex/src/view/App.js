@@ -1,8 +1,9 @@
 import {Header} from "./header/header";
-import {createHashRouter, Outlet, RouterProvider} from "react-router-dom";
+import {createHashRouter, Outlet, Route, Router, RouterProvider} from "react-router-dom";
 import {AboutUs} from "./about-us/about-us";
 import './App.css'
 import {PokemonPage} from "./pokemon-page/pokemon-page";
+import {TicTacToeGameObject} from "./tictactoe/reactTicTacToe";
 
 export default function App(){
 
@@ -31,7 +32,8 @@ export default function App(){
             ]
         },
         {
-            element: ''
+            path: '/tictactoe',
+            element: <TicTacToeGameObject></TicTacToeGameObject>
         }
     ]);
 

@@ -1,3 +1,9 @@
+@font-face {
+    font-family: pokemon-solid;
+    src: url(../../fonts/pokemon-solid.ttf);
+}
+
+
 .pokemon{
     height: 100%;
     width: 100%;
@@ -7,4 +13,6 @@
     display: flex;
     align-items: center;
     padding-left: 40px;
+
+    font-family: pokemon-solid, sans-serif;
 }
