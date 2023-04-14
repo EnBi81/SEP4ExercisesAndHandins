@@ -372,4 +372,8 @@ function GameCell({cellNumber}){
 
 
     return (
-        <div tabIndex="4" className={"grid-cell" + playerClass + winnerCellClass + latestClass} onKeyPress={onCellEnter} 
+        <div tabIndex="4" className={"grid-cell" + playerClass + winnerCellClass} onKeyPress={onCellEnter} onClick={onCellPress}>
+            <div className={"game-item " + shake}></div>
+        </div>
+    )
+}

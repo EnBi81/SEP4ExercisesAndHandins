@@ -524,4 +524,13 @@ function canvasO(size, color){
     const radius = size / Math.PI;
 
     context.beginPath();
-    context.arc(centerX, centerY, radius, 0, 2 * Math.PI
+    context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+    context.fillStyle = 'transparent';
+    context.fill();
+    context.lineWidth = size / 10;
+    context.strokeStyle = color;
+    context.stroke();
+    context.closePath();
+
+    return canvas;
+}
