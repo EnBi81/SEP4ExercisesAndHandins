@@ -7,15 +7,3 @@ https://stackoverflow.com/questions/47011055/smooth-vertical-scrolling-on-mouse-
 todo: a pokemon leans out from behind the home button when hover
 todo: when the home button is hovered for more than 10 seconds, it flips and the pokemons from the back side run away
 
-
-
-
-about us:
-
-https://perthirtysix.com/tool/pokemon-explorer
-
-Adi Crash285
-Poekapi
-
-link to github repo
-osu for design of the list

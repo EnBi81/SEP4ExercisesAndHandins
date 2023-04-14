@@ -6,6 +6,8 @@ be incompatible with older browser versions)
 
 Note 2: The website is not responsive, it was designed for desktop users.
 
+View the website here: https://enbi81.github.io/SEP4ExercisesAndHandins/
+
 ## Thanks to
 - <a href="https://pokeapi.co/">PokeAPI</a> | for serving the data and having nice documentation
 - <a href="https://perthirtysix.com/tool/pokemon-explorer">Pokemon Explorer</a> | for helping in understanding the pokemon world
