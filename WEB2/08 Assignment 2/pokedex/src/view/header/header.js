@@ -12,7 +12,12 @@ export function Header(){
             text: 'About Us',
             link: '/about'
         }
-    ]
+    ];
+
+    const headerEasterEgg = {
+        text: 'Tic Tac Toe',
+        link: '/tictactoe'
+    }
 
     let headerKey = 0;
     const headerTiles = headerDest.map(dest =>
@@ -21,7 +26,12 @@ export function Header(){
     return (
         <div className={'header'}>
             <div className={'header-content'}>
-                {headerTiles}
+                <div className="header-left">
+                    {headerTiles}
+                </div>
+                <div className="header-right">
+                    <HeaderTile text={headerEasterEgg.text} link={headerEasterEgg.link}></HeaderTile>
+                </div>
             </div>
         </div>
     )

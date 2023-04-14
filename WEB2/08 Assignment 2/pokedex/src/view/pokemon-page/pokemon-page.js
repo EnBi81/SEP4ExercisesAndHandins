@@ -28,10 +28,10 @@ export function PokemonPage(){
             <PokemonList pokemonList={pokemonList} pokemonDetailedUrl={pokemonDetailed?.url} setPokemonDetailed={setPokemonDetailed}></PokemonList>
             <PokemonDetails pokemonToShow={pokemonDetailed} setPokemonToShow={setPokemonDetailed}></PokemonDetails>
 
-            <div className="page-navigation">
-                {/*<div className="previous"><button>Previous</button></div>
-                <div className="next"><button>Next</button></div>*/}
-            </div>
+            {/*<div className="page-navigation">
+                <div className="previous"><button>Previous</button></div>
+                <div className="next"><button>Next</button></div>
+            </div>*/}
         </div>
     )
 }

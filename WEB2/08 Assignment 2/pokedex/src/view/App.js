@@ -30,6 +30,9 @@ export default function App(){
                 }
             ]
         },
+        {
+            element: ''
+        }
     ]);
 
     return (

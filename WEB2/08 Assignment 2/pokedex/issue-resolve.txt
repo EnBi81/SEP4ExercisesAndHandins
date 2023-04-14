@@ -7,3 +7,13 @@ https://stackoverflow.com/questions/47011055/smooth-vertical-scrolling-on-mouse-
 todo: a pokemon leans out from behind the home button when hover
 todo: when the home button is hovered for more than 10 seconds, it flips and the pokemons from the back side run away
 
+idea for pagination:
+https://media.tenor.com/Bwts1plhKjEAAAAC/jolteon-pokemon.gif
+https://64.media.tumblr.com/261a3fcaed9586ecf3560ecbc632f0f9/tumblr_nud7p2sSC11r7tm2fo1_500.gif
+https://i.pinimg.com/originals/f7/8d/48/f78d4817a771b1c8b99fb2ed8f41f897.gif
+
+idea for header:
+https://tenor.com/view/pikachu-running-run-run-away-gif-13709403
+https://64.media.tumblr.com/aa8f20aa19a94efbe6d5d21cabd86dcc/1abed0d0c32e82db-11/s1280x1920/baa6f9b98f622b48c7662f373efb20c41634bc2a.gif
+https://64.media.tumblr.com/6ddc22c5ca5b40f069f1206a15e75104/tumblr_msokfsdfR81scncwdo1_500.gif
+https://storage.googleapis.com/sticker-prod/PJHXbROHr9hwZcfIoKn3/6.png
