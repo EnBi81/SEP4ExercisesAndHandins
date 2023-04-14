@@ -1,0 +1,111 @@
+.pokemon-extended-info-container{
+   /* background: red;*/
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 4fr 1fr;
+    grid-column-gap: 10px;
+}
+
+.grid-items-wrapper{
+    display: contents;
+}
+
+/* width */
+.smooth-scrollbar::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* Track */
+.smooth-scrollbar::-webkit-scrollbar-track {
+    background: var(--pokemon-detailed-main-color);
+    border-radius: 10px;
+}
+
+/* Handle */
+.smooth-scrollbar::-webkit-scrollbar-thumb {
+    background: var(--pokemon-detailed-mid-color);
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+.smooth-scrollbar:hover::-webkit-scrollbar-thumb{
+    background: var(--pokemon-detailed-secondary-color);
+}
+
+
+/*
+-----------------------------------------
+Base info
+-----------------------------------------
+ */
+.pokemon-base-info-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: min-content;
+    max-height: 250px;
+
+    border-radius: 0 10px 10px 0;
+    overflow: auto;
+}
+
+.grid-items-wrapper div:first-child{
+    padding-left: 10px;
+}
+.grid-items-wrapper:has(:hover) div{
+    background: var(--pokemon-detailed-mid-color);
+}
+
+.pokemon-type{
+    color: var(--type-color);
+    margin-right: 5px;
+}
+
+
+
+/*
+-----------------------------------------
+Statistics
+-----------------------------------------
+ */
+.statistics-container{
+    display: grid;
+    grid-template-columns: 4fr 2fr 5fr;
+
+    border-radius: 10px 0 0 10px;
+    overflow: auto;
+}
+
+.statistics-container div{
+    margin-top: -5px;
+}
+
+progress{
+    --progress-bg-color: var(--pokemon-detailed-mid-color);
+    --progress-color: var(--pokemon-detailed-secondary-color);
+
+    background: var(--progress-bg-color);
+    color: var(--progress-color);
+
+    width: 90px;
+    height: 8px;
+    border-radius: 20px;
+}
+progress[data-point-contribution='1']{ --progress-color: var(--automatch-content-table-points-positive-color); }
+progress[data-point-contribution='-1']{ --progress-color: var(--automatch-content-table-points-negative-color); }
+
+progress::-moz-progress-bar{background: var(--progress-bg-color);border-radius: 20px;transition:background-color var(--pokemon-details-transition-time);}
+progress::-webkit-progress-bar {background: var(--progress-bg-color);border-radius: 20px;transition:background-color var(--pokemon-details-transition-time);}
+progress::-webkit-progress-value{background: var(--progress-color);border-radius: 20px;min-width: 8%;transition:background-color var(--pokemon-details-transition-time);}
+
+
+/*
+-----------------------------------------
+Generation
+-----------------------------------------
+ */
+.generation-container{
+ /*   background: yellow;*/
+    grid-column-start: 1;
+    grid-column-end: 3;
+}

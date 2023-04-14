@@ -1,0 +1,39 @@
+.about-us{
+    position: relative;
+    font-size: 2rem;
+
+    padding: 20px;
+}
+
+body{
+    overflow: hidden;
+}
+
+.about-us-images{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+}
+
+.about-us-images img{
+    position: absolute;
+}
+
+.about-us-images img:nth-child(1){
+    right: 0;
+    top: 0;
+    height: auto;
+    transform: translateX(-50px);
+}
+.about-us-images img:nth-child(2){
+    transform: scale(1) rotateY(180deg) translate(15%, 3%);
+    bottom: 0;
+    left: 0
+}
+.about-us-images img:nth-child(3){
+    bottom: 0;
+    right: 0;
+    transform: translate(30%, 30%) scale(0.6);
+}

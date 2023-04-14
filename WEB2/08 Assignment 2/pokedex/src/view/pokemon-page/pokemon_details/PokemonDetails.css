@@ -1,0 +1,189 @@
+:root{
+    --pokemon-detailed-main-color: #cecece;
+    --pokemon-detailed-secondary-color: #9d9d9d;
+    --pokemon-detailed-mid-color: #adadad;
+    --pokemon-detailed-ultra-dark: black;
+
+    --pokemon-details-transition-time: 500ms;
+    --pokemon-details-movement-transition-time: 150ms;
+    --pokemon-details-loading-transition-time: 500ms;
+
+    --pokemon-details-border-radius: 20px;
+
+    --pokemon-details-container-width: 600px;
+    --pokemon-details-container-height: 700px;
+}
+
+.pokemon-details-container{
+    margin-left: 30px;
+
+    height: var(--pokemon-details-container-height);
+    width: var(--pokemon-details-container-width);
+    z-index: 10;
+
+    perspective: 800px;
+    transform-style: preserve-3d;
+    letter-spacing: 1px;
+
+    color: var(--pokemon-detailed-ultra-dark);
+}
+
+.pokemon-details-content-layer-1{
+
+    --layer1-rotate-x: 0;
+    --layer1-rotate-y: 0;
+
+
+    height: 100%;
+    width: 100%;
+
+    border-radius: var(--pokemon-details-border-radius);
+    background: var(--pokemon-detailed-secondary-color);
+
+    /*display: flex;
+    align-items: center;
+    justify-content: center;*/
+    box-sizing: border-box;
+
+    transition: transform var(--pokemon-details-movement-transition-time),
+                background-color var(--pokemon-details-transition-time),
+                border-radius var(--pokemon-details-loading-transition-time);
+    transform: scale(0.8);
+
+    box-shadow: 0 0 40px 5px rgba(0, 0, 0, 0.76);
+
+    transform-style: preserve-3d;
+    transform-origin: center center;
+}
+.pokemon-details-content-layer-1:hover{
+    transform: scale(1.1) rotateX(var(--layer1-rotate-x)) rotateY(var(--layer1-rotate-y)) translateZ(-15px);
+}
+
+
+.pokemon-details-content{
+    height: 100%;
+    width: 100%;
+
+    display: grid;
+    grid-template-rows: 4fr 6fr;
+    grid-template-columns: 1fr 1fr;
+    grid-row-gap: 20px;
+
+    border-radius: var(--pokemon-details-border-radius);
+    box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.73);
+
+    transition: border var(--pokemon-details-transition-time),
+                transform var(--pokemon-details-movement-transition-time),
+                box-shadow var(--pokemon-details-movement-transition-time);
+}
+
+.pokemon-details-grid-item:last-child{
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+
+
+/*
+----------------------------------------------------------------------------
+Image
+----------------------------------------------------------------------------
+ */
+.pokemon-image-container{
+    perspective: 30rem;
+    filter: drop-shadow(4px 4px 0 rgba(0, 0, 0, 0.63));
+    transition: filter calc(var(--pokemon-details-transition-time) / 2);
+}
+.pokemon-details-content-layer-1:hover .pokemon-image-container{
+    filter: drop-shadow(10px 15px 5px rgba(0, 0, 0, 0.63));
+}
+
+.flip-card{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+}
+
+.pokemon-image-container img{
+    height: 260px;
+    width: 260px;
+}
+.face {
+    width: 100%;
+    height: 100%;
+
+    color: #fff;
+    position: absolute;
+
+    backface-visibility:hidden;
+}
+
+.back {
+    transform: rotateY(180deg);
+}
+.flip-card.flip{
+    animation: flipAnimation var(--pokemon-details-transition-time) forwards;
+}
+
+@keyframes flipAnimation {
+    from{
+        transform: none;
+    }
+    to{
+        transform: rotateY(180deg);
+    }
+
+}
+
+/*
+----------------------------------------------------------------------------
+Base Info
+----------------------------------------------------------------------------
+ */
+.pokemon-id-title-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.pokemon-id-title-container .pokemon-id{
+    position: relative;
+    height: 150px;
+}
+
+.pokemon-id .pokemon-id-inner{
+    position: absolute;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    justify-content: left;
+    padding-left: 20px;
+    font-size: 5rem;
+    transform: translateY(-20%);
+}
+
+.pokemon-id.animation .pokemon-id-inner span{
+    animation: rotate forwards 500ms calc(var(--transition-delay) * 100ms);
+}
+@keyframes rotate {
+    from{
+        transform: none;
+    }
+    to{
+        transform: rotateY(360deg);
+    }
+}
+
+/*
+----------------------------------------------------------------------------
+Pokemon Name
+----------------------------------------------------------------------------
+ */
+.pokemon-id-title-container .pokemon-name{
+    font-size: 3rem;
+    padding-left: 1rem;
+    height: 110px;
+    width: 227px;
+}
+.pokemon-id-title-container .pokemon-name .pokemon-name-absolute{
+    position: absolute;
+}
