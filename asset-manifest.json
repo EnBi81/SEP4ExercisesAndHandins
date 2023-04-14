@@ -1,16 +1,17 @@
 {
   "files": {
-    "main.css": "/SEP4ExercisesAndHandins/static/css/main.073c9b0a.css",
-    "main.js": "/SEP4ExercisesAndHandins/static/js/main.9733418a.js",
-    "static/js/787.7e0b23c5.chunk.js": "/SEP4ExercisesAndHandins/static/js/787.7e0b23c5.chunk.js",
-    "static/media/logo.svg": "/SEP4ExercisesAndHandins/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "main.css": "/SEP4ExercisesAndHandins/static/css/main.036a502d.css",
+    "main.js": "/SEP4ExercisesAndHandins/static/js/main.0a6b64a3.js",
+    "static/media/snorlax.png": "/SEP4ExercisesAndHandins/static/media/snorlax.c9513de2179461ff7fc8.png",
+    "static/media/eevee.png": "/SEP4ExercisesAndHandins/static/media/eevee.ab17b728c360c91d2a16.png",
+    "static/media/dragon.png": "/SEP4ExercisesAndHandins/static/media/dragon.6799e4be2bbf6cdb5bfd.png",
+    "static/media/pokemon-solid.ttf": "/SEP4ExercisesAndHandins/static/media/pokemon-solid.5d60be1f7ff5fcc21fc1.ttf",
     "index.html": "/SEP4ExercisesAndHandins/index.html",
-    "main.073c9b0a.css.map": "/SEP4ExercisesAndHandins/static/css/main.073c9b0a.css.map",
-    "main.9733418a.js.map": "/SEP4ExercisesAndHandins/static/js/main.9733418a.js.map",
-    "787.7e0b23c5.chunk.js.map": "/SEP4ExercisesAndHandins/static/js/787.7e0b23c5.chunk.js.map"
+    "main.036a502d.css.map": "/SEP4ExercisesAndHandins/static/css/main.036a502d.css.map",
+    "main.0a6b64a3.js.map": "/SEP4ExercisesAndHandins/static/js/main.0a6b64a3.js.map"
   },
   "entrypoints": [
-    "static/css/main.073c9b0a.css",
-    "static/js/main.9733418a.js"
+    "static/css/main.036a502d.css",
+    "static/js/main.0a6b64a3.js"
   ]
 }
