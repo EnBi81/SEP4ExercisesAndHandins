@@ -1,36 +1,54 @@
 import './PokemonPageBackground.css'
 import {useEffect, useRef} from "react";
 
-function getImageLink(pokemonStyle){
-    return `/styles/style_${pokemonStyle}.png`
-}
+let lastRotatedTime = new Date().getTime();
 
-let lastCssUpdate = new Date().getTime();
-let lastHoveredBoxIndex = 0;
+const bgImages = [
+    'bg-image1.jpg',
+    'bg-image2.png',
+    'bg-image4.jpg',
+    'bg-image5.jpg',
+    'bg-image6.jpg',
+    'bg-image8.jpg',
+    'bg-image9.jpg',
+    'bg-image10.jpg',
+]
 
-export function PokemonPageBackground({styles}){
-    let backgroundRef = useRef();
+const randomImage = bgImages[Math.floor(Math.random() * bgImages.length)];
+const bgImagePath = 'SEP4ExercisesAndHandins/bg-images/' + randomImage;
 
-    styles = ['water', 'fire', 'ice', 'rock']
+export function PokemonPageBackground(){
+    let bgRef = useRef()
 
-    /*useEffect(() => {
-        document.addEventListener('mousemove', e => {
-            let newMilliSeconds = new Date().getTime();
-            if(newMilliSeconds - lastCssUpdate < 50) // rate limit the css rendering, because it gets too laggy
-                return;
-
-            lastCssUpdate = newMilliSeconds;
-
-            let yPercentage = (e.clientY - (window.innerHeight / 2)) / (window.innerHeight * 1.5);
-            let xPercentage = (e.clientX - (window.innerWidth / 2)) / (window.innerWidth * 1.5);
-
-            backgroundRef.current.style.setProperty('--percentage-x', Math.round(xPercentage * 1000) / 10 + 30);
-            backgroundRef.current.style.setProperty('--percentage-y', Math.round(yPercentage * 1000) / 40 - 30);
-        })
-    }, [])*/
+    useEffect(() => {
+        document.addEventListener('mousemove', ev => {
+            effect3dMouseMoveListener(ev, bgRef)
+        });
+    }, [])
 
     return (
-        <div className={'pokemon-page-background'} ref={backgroundRef}>
+        <div className={'pokemon-page-background-container'}>
+            <div className="pokemon-page-background-content" ref={bgRef}>
+                <img src={bgImagePath} alt=""/>
+            </div>
         </div>
     )
+}
+
+
+function effect3dMouseMoveListener(e, htmlElementRef){
+    let newMilliSeconds = new Date().getTime();
+    if(newMilliSeconds - lastRotatedTime < 50 )
+        return;
+    lastRotatedTime = newMilliSeconds;
+
+    let mousePosX = e.clientX / window.innerWidth;
+    let mousePosY = e.clientY / window.innerHeight;
+
+
+    let rotateX = Math.round((mousePosX - 0.5) * 100) / 15;
+    let rotateY = Math.round((mousePosY - 0.5) * 100) / 15;
+
+    htmlElementRef.current.style.setProperty('--bg-move-x', -rotateX + 'px');
+    htmlElementRef.current.style.setProperty('--bg-move-y', -rotateY + 'px');
 }

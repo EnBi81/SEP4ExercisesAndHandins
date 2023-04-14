@@ -1,3 +1,7 @@
+:root{
+    --header-height: 100px;
+}
+
 .header ~ .main{ /* only of the main is after the header element */
-    height: calc(100% - 100px);
+    height: calc(100% - var(--header-height));
 }

@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react'
 import PokemonList from './pokemon_list/PokemonList'
 import PokemonDetails from "./pokemon_details/PokemonDetails";
 import {getPokemonList} from '../../model/pokemon-list-model';
+import {PokemonPageBackground} from "./PokemonPageBackground/PokemonPageBackground";
 
 
 export function PokemonPage(){
@@ -24,7 +25,7 @@ export function PokemonPage(){
 
     return (
         <div className={'pokemon'}>
-            {/*<PokemonPageBackground></PokemonPageBackground>*/}
+            <PokemonPageBackground></PokemonPageBackground>
             <PokemonList pokemonList={pokemonList} pokemonDetailedUrl={pokemonDetailed?.url} setPokemonDetailed={setPokemonDetailed}></PokemonList>
             <PokemonDetails pokemonToShow={pokemonDetailed} setPokemonToShow={setPokemonDetailed}></PokemonDetails>
 

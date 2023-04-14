@@ -15,7 +15,7 @@
 }
 
 .pokemon-details-container{
-    margin-left: 30px;
+    margin-left: 50px;
 
     height: var(--pokemon-details-container-height);
     width: var(--pokemon-details-container-width);
@@ -56,7 +56,7 @@
     transform-origin: center center;
 }
 .pokemon-details-content-layer-1:hover{
-    transform: scale(1.1) rotateX(var(--layer1-rotate-x)) rotateY(var(--layer1-rotate-y)) translateZ(-15px);
+    transform: scale(1) rotateX(var(--layer1-rotate-x)) rotateY(var(--layer1-rotate-y)) translateZ(-15px);
 }
 
 

@@ -72,7 +72,6 @@ export default function PokemonDetails({ pokemonToShow, setPokemonToShow }){
                     }
                     loadFunction();
                 }
-
             })
             .catch(err => {
                 if(pokemonDetailedState.loadingTimeOut != null)
@@ -200,9 +199,10 @@ function PokemonImageContainer({pokemonDetailed}){
             return;
 
         flipCardRef.current.classList.add('flip');
+        const flipAnimationDuration = 500;
         setTimeout(() => {
             setOldImageUrl(imageUrl);
-        }, 250);
+        }, flipAnimationDuration / 2);
     }
 
     function onFlipAnimationEnd() {

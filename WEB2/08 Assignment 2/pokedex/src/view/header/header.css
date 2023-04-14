@@ -1,5 +1,15 @@
+:root{
+    --header-height: 100px;
+}
+
 .header{
-    height: 100px;
+    --pikachu-transition-time: 1s;
+    --header-bg-light1: #c1c1ff;
+    --header-bg-light2: #6f6fff;
+    --header-bg-light3: #4343ff;
+
+    height: var(--header-height);
+    width: 100%;
     position: relative;
 }
 
@@ -10,7 +20,11 @@
     width: 100%;
     box-sizing: border-box;
 
-    background: red;
+    /*
+    background: radial-gradient(circle at 150px, blue 1%, var(--header-bg-light1) 20%, var(--header-bg-light2) 40%);
+    */
+    background-size: 500%;
+    transition: background-size var(--pikachu-transition-time);
 
     display: flex;
     align-items: center;
@@ -27,11 +41,104 @@
 .header-tile{
     height: 80px;
     width: 200px;
-    background: green;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
     font-size: 2rem;
+    position: relative;
+
+    z-index: 1;
+}
+
+.header-tile-link{
+    height: 100%;
+    width: 100%;
+
+    background: green;
+}
+
+.header-tile-inner{
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-tic-tac-toe .header-tile-link{
+    position: absolute;
+    transform: translateX(200%);
+}
+
+.header-pikachu{
+    z-index: 2;
+    position: relative;
+}
+.header-pikachu:before{
+    content: url("./pokemon-media/pikachu-peak.png");
+
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    z-index: -1;
+    transform: scale(-1, 1);
+    transition: transform var(--pikachu-transition-time) cubic-bezier(0.6, 0.22, 0.54, 0.89);
+}
+
+.header-pikachu:hover:before{
+    transform: scale(-1, 1) translateX(-100%);
+}
+
+.header-pikachu:after{
+    content: url("./pokemon-media/pikachu-running.gif");
+
+    position: absolute;
+    z-index: -1;
+
+    bottom: 0;
+}
+
+
+.pikachu-protocol.header-content{
+    background-size: 100%;
+}
+.pikachu-protocol .header-pikachu{
+    animation: homeButtonAnimation 5s var(--pikachu-transition-time) forwards;
+}
+.pikachu-protocol .header-pikachu:before{
+    transform: scale(-1, 1);
+}
+.pikachu-protocol .header-pikachu:after{
+    animation: pikachuRunningAnimation 5s cubic-bezier(0.16, 0.03, 0.18, 0.15) calc(var(--pikachu-transition-time) * 1.5);
+}
+
+
+@keyframes pikachuRunningAnimation {
+    from{
+        transform: translateY(8px);
+    }
+    to{
+        transform: translateY(8px) translateX(100vw);
+    }
+}
+@keyframes homeButtonAnimation {
+    0%, 10%{
+        transform: none;
+    }
+    5%{
+        transform: scale(0.95);
+    }
+    20%{
+        transform: translateY(10px);
+    }
+    25%, 70%{
+        transform: translateY(10px) translateX(-10px);
+    }
+    100%{
+        transform: none;
+    }
 }
