@@ -4,13 +4,14 @@
 
 .header{
     --pikachu-transition-time: 1s;
-    --header-bg-light1: #c1c1ff;
-    --header-bg-light2: #6f6fff;
-    --header-bg-light3: #4343ff;
+    --pikachu-walking-back-delay: 5s;
+    --header-tile-red: #e75252;
+    --header-tile-white: #efefef;
 
     height: var(--header-height);
     width: 100%;
     position: relative;
+    z-index: 2;
 }
 
 .header-content{
@@ -20,19 +21,19 @@
     width: 100%;
     box-sizing: border-box;
 
-    /*
-    background: radial-gradient(circle at 150px, blue 1%, var(--header-bg-light1) 20%, var(--header-bg-light2) 40%);
-    */
-    background-size: 500%;
-    transition: background-size var(--pikachu-transition-time);
-
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 80px;
 
     padding: 0 60px 0 60px;
+
+    border-bottom: rgba(255, 255, 255, 0.63) 1px solid;
+    box-shadow: 0 1px 30px rgba(255, 255, 255, 0.63);
+    background: rgba(0, 0, 0, 0.74);
 }
+
+
 .header-left{
     display: flex;
     gap: 80px;
@@ -55,29 +56,112 @@
 .header-tile-link{
     height: 100%;
     width: 100%;
-
-    background: green;
+    position: relative;
 }
+
+.header-bg{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.pokeball-card{
+    position: absolute;
+    top: 50%;
+    left: 0;
+
+    width: 220%;
+    aspect-ratio: 1;
+    display: grid;
+    grid-template-columns: 20fr 1fr 20fr;
+    z-index: 2;
+
+    transform-origin: center center;
+    transform: translateX(-5%) translateY(-50%) rotateZ(0);
+    transition: 400ms transform ease-in-out;
+}
+.header-tile:hover .pokeball-card{
+    transform: translateX(-5%) translateY(-50%) rotateZ(180deg);
+}
+
+.pokeball-card-white{background: var(--header-tile-white);}
+.pokeball-card-black{background: black;}
+.pokeball-card-red{background: var(--header-tile-red);}
+
+.pokeball-card-inner{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 40px;
+    height: 40px;
+    transform: translate(-50%, -50%);
+
+    box-sizing: border-box;
+    background: var(--header-tile-white);
+    border-radius: 50%;
+    border: 10px black solid;
+}
+
 
 .header-tile-inner{
     height: 100%;
     width: 100%;
 
+    position: absolute;
+
+    z-index: 5;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
+    font-family: pokemon-solid, sans-serif;
+    color: black;
 }
 
+
+
+/*
+---------
+Tic tac toe header
+---------
+ */
+.header-tic-tac-toe{
+    display: none;
+    z-index: 2;
+}
 .header-tic-tac-toe .header-tile-link{
     position: absolute;
-    transform: translateX(200%);
+    transform: translateX(40vw);
 }
+.header-tic-tac-toe:before{
+    content: url("./pokemon-media/pikachu-walking.gif");
+    transform: scaleX(-1) translateX(-40vw);
+    filter: drop-shadow(3px 1px 4px black);
+}
+.header-tic-tac-toe:after{
+    content: url("./pokemon-media/pokemon-walking.gif");
+    transform: translateX(40vw);
+    filter: drop-shadow(3px 1px 4px black);
+}
+
+
+/*
+---------
+Header Pikachu
+---------
+ */
 
 .header-pikachu{
     z-index: 2;
     position: relative;
 }
-.header-pikachu:before{
+.pikachu-peaking:before{
     content: url("./pokemon-media/pikachu-peak.png");
 
     position: absolute;
@@ -89,7 +173,7 @@
     transition: transform var(--pikachu-transition-time) cubic-bezier(0.6, 0.22, 0.54, 0.89);
 }
 
-.header-pikachu:hover:before{
+.pikachu-peaking:hover:before{
     transform: scale(-1, 1) translateX(-100%);
 }
 
@@ -98,31 +182,58 @@
 
     position: absolute;
     z-index: -1;
+    filter: drop-shadow(3px 1px 4px black);
 
     bottom: 0;
 }
 
 
-.pikachu-protocol.header-content{
-    background-size: 100%;
-}
+/*
+---------
+Pikachu Protocol
+---------
+ */
 .pikachu-protocol .header-pikachu{
-    animation: homeButtonAnimation 5s var(--pikachu-transition-time) forwards;
+    animation:  homeButtonAnimation 5s var(--pikachu-transition-time) forwards;
 }
-.pikachu-protocol .header-pikachu:before{
+
+.pikachu-protocol .pikachu-peaking:before{
     transform: scale(-1, 1);
 }
 .pikachu-protocol .header-pikachu:after{
-    animation: pikachuRunningAnimation 5s cubic-bezier(0.16, 0.03, 0.18, 0.15) calc(var(--pikachu-transition-time) * 1.5);
+    animation: pikachuRunningAnimation 5s cubic-bezier(0.16, 0.03, 0.18, 0.15) calc(var(--pikachu-transition-time) * 1.5) forwards;
+}
+
+.pikachu-protocol .header-tic-tac-toe:before{
+    animation: pikachuWalkingThroughtAnim 15s linear var(--pikachu-walking-back-delay) forwards;
+    z-index: 1000;
+}
+.pikachu-protocol .header-tic-tac-toe:after{
+    animation: pokemonWalkingThroughtAnim 15s linear var(--pikachu-walking-back-delay) forwards;
+    z-index: 1000;
+}
+.pikachu-protocol .header-tic-tac-toe{
+    display: flex;
+}
+.pikachu-protocol .header-tic-tac-toe .header-tile-link{
+    animation: ticTacToeLinkAnim 5.5s linear calc(var(--pikachu-walking-back-delay) + 0.5s) forwards;
 }
 
 
+
 @keyframes pikachuRunningAnimation {
-    from{
+    0%, 7%{
         transform: translateY(8px);
     }
-    to{
+    39%{
+        z-index: -1;
+    }
+    40%{
+        z-index: 1000;
+    }
+    100%{
         transform: translateY(8px) translateX(100vw);
+        display: none;
     }
 }
 @keyframes homeButtonAnimation {
@@ -140,5 +251,35 @@
     }
     100%{
         transform: none;
+    }
+}
+
+@keyframes pikachuWalkingThroughtAnim {
+    from{
+        transform: scaleX(-1) translateX(-40vw);
+    }
+    to{
+        transform: scaleX(-1) translateX(100vw);
+        display: none;
+    }
+
+}
+@keyframes pokemonWalkingThroughtAnim {
+    from{
+        transform: translateX(40vw);
+    }
+    to{
+        transform: translateX(-100vw);
+        display: none;
+    }
+}
+@keyframes ticTacToeLinkAnim {
+    from{
+        transform: translateX(50vw);
+        display: block;
+    }
+    to{
+        transform: none;
+        display: block;
     }
 }

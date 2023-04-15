@@ -5,3 +5,6 @@
 .header ~ .main{ /* only of the main is after the header element */
     height: calc(100% - var(--header-height));
 }
+.main{
+    z-index: 0;
+}

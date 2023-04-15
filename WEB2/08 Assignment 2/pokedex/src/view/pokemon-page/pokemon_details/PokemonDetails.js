@@ -269,7 +269,7 @@ function effect3dMouseMoveListener(e, layer1Ref){
     let rotateX = Math.round((mousePosX - 0.5) * 100) / 10;
     let rotateY = Math.round((mousePosY - 0.5) * 100) / 10;
 
-    layer1Ref.current.style.setProperty('--layer1-rotate-x', rotateY + 'deg');
-    layer1Ref.current.style.setProperty('--layer1-rotate-y', -rotateX + 'deg');
+    layer1Ref.current?.style.setProperty('--layer1-rotate-x', rotateY + 'deg');
+    layer1Ref.current?.style.setProperty('--layer1-rotate-y', -rotateX + 'deg');
 }
 

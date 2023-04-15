@@ -17,18 +17,22 @@ const bgImages = [
 const randomImage = bgImages[Math.floor(Math.random() * bgImages.length)];
 const bgImagePath = 'SEP4ExercisesAndHandins/bg-images/' + randomImage;
 
+let documentMouseMoveEvent;
+
 export function PokemonPageBackground(){
     let bgRef = useRef()
 
-    useEffect(() => {
-        document.addEventListener('mousemove', ev => {
+    function onBgLoad(){
+        documentMouseMoveEvent = ev => {
             effect3dMouseMoveListener(ev, bgRef)
-        });
-    }, [])
+        };
+
+        document.addEventListener('mousemove', documentMouseMoveEvent);
+    }
 
     return (
         <div className={'pokemon-page-background-container'}>
-            <div className="pokemon-page-background-content" ref={bgRef}>
+            <div className="pokemon-page-background-content" ref={bgRef} onLoad={onBgLoad}>
                 <img src={bgImagePath} alt=""/>
             </div>
         </div>
@@ -37,6 +41,11 @@ export function PokemonPageBackground(){
 
 
 function effect3dMouseMoveListener(e, htmlElementRef){
+    if(htmlElementRef.current == null){
+        document.removeEventListener('mousemove', documentMouseMoveEvent);
+        return;
+    }
+
     let newMilliSeconds = new Date().getTime();
     if(newMilliSeconds - lastRotatedTime < 50 )
         return;
@@ -48,6 +57,7 @@ function effect3dMouseMoveListener(e, htmlElementRef){
 
     let rotateX = Math.round((mousePosX - 0.5) * 100) / 15;
     let rotateY = Math.round((mousePosY - 0.5) * 100) / 15;
+
 
     htmlElementRef.current.style.setProperty('--bg-move-x', -rotateX + 'px');
     htmlElementRef.current.style.setProperty('--bg-move-y', -rotateY + 'px');
