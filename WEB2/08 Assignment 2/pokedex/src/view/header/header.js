@@ -66,9 +66,9 @@ function HeaderTile({element, linkTo, extraClassName, mouseEnter, mouseLeave}){
                         <div className="pokeball-card-white"></div>
                         <div className="pokeball-card-black"></div>
                         <div className="pokeball-card-red"></div>
-                        <div className="pokeball-card-inner"></div>
                     </div>
                 </div>
+                <div className="pokeball-card-circle"></div>
             </Link>
         </div>
     );

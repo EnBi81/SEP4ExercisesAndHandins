@@ -30,7 +30,7 @@
 
     border-bottom: rgba(255, 255, 255, 0.63) 1px solid;
     box-shadow: 0 1px 30px rgba(255, 255, 255, 0.63);
-    background: rgba(0, 0, 0, 0.74);
+    background: linear-gradient( to top right, rgba(255, 255, 255, 0.44), transparent);
 }
 
 
@@ -66,6 +66,9 @@
     top: 0;
     left: 0;
 
+    box-sizing: border-box;
+    border: 5px black solid;
+    border-right: none;
     border-radius: 5px;
     overflow: hidden;
 }
@@ -78,7 +81,7 @@
     width: 220%;
     aspect-ratio: 1;
     display: grid;
-    grid-template-columns: 20fr 1fr 20fr;
+    grid-template-columns: 40fr 1fr 40fr;
     z-index: 2;
 
     transform-origin: center center;
@@ -93,18 +96,20 @@
 .pokeball-card-black{background: black;}
 .pokeball-card-red{background: var(--header-tile-red);}
 
-.pokeball-card-inner{
+.pokeball-card-circle{
     position: absolute;
     top: 50%;
-    left: 50%;
-    width: 40px;
-    height: 40px;
-    transform: translate(-50%, -50%);
+    right: 0;
+    width: 30px;
+    height: 30px;
+    transform: translate(40%, -50%);
+
+    z-index: 2;
 
     box-sizing: border-box;
     background: var(--header-tile-white);
     border-radius: 50%;
-    border: 10px black solid;
+    border: 5px black solid;
 }
 
 
@@ -142,11 +147,11 @@ Tic tac toe header
 .header-tic-tac-toe:before{
     content: url("./pokemon-media/pikachu-walking.gif");
     transform: scaleX(-1) translateX(-40vw);
-    filter: drop-shadow(3px 1px 4px black);
+    filter: drop-shadow(-3px 1px 4px black);
 }
 .header-tic-tac-toe:after{
     content: url("./pokemon-media/pokemon-walking.gif");
-    transform: translateX(40vw);
+    transform: translateX(40vw) translateY(-3px);
     filter: drop-shadow(3px 1px 4px black);
 }
 
@@ -165,16 +170,16 @@ Header Pikachu
     content: url("./pokemon-media/pikachu-peak.png");
 
     position: absolute;
-    right: 0;
+    left: 0;
     top: 0;
 
     z-index: -1;
-    transform: scale(-1, 1);
+    transform: scale(1, 1);
     transition: transform var(--pikachu-transition-time) cubic-bezier(0.6, 0.22, 0.54, 0.89);
 }
 
 .pikachu-peaking:hover:before{
-    transform: scale(-1, 1) translateX(-100%);
+    transform: scale(1, 1) translateX(-100%);
 }
 
 .header-pikachu:after{
@@ -266,10 +271,10 @@ Pikachu Protocol
 }
 @keyframes pokemonWalkingThroughtAnim {
     from{
-        transform: translateX(40vw);
+        transform: translateX(40vw) translateY(4px);
     }
     to{
-        transform: translateX(-100vw);
+        transform: translateX(-100vw) translateY(4px);
         display: none;
     }
 }
