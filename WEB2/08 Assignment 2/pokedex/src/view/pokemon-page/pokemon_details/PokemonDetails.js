@@ -141,7 +141,6 @@ function LoadingScreen({content}){
             <div className={'loading-part-mid-black'}></div>
             <div className={'loading-part-bottom'}></div>
             <div className="loaded-color-bg">
-
             </div>
         </div>
 

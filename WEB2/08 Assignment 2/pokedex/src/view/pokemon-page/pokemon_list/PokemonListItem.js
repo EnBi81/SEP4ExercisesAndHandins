@@ -12,6 +12,7 @@ export default function PokemonListItem({pokemon, selected = false, setSelectedP
             '--pokemon-simple-bg-color': '#cccccc',
             '--pokemon-simple-img-bg-color': '#838383',
         },
+        calculatedColors: false,
     });
 
     let { pokemonStyle } = state;
@@ -25,7 +26,6 @@ export default function PokemonListItem({pokemon, selected = false, setSelectedP
     let selectedClass = selected ? ' pokemon-list-item-selected' : '';
 
     let imageRef = useRef(null);
-    let listItemRef = useRef(null);
 
     function onImageLoad(){
         let imgElement = imageRef.current;
@@ -36,10 +36,6 @@ export default function PokemonListItem({pokemon, selected = false, setSelectedP
         const bgColor = imageMainColor.darken(0.1);
         const imgBgColor = imageMainColor.lighten(0.1).saturate(1.1);
 
-        setTimeout(() => {
-            imgElement.parentNode.parentNode.classList.remove('pokemon-list-item-hidden');
-        }, 50);
-
         pokemon.bgColor = imgBgColor.hex();
 
         setState({
@@ -48,6 +44,7 @@ export default function PokemonListItem({pokemon, selected = false, setSelectedP
                 '--pokemon-simple-bg-color': bgColor.hex(),
                 '--pokemon-simple-img-bg-color': imgBgColor.hex(),
             },
+            calculatedColors: true
         })
     }
 
@@ -55,16 +52,13 @@ export default function PokemonListItem({pokemon, selected = false, setSelectedP
         imageRef.current.src = PokeBall;
     }
 
-    useEffect(() => {
-        listItemRef.current.classList.add('pokemon-list-item-hidden')
-    }, [])
+    let hiddenCss = state.calculatedColors ? '' : ' pokemon-list-item-hidden';
 
     return (
-        <div className={'pokemon-list-item ' + selectedClass}
+        <div className={'pokemon-list-item ' + selectedClass + hiddenCss}
              style={pokemonStyle}
              onClick={onClick}
-             data-pokemon-id={pokemon.id}
-             ref={listItemRef}>
+             data-pokemon-id={pokemon.id}>
             <div className='pokemon-simple-img'>
                 <img src={pokemon.image} onLoad={onImageLoad} onError={onImageError} ref={imageRef} alt=""/>
             </div>

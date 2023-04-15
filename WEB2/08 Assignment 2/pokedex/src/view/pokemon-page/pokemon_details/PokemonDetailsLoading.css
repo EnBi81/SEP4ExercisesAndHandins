@@ -248,6 +248,8 @@
 
     opacity: 0;
     z-index: 0;
+
+    overflow: hidden;
 }
 .loaded .loaded-color-bg{
     opacity: 1;
