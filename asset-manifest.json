@@ -1,18 +1,26 @@
 {
   "files": {
     "main.css": "/SEP4ExercisesAndHandins/static/css/main.18b9f084.css",
-    "main.js": "/SEP4ExercisesAndHandins/static/js/main.989ac008.js",
+    "main.js": "/SEP4ExercisesAndHandins/static/js/main.4ade6239.js",
+    "static/media/bg-image2.png": "/SEP4ExercisesAndHandins/static/media/bg-image2.9d816a03930b4a0928f3.png",
+    "static/media/bg-image10.jpg": "/SEP4ExercisesAndHandins/static/media/bg-image10.97624200cc2cc74e7072.jpg",
     "static/media/snorlax.png": "/SEP4ExercisesAndHandins/static/media/snorlax.c9513de2179461ff7fc8.png",
+    "static/media/bg-image6.jpg": "/SEP4ExercisesAndHandins/static/media/bg-image6.7c01cd1e4bdcbece15ba.jpg",
+    "static/media/bg-image5.jpg": "/SEP4ExercisesAndHandins/static/media/bg-image5.95ec3dd2383a81344c2f.jpg",
+    "static/media/bg-image9.jpg": "/SEP4ExercisesAndHandins/static/media/bg-image9.172ecabe21441a137e3f.jpg",
+    "static/media/bg-image4.jpg": "/SEP4ExercisesAndHandins/static/media/bg-image4.7a0f5e679f1c682068d2.jpg",
+    "static/media/bg-image8.jpg": "/SEP4ExercisesAndHandins/static/media/bg-image8.05223dd2afbad023545d.jpg",
+    "static/media/bg-image1.jpg": "/SEP4ExercisesAndHandins/static/media/bg-image1.7b21420e06b3717a073a.jpg",
     "static/media/eevee.png": "/SEP4ExercisesAndHandins/static/media/eevee.ab17b728c360c91d2a16.png",
     "static/media/dragon.png": "/SEP4ExercisesAndHandins/static/media/dragon.6799e4be2bbf6cdb5bfd.png",
     "static/media/pokemon-solid.ttf": "/SEP4ExercisesAndHandins/static/media/pokemon-solid.5d60be1f7ff5fcc21fc1.ttf",
     "static/media/pikachu-walking.gif": "/SEP4ExercisesAndHandins/static/media/pikachu-walking.f9a4ed4524f7a367fa67.gif",
     "index.html": "/SEP4ExercisesAndHandins/index.html",
     "main.18b9f084.css.map": "/SEP4ExercisesAndHandins/static/css/main.18b9f084.css.map",
-    "main.989ac008.js.map": "/SEP4ExercisesAndHandins/static/js/main.989ac008.js.map"
+    "main.4ade6239.js.map": "/SEP4ExercisesAndHandins/static/js/main.4ade6239.js.map"
   },
   "entrypoints": [
     "static/css/main.18b9f084.css",
-    "static/js/main.989ac008.js"
+    "static/js/main.4ade6239.js"
   ]
 }
