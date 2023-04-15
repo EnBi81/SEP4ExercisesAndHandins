@@ -180,7 +180,7 @@ Header Pikachu
 }
 
 .pikachu-peaking:hover:before{
-    transform: scale(1, 1) translateX(-100%);
+    transform: scale(1, 1) translateX(-95%);
 }
 
 .header-pikachu:after{
@@ -205,7 +205,7 @@ Pikachu Protocol
 }
 
 .pikachu-protocol .pikachu-peaking:before{
-    transform: scale(-1, 1);
+    transform: scale(-1, 1) translateX(-10px);
 }
 .pikachu-protocol .header-pikachu:after{
     animation: pikachuRunningAnimation 5s cubic-bezier(0.16, 0.03, 0.18, 0.15) calc(var(--pikachu-transition-time) * 1.5) forwards;
