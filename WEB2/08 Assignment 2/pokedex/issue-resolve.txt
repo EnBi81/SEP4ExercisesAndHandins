@@ -20,3 +20,5 @@ https://storage.googleapis.com/sticker-prod/PJHXbROHr9hwZcfIoKn3/6.png
 
 
 https://wallpaperset.com/best-pokemon-wallpapers
+
+todo: readme make a roadmap
