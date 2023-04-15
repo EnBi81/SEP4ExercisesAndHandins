@@ -254,3 +254,20 @@
 .loaded .loaded-color-bg{
     opacity: 1;
 }
+
+.loaded-color-bg-anim{
+    height: 100%;
+    width: 100%;
+
+    background: linear-gradient(-20deg, transparent 30%, rgba(255, 255, 255, 0.4), transparent 70%);
+    animation: loadedColorBgAnimation 10s infinite linear;
+}
+
+@keyframes loadedColorBgAnimation {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(-100%);
+    }
+}
