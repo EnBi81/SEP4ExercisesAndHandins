@@ -2,11 +2,12 @@ import './header.css'
 import {Link} from "react-router-dom";
 import React, {useEffect, useRef, useState} from "react";
 
+let mouseOverTimeout = null;
+
 export function Header(){
     let headerRef = useRef();
     let [animationInfo, setAnimationInfo] = useState({
         startAnimation: false,
-        timeoutValue: null,
     });
 
     useEffect(() => {
@@ -20,24 +21,20 @@ export function Header(){
     let homeMouseEnter = () => {
         const animationAfterHoverDuration = 15; // seconds
 
-        let timeout = setTimeout(() => {
+        mouseOverTimeout = setTimeout(() => {
             setAnimationInfo({
                 ...animationInfo,
                 startAnimation: true
             })
         }, animationAfterHoverDuration * 1000);
 
-        setAnimationInfo({
-            ...animationInfo,
-            timeoutValue: timeout
-        });
     }
 
     let homeMouseLeave = () => {
-        if(animationInfo.timeoutValue == null)
+        if(mouseOverTimeout == null)
             return;
 
-        clearTimeout(animationInfo.timeoutValue);
+        clearTimeout(mouseOverTimeout);
     }
 
     return (

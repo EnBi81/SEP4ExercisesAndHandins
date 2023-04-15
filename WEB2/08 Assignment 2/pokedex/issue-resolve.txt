@@ -22,3 +22,5 @@ https://storage.googleapis.com/sticker-prod/PJHXbROHr9hwZcfIoKn3/6.png
 https://wallpaperset.com/best-pokemon-wallpapers
 
 todo: readme make a roadmap
+
+todo: pikachu animation check if the cursor is inside the home button box
