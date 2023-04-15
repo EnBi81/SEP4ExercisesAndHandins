@@ -18,7 +18,7 @@ export function Header(){
 
 
     let homeMouseEnter = () => {
-        const animationAfterHoverDuration = 10; // seconds
+        const animationAfterHoverDuration = 15; // seconds
 
         let timeout = setTimeout(() => {
             setAnimationInfo({

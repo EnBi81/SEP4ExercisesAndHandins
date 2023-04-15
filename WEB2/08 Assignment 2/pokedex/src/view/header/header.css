@@ -5,6 +5,7 @@
 .header{
     --pikachu-transition-time: 1s;
     --pikachu-walking-back-delay: 5s;
+    --pikachu-mouse-hover-till-animation: 15s;
     --header-tile-red: #e75252;
     --header-tile-white: #efefef;
 
@@ -69,7 +70,7 @@
     box-sizing: border-box;
     border: 5px black solid;
     border-right: none;
-    border-radius: 5px;
+    border-radius: 10px;
     overflow: hidden;
 }
 
@@ -147,7 +148,7 @@ Tic tac toe header
 .header-tic-tac-toe:before{
     content: url("./pokemon-media/pikachu-walking.gif");
     transform: scaleX(-1) translateX(-40vw);
-    filter: drop-shadow(-3px 1px 4px black);
+    filter: drop-shadow(-3px 3px 4px black);
 }
 .header-tic-tac-toe:after{
     content: url("./pokemon-media/pokemon-walking.gif");
@@ -188,6 +189,7 @@ Header Pikachu
     position: absolute;
     z-index: -1;
     filter: drop-shadow(3px 1px 4px black);
+    pointer-events: none;
 
     bottom: 0;
 }
@@ -212,10 +214,12 @@ Pikachu Protocol
 .pikachu-protocol .header-tic-tac-toe:before{
     animation: pikachuWalkingThroughtAnim 15s linear var(--pikachu-walking-back-delay) forwards;
     z-index: 1000;
+    pointer-events: none;
 }
 .pikachu-protocol .header-tic-tac-toe:after{
     animation: pokemonWalkingThroughtAnim 15s linear var(--pikachu-walking-back-delay) forwards;
     z-index: 1000;
+    pointer-events: none;
 }
 .pikachu-protocol .header-tic-tac-toe{
     display: flex;
@@ -287,4 +291,38 @@ Pikachu Protocol
         transform: none;
         display: block;
     }
+}
+
+/*  Mouse animation  */
+.header-pikachu .header-tile-link:hover {
+    animation: mousePikachuHeaderAnim var(--pikachu-mouse-hover-till-animation) linear;
+}
+.pikachu-protocol .header-pikachu .header-tile-link{
+    animation: mouseBodyAnim 10s linear forwards;
+}
+
+@keyframes mousePikachuHeaderAnim {
+    0%   { cursor: pointer; }
+    54%  { cursor: crosshair; }
+    62%  { cursor: wait; }
+    68%  { cursor: not-allowed; }
+    72%  { cursor: all-scroll; }
+    76%  { cursor: cell; }
+    78%  { cursor: grabbing; }
+    80%  { cursor: default; }
+    82%  { cursor: vertical-text; }
+    84%  { cursor: copy; }
+    86%  { cursor: grabbing; }
+    88%  { cursor: zoom-out; }
+    90%  { cursor: ew-resize; }
+    92%  { cursor: copy; }
+    94%  { cursor: progress; }
+    96%  { cursor: move; }
+    98%  { cursor: no-drop; }
+    100% { cursor: none; }
+}
+
+@keyframes mouseBodyAnim {
+    from { cursor: none; }
+    to   { cursor: pointer; }
 }
