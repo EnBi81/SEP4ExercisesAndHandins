@@ -12,6 +12,7 @@ View the website here: https://enbi81.github.io/SEP4ExercisesAndHandins/
 - <a href="https://pokeapi.co/">PokeAPI</a> | for serving the data and having nice documentation
 - <a href="https://perthirtysix.com/tool/pokemon-explorer">Pokemon Explorer</a> | for helping in understanding the pokemon world
 - <a href="https://www.favicon.cc/?action=icon&file_id=835064">favicon.cc and azfreeman</a> for the favicon.ico 
+- https://wallpaperset.com/best-pokemon-wallpapers for the amazing wallpapers
 
 ## Design ideas
 - Pokemon list (on the right side): 
@@ -19,3 +20,8 @@ View the website here: https://enbi81.github.io/SEP4ExercisesAndHandins/
   - <a href="https://github.com/CrASH285">Crash285</a> was helping with the inner design of a list item (a single pokemon) 
 - Pokemon detailed view (on the left side):
   - Some parts of this view was inspired by this <a href="https://dribbble.com/shots/6540871-Pokedex-App">beautiful design</a>
+
+## Other sources used during the development
+- https://htmldom.dev/drag-to-scroll/
+- https://www.jqueryscript.net/demo/Interactive-Parallax-Tilt-Effect-jQuery-Tilt-js/ (this is more like inspiration, I haven't used any code from this)
+- https://stackoverflow.com/questions/47011055/smooth-vertical-scrolling-on-mouse-wheel-in-vanilla-javascript
