@@ -258,7 +258,9 @@
 .loaded-color-bg-anim{
     height: 100%;
     width: 100%;
+}
 
+.loaded .loaded-color-bg-anim{
     background: linear-gradient(-20deg, transparent 30%, rgba(255, 255, 255, 0.4), transparent 70%);
     animation: loadedColorBgAnimation 10s infinite linear;
 }
