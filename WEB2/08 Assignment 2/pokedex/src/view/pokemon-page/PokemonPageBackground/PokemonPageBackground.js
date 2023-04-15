@@ -1,21 +1,31 @@
 import './PokemonPageBackground.css'
 import {useEffect, useRef} from "react";
 
+import Image1 from './bg-images/bg-image1.jpg'
+import Image2 from './bg-images/bg-image2.png'
+import Image4 from './bg-images/bg-image4.jpg'
+import Image5 from './bg-images/bg-image5.jpg'
+import Image6 from './bg-images/bg-image6.jpg'
+import Image8 from './bg-images/bg-image8.jpg'
+import Image9 from './bg-images/bg-image9.jpg'
+import Image10 from './bg-images/bg-image10.jpg'
+
+
+
 let lastRotatedTime = new Date().getTime();
 
 const bgImages = [
-    'bg-image1.jpg',
-    'bg-image2.png',
-    'bg-image4.jpg',
-    'bg-image5.jpg',
-    'bg-image6.jpg',
-    'bg-image8.jpg',
-    'bg-image9.jpg',
-    'bg-image10.jpg',
+    Image1,
+    Image2,
+    Image4,
+    Image5,
+    Image6,
+    Image8,
+    Image9,
+    Image10,
 ]
 
 const randomImage = bgImages[Math.floor(Math.random() * bgImages.length)];
-const bgImagePath = 'SEP4ExercisesAndHandins/bg-images/' + randomImage;
 
 let documentMouseMoveEvent;
 
@@ -33,7 +43,7 @@ export function PokemonPageBackground(){
     return (
         <div className={'pokemon-page-background-container'}>
             <div className="pokemon-page-background-content" ref={bgRef} onLoad={onBgLoad}>
-                <img src={bgImagePath} alt=""/>
+                <img src={randomImage} alt=""/>
             </div>
         </div>
     )
