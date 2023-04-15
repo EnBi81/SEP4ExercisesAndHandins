@@ -302,11 +302,11 @@ Pikachu Protocol
 }
 
 @keyframes mousePikachuHeaderAnim {
-    0%   { cursor: pointer; }
-    54%  { cursor: crosshair; }
-    62%  { cursor: wait; }
-    68%  { cursor: not-allowed; }
-    72%  { cursor: all-scroll; }
+    0%, 59%   { cursor: pointer; }
+    60%  { cursor: crosshair; }
+    65%  { cursor: wait; }
+    70%  { cursor: not-allowed; }
+    74%  { cursor: all-scroll; }
     76%  { cursor: cell; }
     78%  { cursor: grabbing; }
     80%  { cursor: default; }
