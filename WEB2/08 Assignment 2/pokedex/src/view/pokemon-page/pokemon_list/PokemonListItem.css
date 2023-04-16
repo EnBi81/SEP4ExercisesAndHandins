@@ -66,6 +66,9 @@
 
     box-shadow: 2px 4px 10px 2px rgba(0, 0, 0, 0.85);
     outline: none;
+
+    position: relative;
+    z-index: 1;
 }
 
 
