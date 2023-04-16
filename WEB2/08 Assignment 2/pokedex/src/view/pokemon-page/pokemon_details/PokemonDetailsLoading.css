@@ -360,12 +360,7 @@
     box-sizing: border-box;
     padding: 0 10px 10px 0;
 
-    opacity: 0;
-    visibility: hidden;
-}
-.loading-part-bottom:hover .loading-part-bottom-settings{
-    opacity: 0.5;
-    visibility: visible;
+
 }
 
 .loading-part-bottom-settings img{
@@ -373,8 +368,56 @@
     width: 50px;
 
     transition: transform 1s ease-in-out;
+    transition-delay: 500ms;
     cursor: pointer;
+
+    opacity: 0;
 }
 .loading-part-bottom-settings img:hover{
     transform: rotateZ(360deg);
+    opacity: 0.3;
+}
+
+
+/* Backside settings */
+.backside-settings-container{
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translateZ(-1px);
+
+    height: 100%;
+    width: 100%;
+    border-radius: var(--pokemon-details-border-radius);
+
+    background: white;
+}
+
+.backside-settings-content{
+    box-sizing: border-box;
+    padding: 10px;
+
+    transform: rotateY(180deg);
+    font-size: 1rem;
+}
+
+.backside-title{
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+.backside-box{
+    padding-left: 10px;
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: center;
+    gap: 5px
+}
+.backside-box:hover{
+    background: rgba(0, 0, 0, 0.19);
+}
+
+.backside-box input, .backside-box button{
+    height: 30px;
+    font-size: 1rem;
 }

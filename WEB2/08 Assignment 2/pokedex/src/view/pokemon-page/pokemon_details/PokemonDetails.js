@@ -10,7 +10,7 @@ import PokemonSettingsImage from './icons/pokemon-settings-small.png'
 
 let lastRotatedTime = new Date().getTime();
 
-export default function PokemonDetails({ pokemonToShow, setPokemonToShow, pageNavigation }){
+export default function PokemonDetails({ pokemonToShow, setPokemonToShow, pageNavigation, apiDataResponse }){
 
     let layer1Ref = useRef();
     let [pokemonDetailedState, setPokemonDetailedState] = useState({
@@ -79,8 +79,6 @@ export default function PokemonDetails({ pokemonToShow, setPokemonToShow, pageNa
                 if(pokemonDetailedState.loadingTimeOut != null)
                     clearTimeout(pokemonDetailedState.loadingTimeOut);
 
-
-
                 setError()
 
                 setPokemonDetailedState({
@@ -110,30 +108,46 @@ export default function PokemonDetails({ pokemonToShow, setPokemonToShow, pageNa
             </div>
         );
 
+    // unset backside
+    function setBackside(debugMode){
+        loadingState = debugMode ? 4 : 0;
+
+        setPokemonDetailedState({
+            ...pokemonDetailedState,
+            loadingState: loadingState,
+            loadingTimeOut: null,
+        });
+    }
+
     let loadingCss = '';
     if(loadingState === 0) loadingCss = ' page-navigation';
     else if(loadingState === 1) loadingCss = ' loading';
     else if(loadingState === 2) loadingCss = ' loaded';
+    else if(loadingState === 4) loadingCss = ' page-navigation-settings';
 
     if(layer1Ref.current?.classList.contains('load-error'))
         loadingCss += ' load-error'
 
     function setError(){
         layer1Ref.current.classList.remove('load-error');
-        (() => layer1Ref.current.scrollHeight)(); // no more warning xddd
+        (() => layer1Ref.current.scrollHeight)(); // no more compile warning xddd
         layer1Ref.current.classList.add('load-error');
     }
 
     return (
         <div className="pokemon-details-container" style={pokemonDetailedStyle}>
             <div className={'pokemon-details-content-layer-1 no-display' + loadingCss} ref={layer1Ref}>
-                <LoadingScreen content={content} pageNavigation={pageNavigation} triggerError={() => setError()}></LoadingScreen>
+                <LoadingScreen content={content}
+                               pageNavigation={pageNavigation}
+                               triggerError={() => setError()}
+                               apiDataObject={apiDataResponse}
+                               setBackside={setBackside}></LoadingScreen>
             </div>
         </div>
     )
 }
 
-function LoadingScreen({content, pageNavigation, triggerError}){
+function LoadingScreen({content, pageNavigation, triggerError, apiDataObject, setBackside}){
 
     let prevPageRef = useRef();
     let nextPageRef = useRef();
@@ -165,48 +179,50 @@ function LoadingScreen({content, pageNavigation, triggerError}){
     let nextPageCss = pageNavigation.canGoToNextPage ? ' allowed' : ' disabled';
 
     return (
-        <div className={'loading-screen'}>
-            <div className={'loading-part-top'}>
-                <div className={'page-navigation-button page-navigation-button-left' + prevPageCss}
-                     title={'Previous page'}
-                     onClick={goToPreviousPage}
-                     onMouseDown={onPrevMouseDown}
-                     onMouseUp={onPrevMouseUp}
-                     onMouseLeave={onPrevMouseUp}
-                     ref={prevPageRef}>
-                    <img src={PokemonArrow} alt=""/>
+        <>
+            <div className={'loading-screen'}>
+                <div className={'loading-part-top'}>
+                    <div className={'page-navigation-button page-navigation-button-left' + prevPageCss}
+                         title={'Previous page'}
+                         onClick={goToPreviousPage}
+                         onMouseDown={onPrevMouseDown}
+                         onMouseUp={onPrevMouseUp}
+                         onMouseLeave={onPrevMouseUp}
+                         ref={prevPageRef}>
+                        <img src={PokemonArrow} alt=""/>
+                    </div>
+                    <div className={'page-navigation-button page-navigation-button-right' + nextPageCss}
+                         title={'Next page'}
+                         onClick={goToNextPage}
+                         onMouseDown={onNextMouseDown}
+                         onMouseUp={onNextMouseUp}
+                         onMouseLeave={onNextMouseUp}
+                         ref={nextPageRef}>
+                        <img src={PokemonArrow} alt=""/>
+                    </div>
                 </div>
-                <div className={'page-navigation-button page-navigation-button-right' + nextPageCss}
-                     title={'Next page'}
-                     onClick={goToNextPage}
-                     onMouseDown={onNextMouseDown}
-                     onMouseUp={onNextMouseUp}
-                     onMouseLeave={onNextMouseUp}
-                     ref={nextPageRef}>
-                    <img src={PokemonArrow} alt=""/>
-                </div>
-            </div>
-            <div className={'loading-part-mid-black'}></div>
-            <div className={'loading-part-mid'}>
-                <div className="pokemon-circle">
-                    <div className="pokemon-circle-black-inner">
-                        <div className="pokemon-circle-white-inner">
-                            {content}
+                <div className={'loading-part-mid-black'}></div>
+                <div className={'loading-part-mid'}>
+                    <div className="pokemon-circle">
+                        <div className="pokemon-circle-black-inner">
+                            <div className="pokemon-circle-white-inner">
+                                {content}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div className={'loading-part-mid-black'}></div>
-            <div className={'loading-part-bottom'}>
-                <div className="loading-part-bottom-settings">
-                    <img src={PokemonSettingsImage} alt=""/>
+                <div className={'loading-part-mid-black'}></div>
+                <div className={'loading-part-bottom'}>
+                    <div className="loading-part-bottom-settings">
+                        <img src={PokemonSettingsImage} alt="" onClick={() => setBackside(true)}/>
+                    </div>
+                </div>
+                <div className="loaded-color-bg">
+                    <div className="loaded-color-bg-anim"></div>
                 </div>
             </div>
-            <div className="loaded-color-bg">
-                <div className="loaded-color-bg-anim"></div>
-            </div>
-        </div>
-
+            <BacksidePageSettings apiDataObject={apiDataObject} setBackside={setBackside} pageNavigation={pageNavigation}></BacksidePageSettings>
+        </>
     )
 }
 
@@ -340,6 +356,41 @@ function PokemonImageContainer({pokemonDetailed}){
             </div>
         </div>
     )
+}
+
+
+function BacksidePageSettings({apiDataObject, setBackside, pageNavigation}){
+    let [itemsPerPage, setItemsPerPage] = useState(50);
+    let [page, setPage] = useState(1);
+
+
+    return (
+        <div className="backside-settings-container">
+            <div className="backside-settings-content">
+                <div className="backside-title backside-box">Debug mode</div>
+                <div className={'backside-box'}>
+                    Warning: Use debug mode at your <b>own risk</b>
+                </div>
+                <div className={'backside-box'}>Pokemon count: {apiDataObject.count}</div>
+                <div className={'backside-box'}>Pokemon previous url: {apiDataObject.previous}</div>
+                <div className={'backside-box'}>Pokemon next url: {apiDataObject.next}</div>
+                <div className={'backside-box'}>Page: {apiDataObject.currentPage} / {apiDataObject.pageCount}</div>
+                <div className={'backside-box'}>
+                    Items per page:
+                    <input type={'number'} min={1} max={200} defaultValue={itemsPerPage} onChange={e => setItemsPerPage(parseInt(e.target.value))}/>
+                    <button onClick={() => pageNavigation.setItemsPerPage(itemsPerPage)}>Apply</button>
+                </div>
+                <div className={'backside-box'}>
+                    Go to page:
+                    <input type={'number'} min={1} max={apiDataObject.pageCount} defaultValue={page} onChange={e => setPage(parseInt(e.target.value))}/>
+                    <button onClick={() => pageNavigation.setPageNumber(page)}>Apply</button>
+                </div>
+                <div className={'backside-box'}>
+                    <button onClick={() => setBackside(false)}>Flip this thing back</button>
+                </div>
+            </div>
+        </div>
+    );
 }
 
 

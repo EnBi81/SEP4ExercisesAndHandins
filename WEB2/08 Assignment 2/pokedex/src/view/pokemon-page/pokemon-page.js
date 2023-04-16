@@ -28,11 +28,11 @@ export function PokemonPage(){
                     canGoToPreviousPage: pokemonResponse.previous != null,
                     canGoToNextPage: pokemonResponse.next != null,
                     loading: false,
-                    pokemonApiResponse: pokemonResponse,
+                    pokemonResponse: pokemonResponse,
                     pokemonList: pokemonResponse.results
                 })
             })
-    }, [pokemonPage.pageNum])
+    }, [pokemonPage.pageNum, pokemonPage.numberOfPokemonPerPage])
 
     function setPokemonDetailed(pokemon){
         if(pokemonDetailed !== undefined && pokemonDetailed.url === pokemon?.url)
@@ -65,13 +65,25 @@ export function PokemonPage(){
                 loading: true,
             })
         },
+        setPageNumber: number => {
+            setPokemonPage({
+                ...pokemonPage,
+                pageNum: number
+            })
+        },
+        setItemsPerPage: number => {
+            setPokemonPage({
+                ...pokemonPage,
+                numberOfPokemonPerPage: number
+            })
+        }
     }
 
     return (
         <div className={'pokemon'}>
             <PokemonPageBackground></PokemonPageBackground>
             <PokemonList pokemonList={pokemonPage.pokemonList} selectedPokemonUrl={pokemonDetailed?.url} setPokemonDetailed={setPokemonDetailed}></PokemonList>
-            <PokemonDetails pokemonToShow={pokemonDetailed} setPokemonToShow={setPokemonDetailed} pageNavigation={pageNavigation}></PokemonDetails>
+            <PokemonDetails pokemonToShow={pokemonDetailed} setPokemonToShow={setPokemonDetailed} pageNavigation={pageNavigation} apiDataResponse={pokemonPage.pokemonResponse}></PokemonDetails>
 
             {/*<div className="page-navigation">
                 <div className="previous"><button>Previous</button></div>
