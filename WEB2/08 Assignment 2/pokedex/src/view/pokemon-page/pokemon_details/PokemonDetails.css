@@ -180,6 +180,7 @@ Base Info
 }
 
 .pokemon-id.animation .pokemon-id-inner span{
+    --transition-delay: 1;
     animation: rotate forwards 500ms calc(var(--transition-delay) * 100ms);
 }
 @keyframes rotate {

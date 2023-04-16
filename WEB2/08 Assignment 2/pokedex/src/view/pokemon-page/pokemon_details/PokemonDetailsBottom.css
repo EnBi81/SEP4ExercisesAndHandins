@@ -57,6 +57,7 @@ Base info
 }
 
 .pokemon-type{
+    --type-color: black;
     color: var(--type-color);
     margin-right: 5px;
 }
@@ -91,8 +92,6 @@ progress{
     height: 8px;
     border-radius: 20px;
 }
-progress[data-point-contribution='1']{ --progress-color: var(--automatch-content-table-points-positive-color); }
-progress[data-point-contribution='-1']{ --progress-color: var(--automatch-content-table-points-negative-color); }
 
 progress::-moz-progress-bar{background: var(--progress-bg-color);border-radius: 20px;transition:background-color var(--pokemon-details-transition-time);}
 progress::-webkit-progress-bar {background: var(--progress-bg-color);border-radius: 20px;transition:background-color var(--pokemon-details-transition-time);}
