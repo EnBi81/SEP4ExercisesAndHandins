@@ -78,7 +78,7 @@
     top: 0;
     bottom: 0;
 
-    z-index: 1;
+    z-index: 2;
 }
 .pokemon-list-item-selected .pokemon-list-item{
     width: 700px;

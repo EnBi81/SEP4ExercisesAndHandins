@@ -6,6 +6,7 @@ import {PokemonExtendedInfoContainer} from "./PokemonDetailsBottom";
 import {getPokemonDetailedObject} from '../../../model/pokemon-detailed-model';
 import PokemonArrow from './pokemon-arrows/pokemon-arrow1.png'
 import PokemonSettingsImage from './icons/pokemon-settings-small.png'
+import PokeballGif from './pokeball-big.png'
 
 
 let lastRotatedTime = new Date().getTime();
@@ -59,7 +60,7 @@ export default function PokemonDetails({ pokemonToShow, setPokemonToShow, pageNa
                     loadingTimeOut: null,
                 });
 
-                if(pokemonDetailedState.loadingState === 0){
+                if(pokemonDetailedState.loadingState === 0 || pokemonDetailedState.loadingState === 4){
                     let timeout = setTimeout(loadFunction, 1000); // set timeout just to show that fancy loading animation
 
                     setPokemonDetailedState({
@@ -319,6 +320,7 @@ function PokemonImageContainer({pokemonDetailed}){
     imageUrl ??= pokemonDetailed.sprites.other.home.front_default;
     imageUrl ??= pokemonDetailed.sprites.other.dream_world.front_default;
     imageUrl ??= pokemonDetailed.sprites.front_default;
+    imageUrl ??= PokeballGif;
 
     latestImageUrl = imageUrl;
 
@@ -360,8 +362,8 @@ function PokemonImageContainer({pokemonDetailed}){
 
 
 function BacksidePageSettings({apiDataObject, setBackside, pageNavigation}){
-    let [itemsPerPage, setItemsPerPage] = useState(50);
-    let [page, setPage] = useState(1);
+    let [itemsPerPage, setItemsPerPage] = useState(apiDataObject.resultCount + '');
+    let [page, setPage] = useState(apiDataObject.currentPage + '');
 
 
     return (
@@ -385,8 +387,9 @@ function BacksidePageSettings({apiDataObject, setBackside, pageNavigation}){
                     <input type={'number'} min={1} max={apiDataObject.pageCount} defaultValue={page} onChange={e => setPage(parseInt(e.target.value))}/>
                     <button onClick={() => pageNavigation.setPageNumber(page)}>Apply</button>
                 </div>
+                <br/>
                 <div className={'backside-box'}>
-                    <button onClick={() => setBackside(false)}>Flip this thing back</button>
+                    Go back: <button onClick={() => setBackside(false)}>Flip this thing back</button>
                 </div>
             </div>
         </div>

@@ -72,6 +72,8 @@ export default function PokemonListItem({pokemon, selected = false, setSelectedP
     let pokemonName = pokemon.name;
     if(pokemonName.length > 11 && !selected)
         pokemonName = pokemonName.substring(0, 11) + '...';
+    if(pokemonName.length > 20)
+        pokemonName = pokemonName.substring(0, 20) + '...';
 
     let pokemonWidth = '';
     if(pokemonId.length === 2) pokemonWidth = ' small-width';
