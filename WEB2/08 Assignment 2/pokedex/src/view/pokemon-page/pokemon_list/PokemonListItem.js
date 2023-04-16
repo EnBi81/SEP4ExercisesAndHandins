@@ -36,7 +36,12 @@ export default function PokemonListItem({pokemon, selected = false, setSelectedP
         let rgb = getAverageRgbOfImg(imgElement);
 
         // https://www.htmlgoodies.com/css/color-manipulation-javascript/
-        const imageMainColor = Color(rgb);
+        let imageMainColor = new Color(rgb);
+
+        // if the color is too dark
+        if(imageMainColor.lightness() < 30)
+            imageMainColor = imageMainColor.lighten(1);
+
         const bgColor = imageMainColor.darken(0.1);
         const imgBgColor = imageMainColor.lighten(0.1).saturate(1.1);
 
@@ -62,6 +67,10 @@ export default function PokemonListItem({pokemon, selected = false, setSelectedP
 
     let hiddenCss = state.calculatedColors ? '' : ' pokemon-list-item-hidden';
 
+    let pokemonName = pokemon.name;
+    if(pokemonName.length > 11 && !selected)
+        pokemonName = pokemonName.substring(0, 11) + '...'
+
     return (
         <div className={'pokemon-list-item-outer' + selectedClass}>
             <div className={'pokemon-list-item ' + hiddenCss}
@@ -70,12 +79,15 @@ export default function PokemonListItem({pokemon, selected = false, setSelectedP
                  data-pokemon-id={pokemon.id}
                  tabIndex={2}
                  onKeyUp={onKeyUp}>
-                <div className='pokemon-simple-img'>
-                    <img src={pokemon.image} onLoad={onImageLoad} onError={onImageError} ref={imageRef} alt=""/>
+                <div className="pokemon-simple-left">
+                    <div className='pokemon-simple-img'>
+                        <img src={pokemon.image} onLoad={onImageLoad} onError={onImageError} ref={imageRef} alt=""/>
+                    </div>
+                    <div className='pokemon-simple-name'>{pokemonName}</div>
                 </div>
-                <div className='pokemon-simple-data'>
-                    <div className='pokemon-simple-name'>{pokemon.name}</div>
-                    <div className='pokemon-simple-id'><span>#</span><span>{pokemon.id}</span></div>
+
+                <div className='pokemon-simple-id'>
+                    <span>#</span><span>{pokemon.id}</span>
                 </div>
             </div>
         </div>

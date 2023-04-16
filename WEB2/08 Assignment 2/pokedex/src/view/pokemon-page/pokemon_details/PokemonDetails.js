@@ -134,6 +134,9 @@ export default function PokemonDetails({ pokemonToShow, setPokemonToShow, pageNa
 
 function LoadingScreen({content, pageNavigation, triggerError}){
 
+    let prevPageRef = useRef();
+    let nextPageRef = useRef();
+
     function goToPreviousPage(){
         if(!pageNavigation.canGoToPreviousPage){
             triggerError();
@@ -151,16 +154,34 @@ function LoadingScreen({content, pageNavigation, triggerError}){
         pageNavigation.goToNextPage();
     }
 
+    function onPrevMouseDown() { prevPageRef.current.classList.add('clicking'); }
+    function onNextMouseDown() { nextPageRef.current.classList.add('clicking'); }
+
+    function onPrevMouseUp() { prevPageRef.current.classList.remove('clicking'); }
+    function onNextMouseUp() { nextPageRef.current.classList.remove('clicking'); }
+
     let prevPageCss = pageNavigation.canGoToPreviousPage ? ' allowed' : ' disabled';
     let nextPageCss = pageNavigation.canGoToNextPage ? ' allowed' : ' disabled';
 
     return (
         <div className={'loading-screen'}>
             <div className={'loading-part-top'}>
-                <div className={'page-navigation-button page-navigation-button-left' + prevPageCss} title={'Previous page'} onClick={goToPreviousPage}>
+                <div className={'page-navigation-button page-navigation-button-left' + prevPageCss}
+                     title={'Previous page'}
+                     onClick={goToPreviousPage}
+                     onMouseDown={onPrevMouseDown}
+                     onMouseUp={onPrevMouseUp}
+                     onMouseLeave={onPrevMouseUp}
+                     ref={prevPageRef}>
                     <img src={PokemonArrow} alt=""/>
                 </div>
-                <div className={'page-navigation-button page-navigation-button-right' + nextPageCss} title={'Next page'} onClick={goToNextPage}>
+                <div className={'page-navigation-button page-navigation-button-right' + nextPageCss}
+                     title={'Next page'}
+                     onClick={goToNextPage}
+                     onMouseDown={onNextMouseDown}
+                     onMouseUp={onNextMouseUp}
+                     onMouseLeave={onNextMouseUp}
+                     ref={nextPageRef}>
                     <img src={PokemonArrow} alt=""/>
                 </div>
             </div>
@@ -186,11 +207,15 @@ function LoadingScreen({content, pageNavigation, triggerError}){
     )
 }
 
-
+let pokemonTitleTimeout = null;
 function PokemonIdTitleContainer({pokemonDetailed}){
+
+    let titleFullRef = useRef();
 
     let id = `#${pokemonDetailed.id}`;
     let name = pokemonDetailed.name;
+    let nameTrimmed = name.length <= 9 ? name : name.substring(0, 8) + '...';
+    let shouldAnimOnTitleHover = name.length > 9;
 
 
     let pokemonIdRef = useRef();
@@ -208,14 +233,58 @@ function PokemonIdTitleContainer({pokemonDetailed}){
     let idCounter = 0;
     let titleObjects = [...id].map(c => <span key={idCounter} style={{'--transition-delay': idCounter++}}>{c}</span>);
 
+    // calculate the title's animation speed
+    useEffect(() => {
+        if(!shouldAnimOnTitleHover)
+            return;
+
+        let boundingRect = titleFullRef.current.getBoundingClientRect()
+        let width = boundingRect.width;
+        let animationSpeed = width * 20;
+        titleFullRef.current.style.setProperty('--pokemon-title-full-animation-time', animationSpeed + 'ms');
+    }, [name]);
+
+
+    function reStartTitleHoverAnimation(){
+        pokemonTitleTimeout = setTimeout(() => {
+            if(!titleFullRef.current?.classList.contains('pokemon-title-full-animation'))
+                return;
+
+            titleFullRef.current?.classList.remove('pokemon-title-full-animation');
+            (() => titleFullRef.current?.scrollHeight)();
+            titleFullRef.current?.classList.add('pokemon-title-full-animation');
+        }, 1000) // start the animation after 1 second
+    }
+    function startTitleHoverAnimation(){
+        if(!shouldAnimOnTitleHover)
+            return;
+
+        pokemonTitleTimeout = setTimeout(() => {
+            titleFullRef.current?.classList.add('pokemon-title-full-animation');
+        }, 1000) // start the animation after 1 second
+    }
+    function endTitleHoverAnimation(){
+        if(pokemonTitleTimeout != null)
+            clearTimeout(pokemonTitleTimeout);
+
+        titleFullRef.current?.classList.remove('pokemon-title-full-animation');
+    }
+
     return (
         <div className={'pokemon-details-grid-item pokemon-id-title-container'}>
             <div className="pokemon-id" ref={pokemonIdRef} onMouseEnter={onMouseEnter} title={funnyTitle}>
                 <div className={'pokemon-id-inner'}>{titleObjects}</div>
             </div>
-            <div className="pokemon-name">
+            <div className="pokemon-name"
+                 onMouseEnter={startTitleHoverAnimation}
+                 onMouseLeave={endTitleHoverAnimation}>
                 <div className="pokemon-name-absolute">
-                    {name}
+                    <div className="pokemon-name-sliding" data-animation-on-hover={shouldAnimOnTitleHover ? '1' : '0'}>
+                        <span className="pokemon-name-full"
+                              ref={titleFullRef}
+                              onAnimationEnd={reStartTitleHoverAnimation}>{name}</span>
+                        {shouldAnimOnTitleHover && <span className="pokemon-name-trimmed">{nameTrimmed}</span>}
+                    </div>
                 </div>
             </div>
         </div>

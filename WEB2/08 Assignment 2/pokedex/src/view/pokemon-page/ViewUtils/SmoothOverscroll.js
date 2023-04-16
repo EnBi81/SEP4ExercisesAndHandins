@@ -71,7 +71,7 @@ export default class SmoothOverscroll{
             'wheel',
             'mousewheel'
         ].forEach(name => {
-            this.container.addEventListener(name, this.wheelListener, { passive: true });
+            this.container.addEventListener(name, this.wheelListener);
         });
     }
 

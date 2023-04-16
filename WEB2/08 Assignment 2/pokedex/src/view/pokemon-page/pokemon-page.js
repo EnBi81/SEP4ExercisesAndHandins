@@ -13,6 +13,7 @@ export function PokemonPage(){
         numberOfPokemonPerPage: 50,
         canGoToPreviousPage: false,
         canGoToNextPage: true,
+        loading: false,
         pokemonList: [],
     })
     const [pokemonDetailed, setPokemonDetailedState] = useState(undefined);
@@ -25,6 +26,7 @@ export function PokemonPage(){
                     ...pokemonPage,
                     canGoToPreviousPage: pokemonResponse.previous != null,
                     canGoToNextPage: pokemonResponse.next != null,
+                    loading: false,
                     pokemonList: pokemonResponse.results
                 })
             })
@@ -42,21 +44,23 @@ export function PokemonPage(){
         canGoToNextPage: pokemonPage.canGoToNextPage,
 
         goToPreviousPage: () => {
-            if(!pokemonPage.canGoToPreviousPage)
+            if(!pokemonPage.canGoToPreviousPage  || pokemonPage.loading)
                 return;
 
             setPokemonPage({
                 ...pokemonPage,
                 pageNum: pokemonPage.pageNum - 1,
+                loading: true,
             })
         },
         goToNextPage: () => {
-            if(!pokemonPage.canGoToNextPage)
+            if(!pokemonPage.canGoToNextPage || pokemonPage.loading)
                 return;
 
             setPokemonPage({
                 ...pokemonPage,
                 pageNum: pokemonPage.pageNum + 1,
+                loading: true,
             })
         },
     }
