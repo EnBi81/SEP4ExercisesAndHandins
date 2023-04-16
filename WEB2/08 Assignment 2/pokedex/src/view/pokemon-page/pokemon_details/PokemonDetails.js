@@ -222,24 +222,29 @@ function PokemonIdTitleContainer({pokemonDetailed}){
     )
 }
 
-
+let latestImageUrl = '';
 function PokemonImageContainer({pokemonDetailed}){
     let imageUrl = pokemonDetailed.sprites.other['official-artwork'].front_default;
     imageUrl ??= pokemonDetailed.sprites.other.home.front_default;
     imageUrl ??= pokemonDetailed.sprites.other.dream_world.front_default;
     imageUrl ??= pokemonDetailed.sprites.front_default;
 
+    latestImageUrl = imageUrl;
+
     let [oldImageUrl, setOldImageUrl] = useState(imageUrl);
     let flipCardRef = useRef();
 
-    function onMainImageLoad(imageUrl){
-        if(oldImageUrl === imageUrl)
+    function onMainImageLoad(imageUrlParameter){
+        if(oldImageUrl === imageUrlParameter)
+            return;
+
+        if(latestImageUrl === oldImageUrl)
             return;
 
         flipCardRef.current.classList.add('flip');
         const flipAnimationDuration = 500;
         setTimeout(() => {
-            setOldImageUrl(imageUrl);
+            setOldImageUrl(latestImageUrl);
         }, flipAnimationDuration / 2);
     }
 
