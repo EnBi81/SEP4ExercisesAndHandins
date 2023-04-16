@@ -28,7 +28,7 @@
     border-radius: 0 0 var(--pokemon-details-border-radius) var(--pokemon-details-border-radius);
     grid-column-start: 1;
     grid-column-end: 4;
-    pointer-events: none;
+    pointer-events: visible;
 }
 
 .loading-part-mid-black{
@@ -344,4 +344,37 @@
 }
 .allowed.page-navigation-button-right:hover img{
     transform: translateX(20px) rotateZ(90deg);
+}
+
+
+/* Bottom settings */
+
+.loading-part-bottom-settings{
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: right;
+
+    box-sizing: border-box;
+    padding: 0 10px 10px 0;
+
+    opacity: 0;
+    visibility: hidden;
+}
+.loading-part-bottom:hover .loading-part-bottom-settings{
+    opacity: 0.5;
+    visibility: visible;
+}
+
+.loading-part-bottom-settings img{
+    height: 50px;
+    width: 50px;
+
+    transition: transform 1s ease-in-out;
+    cursor: pointer;
+}
+.loading-part-bottom-settings img:hover{
+    transform: rotateZ(360deg);
 }

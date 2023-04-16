@@ -24,7 +24,7 @@
 
 
     height: 100px;
-    width: 500px;
+    width: 550px;
     border: 1px black solid;
     box-shadow: 2px 2px 3px 1px rgba(0, 0, 0, 0.56);
 
@@ -81,7 +81,7 @@
     z-index: 1;
 }
 .pokemon-list-item-selected .pokemon-list-item{
-    width: 650px;
+    width: 700px;
     background-position: 70%;
 }
 
@@ -132,6 +132,7 @@
 }
 
 .pokemon-simple-id{
+
     position: absolute;
 
     top: 0;
@@ -146,8 +147,12 @@
     text-align: left;
 
     width: 200px;
-    transform: translate(50px, -25px);
+    transform: translate(35%, -25px);
 }
+.pokemon-simple-id.small-width { transform: translate(25%, -25px);}
+.pokemon-simple-id.medium-width { transform: translate(15%, -25px);}
+.pokemon-simple-id.extra-width  { transform: translate(0, -25px);}
+
 .pokemon-list-item:hover .pokemon-simple-id{
     text-shadow: 2px 3px 5px black;
 }

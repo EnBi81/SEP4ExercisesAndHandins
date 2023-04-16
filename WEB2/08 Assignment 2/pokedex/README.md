@@ -142,6 +142,18 @@ Version 3
 <br>
 <br>
 
+
+
+## Final Website
+
+After finishing the page navigation buttons, the final website is ready to be
+handed in:
+
+<img src="progression-images/all4.png" alt="">
+
+<br>
+<br>
+
 ##### Easter egg
 
 If you read the text till here then congratulations! 

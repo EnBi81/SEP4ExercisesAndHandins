@@ -6,7 +6,8 @@ import PokeBall from './poke-ball.png'
 
 
 export default function PokemonListItem({pokemon, selected = false, setSelectedPokemon }){
-    // TODO onclick
+    let pokemonId = pokemon.id;
+
     let [state, setState] = React.useState({
         pokemonStyle: {
             '--pokemon-simple-bg-color': '#cccccc',
@@ -50,6 +51,7 @@ export default function PokemonListItem({pokemon, selected = false, setSelectedP
         setState({
             ...state,
             pokemonStyle: {
+                ...pokemonStyle,
                 '--pokemon-simple-bg-color': bgColor.hex(),
                 '--pokemon-simple-img-bg-color': imgBgColor.hex(),
             },
@@ -69,14 +71,19 @@ export default function PokemonListItem({pokemon, selected = false, setSelectedP
 
     let pokemonName = pokemon.name;
     if(pokemonName.length > 11 && !selected)
-        pokemonName = pokemonName.substring(0, 11) + '...'
+        pokemonName = pokemonName.substring(0, 11) + '...';
+
+    let pokemonWidth = '';
+    if(pokemonId.length === 2) pokemonWidth = ' small-width';
+    else if(pokemonId.length === 3) pokemonWidth = ' medium-width';
+    else if(pokemonId.length > 3) pokemonWidth = ' extra-width';
 
     return (
         <div className={'pokemon-list-item-outer' + selectedClass}>
             <div className={'pokemon-list-item ' + hiddenCss}
                  style={pokemonStyle}
                  onClick={onClick}
-                 data-pokemon-id={pokemon.id}
+                 data-pokemon-id={pokemonId}
                  tabIndex={2}
                  onKeyUp={onKeyUp}>
                 <div className="pokemon-simple-left">
@@ -86,8 +93,8 @@ export default function PokemonListItem({pokemon, selected = false, setSelectedP
                     <div className='pokemon-simple-name'>{pokemonName}</div>
                 </div>
 
-                <div className='pokemon-simple-id'>
-                    <span>#</span><span>{pokemon.id}</span>
+                <div className={'pokemon-simple-id' + pokemonWidth}>
+                    <span>#</span><span>{pokemonId}</span>
                 </div>
             </div>
         </div>

@@ -5,6 +5,7 @@ import Color from "color";
 import {PokemonExtendedInfoContainer} from "./PokemonDetailsBottom";
 import {getPokemonDetailedObject} from '../../../model/pokemon-detailed-model';
 import PokemonArrow from './pokemon-arrows/pokemon-arrow1.png'
+import PokemonSettingsImage from './icons/pokemon-settings-small.png'
 
 
 let lastRotatedTime = new Date().getTime();
@@ -197,7 +198,9 @@ function LoadingScreen({content, pageNavigation, triggerError}){
             </div>
             <div className={'loading-part-mid-black'}></div>
             <div className={'loading-part-bottom'}>
-
+                <div className="loading-part-bottom-settings">
+                    <img src={PokemonSettingsImage} alt=""/>
+                </div>
             </div>
             <div className="loaded-color-bg">
                 <div className="loaded-color-bg-anim"></div>
@@ -240,8 +243,11 @@ function PokemonIdTitleContainer({pokemonDetailed}){
 
         let boundingRect = titleFullRef.current.getBoundingClientRect()
         let width = boundingRect.width;
-        let animationSpeed = width * 20;
-        titleFullRef.current.style.setProperty('--pokemon-title-full-animation-time', animationSpeed + 'ms');
+
+        let nameLengthSpeed = name.length * 600;
+        let widthSpeed = width * 20;
+
+        titleFullRef.current.style.setProperty('--pokemon-title-full-animation-time', Math.max(nameLengthSpeed, widthSpeed) + 'ms');
     }, [name]);
 
 

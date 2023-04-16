@@ -5,10 +5,20 @@ let jsonString = '{"count":1279,"next":"https://pokeapi.co/api/v2/pokemon?offset
 
 export function getPokemonList(page, numberOfPokemonPerPage){
     return getPokemonPage(numberOfPokemonPerPage, (page - 1) * numberOfPokemonPerPage)
-        .then(convertApiDataToLocal);
+        .then(apiData => convertApiDataToLocal(apiData, page, numberOfPokemonPerPage));
 }
 
-function convertApiDataToLocal(apiData){
+export function getEmptyResponse(){
+    return {
+        count: 0,
+        currentPage: 1,
+        resultCount: 0,
+        pageCount: 1,
+        results: [],
+    }
+}
+
+function convertApiDataToLocal(apiData, page, numberOfPokemonPerPage){
     apiData.results = apiData.results.map(p => {
         let url = p.url;
         let id = url.substring(34, url.lastIndexOf('/'));
@@ -17,6 +27,10 @@ function convertApiDataToLocal(apiData){
         p.image = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
         return p;
     });
+
+    apiData.currentPage = page;
+    apiData.resultCount = numberOfPokemonPerPage;
+    apiData.pageCount = Math.ceil(apiData.count / page);
 
     return apiData;
 }

@@ -2,7 +2,7 @@ import './pokemon-page.css'
 import React, {useEffect, useState} from 'react'
 import PokemonList from './pokemon_list/PokemonList'
 import PokemonDetails from "./pokemon_details/PokemonDetails";
-import {getPokemonList} from '../../model/pokemon-list-model';
+import {getEmptyResponse, getPokemonList} from '../../model/pokemon-list-model';
 import {PokemonPageBackground} from "./PokemonPageBackground/PokemonPageBackground";
 
 
@@ -15,6 +15,7 @@ export function PokemonPage(){
         canGoToNextPage: true,
         loading: false,
         pokemonList: [],
+        pokemonResponse: getEmptyResponse(),
     })
     const [pokemonDetailed, setPokemonDetailedState] = useState(undefined);
 
@@ -27,6 +28,7 @@ export function PokemonPage(){
                     canGoToPreviousPage: pokemonResponse.previous != null,
                     canGoToNextPage: pokemonResponse.next != null,
                     loading: false,
+                    pokemonApiResponse: pokemonResponse,
                     pokemonList: pokemonResponse.results
                 })
             })
