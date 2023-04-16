@@ -362,8 +362,20 @@ function PokemonImageContainer({pokemonDetailed}){
 
 
 function BacksidePageSettings({apiDataObject, setBackside, pageNavigation}){
-    let [itemsPerPage, setItemsPerPage] = useState(apiDataObject.resultCount + '');
-    let [currentPage, setPage] = useState(apiDataObject.currentPage + '');
+    let [itemsPerPage, setItemsPerPage] = useState(apiDataObject.resultCount);
+    let [currentPage, setPage] = useState(apiDataObject.currentPage);
+
+    let itemsPerPageRef = useRef();
+    let currentPageRef = useRef();
+
+    useEffect(() => {
+        setItemsPerPage(apiDataObject.resultCount);
+        itemsPerPageRef.current.value = apiDataObject.resultCount;
+    }, [apiDataObject.resultCount]);
+    useEffect(() => {
+        setPage(apiDataObject.currentPage);
+        currentPageRef.current.value = apiDataObject.currentPage;
+    }, [apiDataObject.currentPage]);
 
 
     return (
@@ -377,15 +389,15 @@ function BacksidePageSettings({apiDataObject, setBackside, pageNavigation}){
                 <div className={'backside-box'}>Pokemon previous url: {apiDataObject.previous}</div>
                 <div className={'backside-box'}>Pokemon next url: {apiDataObject.next}</div>
                 <div className={'backside-box'}>Page: {currentPage} / {apiDataObject.pageCount}</div>
-                <div className={'backside-box'}>Items per page: {itemsPerPage}</div>
+                <div className={'backside-box'}>Items per page: {apiDataObject.resultCount}</div>
                 <div className={'backside-box'}>
                     Items per page:
-                    <input type={'number'} min={1} max={200} defaultValue={itemsPerPage} onChange={e => setItemsPerPage(parseInt(e.target.value))}/>
+                    <input type={'number'} min={1} max={200} defaultValue={itemsPerPage + ''} onChange={e => setItemsPerPage(parseInt(e.target.value))} ref={itemsPerPageRef}/>
                     <button onClick={() => pageNavigation.setItemsPerPage(itemsPerPage)}>Apply</button>
                 </div>
                 <div className={'backside-box'}>
                     Go to page:
-                    <input type={'number'} min={1} max={apiDataObject.pageCount} defaultValue={currentPage} onChange={e => setPage(parseInt(e.target.value))}/>
+                    <input type={'number'} min={1} max={apiDataObject.pageCount} defaultValue={currentPage + ''} onChange={e => setPage(parseInt(e.target.value))} ref={currentPageRef}/>
                     <button onClick={() => pageNavigation.setPageNumber(currentPage)}>Apply</button>
                 </div>
                 <br/>
