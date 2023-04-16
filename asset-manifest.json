@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/SEP4ExercisesAndHandins/static/css/main.0f7bb89d.css",
-    "main.js": "/SEP4ExercisesAndHandins/static/js/main.f402d59f.js",
+    "main.css": "/SEP4ExercisesAndHandins/static/css/main.3050f32f.css",
+    "main.js": "/SEP4ExercisesAndHandins/static/js/main.ee5c55d3.js",
     "static/media/bg-image2.png": "/SEP4ExercisesAndHandins/static/media/bg-image2.9d816a03930b4a0928f3.png",
     "static/media/bg-image10.jpg": "/SEP4ExercisesAndHandins/static/media/bg-image10.97624200cc2cc74e7072.jpg",
     "static/media/snorlax.png": "/SEP4ExercisesAndHandins/static/media/snorlax.c9513de2179461ff7fc8.png",
@@ -14,13 +14,14 @@
     "static/media/eevee.png": "/SEP4ExercisesAndHandins/static/media/eevee.ab17b728c360c91d2a16.png",
     "static/media/dragon.png": "/SEP4ExercisesAndHandins/static/media/dragon.6799e4be2bbf6cdb5bfd.png",
     "static/media/pokemon-solid.ttf": "/SEP4ExercisesAndHandins/static/media/pokemon-solid.5d60be1f7ff5fcc21fc1.ttf",
+    "static/media/pokemon-arrow1.png": "/SEP4ExercisesAndHandins/static/media/pokemon-arrow1.a9e97921b3940f8783e0.png",
     "static/media/pikachu-walking.gif": "/SEP4ExercisesAndHandins/static/media/pikachu-walking.f9a4ed4524f7a367fa67.gif",
     "index.html": "/SEP4ExercisesAndHandins/index.html",
-    "main.0f7bb89d.css.map": "/SEP4ExercisesAndHandins/static/css/main.0f7bb89d.css.map",
-    "main.f402d59f.js.map": "/SEP4ExercisesAndHandins/static/js/main.f402d59f.js.map"
+    "main.3050f32f.css.map": "/SEP4ExercisesAndHandins/static/css/main.3050f32f.css.map",
+    "main.ee5c55d3.js.map": "/SEP4ExercisesAndHandins/static/js/main.ee5c55d3.js.map"
   },
   "entrypoints": [
-    "static/css/main.0f7bb89d.css",
-    "static/js/main.f402d59f.js"
+    "static/css/main.3050f32f.css",
+    "static/js/main.ee5c55d3.js"
   ]
 }
