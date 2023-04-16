@@ -8,13 +8,27 @@ import {PokemonPageBackground} from "./PokemonPageBackground/PokemonPageBackgrou
 
 export function PokemonPage(){
 
-    const [pokemonList, setPokemonList] = useState(undefined);
+    const [pokemonPage, setPokemonPage] = useState({
+        pageNum: 1,
+        numberOfPokemonPerPage: 50,
+        canGoToPreviousPage: false,
+        canGoToNextPage: true,
+        pokemonList: [],
+    })
     const [pokemonDetailed, setPokemonDetailedState] = useState(undefined);
 
+    // fetch the list of pokemon
     useEffect(() => {
-        getPokemonList()
-            .then(pokemons => setPokemonList(pokemons))
-    }, [])
+        getPokemonList(pokemonPage.pageNum, pokemonPage.numberOfPokemonPerPage)
+            .then(pokemonResponse => {
+                setPokemonPage({
+                    ...pokemonPage,
+                    canGoToPreviousPage: pokemonResponse.previous != null,
+                    canGoToNextPage: pokemonResponse.next != null,
+                    pokemonList: pokemonResponse.results
+                })
+            })
+    }, [pokemonPage.pageNum])
 
     function setPokemonDetailed(pokemon){
         if(pokemonDetailed !== undefined && pokemonDetailed.url === pokemon?.url)
@@ -23,11 +37,35 @@ export function PokemonPage(){
             setPokemonDetailedState(pokemon);
     }
 
+    let pageNavigation = {
+        canGoToPreviousPage: pokemonPage.canGoToPreviousPage,
+        canGoToNextPage: pokemonPage.canGoToNextPage,
+
+        goToPreviousPage: () => {
+            if(!pokemonPage.canGoToPreviousPage)
+                return;
+
+            setPokemonPage({
+                ...pokemonPage,
+                pageNum: pokemonPage.pageNum - 1,
+            })
+        },
+        goToNextPage: () => {
+            if(!pokemonPage.canGoToNextPage)
+                return;
+
+            setPokemonPage({
+                ...pokemonPage,
+                pageNum: pokemonPage.pageNum + 1,
+            })
+        },
+    }
+
     return (
         <div className={'pokemon'}>
             <PokemonPageBackground></PokemonPageBackground>
-            <PokemonList pokemonList={pokemonList} pokemonDetailedUrl={pokemonDetailed?.url} setPokemonDetailed={setPokemonDetailed}></PokemonList>
-            <PokemonDetails pokemonToShow={pokemonDetailed} setPokemonToShow={setPokemonDetailed}></PokemonDetails>
+            <PokemonList pokemonList={pokemonPage.pokemonList} selectedPokemonUrl={pokemonDetailed?.url} setPokemonDetailed={setPokemonDetailed}></PokemonList>
+            <PokemonDetails pokemonToShow={pokemonDetailed} setPokemonToShow={setPokemonDetailed} pageNavigation={pageNavigation}></PokemonDetails>
 
             {/*<div className="page-navigation">
                 <div className="previous"><button>Previous</button></div>

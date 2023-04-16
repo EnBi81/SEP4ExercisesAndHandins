@@ -20,10 +20,14 @@ export default function PokemonListItem({pokemon, selected = false, setSelectedP
     let onClick = () => {
         setSelectedPokemon(pokemon);
     }
+    let onKeyUp = e => {
+        if(e.key !== 'Enter')
+            return;
+
+        onClick();
+    }
 
 
-    // styling
-    let selectedClass = selected ? ' pokemon-list-item-selected' : '';
 
     let imageRef = useRef(null);
 
@@ -52,14 +56,20 @@ export default function PokemonListItem({pokemon, selected = false, setSelectedP
         imageRef.current.src = PokeBall;
     }
 
+
+    // styling
+    let selectedClass = selected ? ' pokemon-list-item-selected' : '';
+
     let hiddenCss = state.calculatedColors ? '' : ' pokemon-list-item-hidden';
 
     return (
-        <div className={'pokemon-list-item-outer'}>
-            <div className={'pokemon-list-item ' + selectedClass + hiddenCss}
+        <div className={'pokemon-list-item-outer' + selectedClass}>
+            <div className={'pokemon-list-item ' + hiddenCss}
                  style={pokemonStyle}
                  onClick={onClick}
-                 data-pokemon-id={pokemon.id}>
+                 data-pokemon-id={pokemon.id}
+                 tabIndex={2}
+                 onKeyUp={onKeyUp}>
                 <div className='pokemon-simple-img'>
                     <img src={pokemon.image} onLoad={onImageLoad} onError={onImageError} ref={imageRef} alt=""/>
                 </div>

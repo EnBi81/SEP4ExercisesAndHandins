@@ -54,7 +54,7 @@ export function Header(){
 function HeaderTile({element, linkTo, extraClassName, mouseEnter, mouseLeave}){
     return (
         <div className={'header-tile ' + extraClassName}>
-            <Link to={linkTo} className={'header-tile-link'} onMouseEnter={mouseEnter} onMouseLeave={mouseLeave}>
+            <Link to={linkTo} className={'header-tile-link'} onMouseEnter={mouseEnter} onMouseLeave={mouseLeave} tabIndex={1}>
                 <div className={'header-tile-inner'}>
                     {element}
                 </div>

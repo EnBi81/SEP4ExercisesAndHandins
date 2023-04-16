@@ -4,11 +4,12 @@ import './PokemonDetailsLoading.css'
 import Color from "color";
 import {PokemonExtendedInfoContainer} from "./PokemonDetailsBottom";
 import {getPokemonDetailedObject} from '../../../model/pokemon-detailed-model';
+import PokemonArrow from './pokemon-arrows/pokemon-arrow1.png'
 
 
 let lastRotatedTime = new Date().getTime();
 
-export default function PokemonDetails({ pokemonToShow, setPokemonToShow }){
+export default function PokemonDetails({ pokemonToShow, setPokemonToShow, pageNavigation }){
 
     let layer1Ref = useRef();
     let [pokemonDetailedState, setPokemonDetailedState] = useState({
@@ -77,9 +78,9 @@ export default function PokemonDetails({ pokemonToShow, setPokemonToShow }){
                 if(pokemonDetailedState.loadingTimeOut != null)
                     clearTimeout(pokemonDetailedState.loadingTimeOut);
 
-                layer1Ref.current.classList.remove('load-error');
-                (() => layer1Ref.current.scrollHeight)(); // no more warning xddd
-                layer1Ref.current.classList.add('load-error');
+
+
+                setError()
 
                 setPokemonDetailedState({
                     ...pokemonDetailedState,
@@ -99,6 +100,7 @@ export default function PokemonDetails({ pokemonToShow, setPokemonToShow }){
 
     let {pokemonDetailed, loadingState} = pokemonDetailedState
 
+    // set up loaded content
     let content = pokemonDetailed !== undefined && (
             <div className={'pokemon-details-content'}>
                 <PokemonIdTitleContainer pokemonDetailed={pokemonDetailed}></PokemonIdTitleContainer>
@@ -107,27 +109,61 @@ export default function PokemonDetails({ pokemonToShow, setPokemonToShow }){
             </div>
         );
 
-    let loadingCss = loadingState === 0 ? '' : (loadingState === 1 ? ' loading' : ' loaded');
-    if(loadingState === 0) loadingCss = '';
+    let loadingCss = '';
+    if(loadingState === 0) loadingCss = ' page-navigation';
     else if(loadingState === 1) loadingCss = ' loading';
     else if(loadingState === 2) loadingCss = ' loaded';
 
     if(layer1Ref.current?.classList.contains('load-error'))
         loadingCss += ' load-error'
 
+    function setError(){
+        layer1Ref.current.classList.remove('load-error');
+        (() => layer1Ref.current.scrollHeight)(); // no more warning xddd
+        layer1Ref.current.classList.add('load-error');
+    }
+
     return (
         <div className="pokemon-details-container" style={pokemonDetailedStyle}>
             <div className={'pokemon-details-content-layer-1 no-display' + loadingCss} ref={layer1Ref}>
-                <LoadingScreen content={content}></LoadingScreen>
+                <LoadingScreen content={content} pageNavigation={pageNavigation} triggerError={() => setError()}></LoadingScreen>
             </div>
         </div>
     )
 }
 
-function LoadingScreen({content}){
+function LoadingScreen({content, pageNavigation, triggerError}){
+
+    function goToPreviousPage(){
+        if(!pageNavigation.canGoToPreviousPage){
+            triggerError();
+            return;
+        }
+
+        pageNavigation.goToPreviousPage();
+    }
+    function goToNextPage(){
+        if(!pageNavigation.canGoToNextPage){
+            triggerError();
+            return;
+        }
+
+        pageNavigation.goToNextPage();
+    }
+
+    let prevPageCss = pageNavigation.canGoToPreviousPage ? ' allowed' : ' disabled';
+    let nextPageCss = pageNavigation.canGoToNextPage ? ' allowed' : ' disabled';
+
     return (
         <div className={'loading-screen'}>
-            <div className={'loading-part-top'}></div>
+            <div className={'loading-part-top'}>
+                <div className={'page-navigation-button page-navigation-button-left' + prevPageCss} title={'Previous page'} onClick={goToPreviousPage}>
+                    <img src={PokemonArrow} alt=""/>
+                </div>
+                <div className={'page-navigation-button page-navigation-button-right' + nextPageCss} title={'Next page'} onClick={goToNextPage}>
+                    <img src={PokemonArrow} alt=""/>
+                </div>
+            </div>
             <div className={'loading-part-mid-black'}></div>
             <div className={'loading-part-mid'}>
                 <div className="pokemon-circle">
@@ -139,7 +175,9 @@ function LoadingScreen({content}){
                 </div>
             </div>
             <div className={'loading-part-mid-black'}></div>
-            <div className={'loading-part-bottom'}></div>
+            <div className={'loading-part-bottom'}>
+
+            </div>
             <div className="loaded-color-bg">
                 <div className="loaded-color-bg-anim"></div>
             </div>

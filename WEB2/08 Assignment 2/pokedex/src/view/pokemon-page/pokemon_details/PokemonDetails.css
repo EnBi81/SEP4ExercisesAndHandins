@@ -58,8 +58,19 @@
 
     pointer-events: visible;
 }
-.pokemon-details-content-layer-1:hover{
+
+
+.pokemon-details-content-layer-1:hover {
     transform: scale(1) rotateX(var(--layer1-rotate-x)) rotateY(var(--layer1-rotate-y)) translateZ(-15px);
+}
+
+.page-navigation.pokemon-details-content-layer-1{
+    transform: scale(0.8) translateZ(-100px);
+}
+.page-navigation.pokemon-details-content-layer-1:hover {
+    transform-origin: center center -100px;
+    /* the -100px is here because without that the page navigation filter is laggy as hell */
+    transform: scale(1) rotateX(var(--layer1-rotate-x)) rotateY(var(--layer1-rotate-y)) translateZ(-100px);
 }
 
 

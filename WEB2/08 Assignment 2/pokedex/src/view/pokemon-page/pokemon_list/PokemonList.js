@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useRef} from "react";
 import PokemonListItem from "./PokemonListItem";
 import MouseGrabScroll from "../ViewUtils/MouseGrabScroll";
 import SmoothOverscroll from "../ViewUtils/SmoothOverscroll";
@@ -10,7 +10,7 @@ import Color from "color";
 let easterEggArray = [];
 let pokemonColorOrderingState = false;
 
-export default function PokemonList({ pokemonList, pokemonDetailedUrl, setPokemonDetailed }){
+export default function PokemonList({ pokemonList, selectedPokemonUrl, setPokemonDetailed }){
 
     let [state, setState] = React.useState({
         mouseGrabScroll: new MouseGrabScroll('pokemon-list'),
@@ -18,6 +18,8 @@ export default function PokemonList({ pokemonList, pokemonDetailedUrl, setPokemo
         scrollHeightHelper: new ScrollHeightHelper(),
         pokemonColorOrdering: false,
     })
+
+    const scrollContainerRef = useRef()
 
     useEffect(() => {
         let container = document.querySelector('.pokemon-list');
@@ -29,7 +31,12 @@ export default function PokemonList({ pokemonList, pokemonDetailedUrl, setPokemo
     },[]);
 
     useEffect(() => {
-        state.scrollHeightHelper.onScrollListener()
+        state.scrollHeightHelper.onScrollListener();
+        scrollContainerRef.current.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: 'smooth'
+        })
     }, [pokemonList])
 
     function setOppositeEasterEggState(){
@@ -68,12 +75,12 @@ export default function PokemonList({ pokemonList, pokemonDetailedUrl, setPokemo
         }
 
         pokemonListItems = pokemonList.map(pokemon =>
-            <PokemonListItem pokemon={pokemon} selected={pokemonDetailedUrl === pokemon.url} setSelectedPokemon={setPokemonDetailed} key={pokemon.id}></PokemonListItem>)
+            <PokemonListItem pokemon={pokemon} selected={selectedPokemonUrl === pokemon.url} setSelectedPokemon={setPokemonDetailed} key={pokemon.id}></PokemonListItem>)
 
     }
 
     return (
-        <div className="pokemon-list" onMouseDown={e => state.mouseGrabScroll.mouseDownHandler(e)}>
+        <div className="pokemon-list" onMouseDown={e => state.mouseGrabScroll.mouseDownHandler(e)} ref={scrollContainerRef}>
             <div className="pokemon-list-content">
                 {pokemonListItems}
             </div>

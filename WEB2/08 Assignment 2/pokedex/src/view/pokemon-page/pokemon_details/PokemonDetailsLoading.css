@@ -1,4 +1,10 @@
 .loading-screen{
+    --pokemon-loading-top-bg: #f21b1b;
+    --pokemon-loading-bottom-bg: white;
+    --pokemon-loading-mid-bg: black;
+    --pokemon-loading-inner-circle: white;
+    --pokemon-loading-inner-error: red;
+
     height: 100%;
     width: 100%;
 
@@ -10,15 +16,15 @@
 }
 
 .loading-part-top{
-    background: #f21b1b;
+    background: var(--pokemon-loading-top-bg);
     border-radius: var(--pokemon-details-border-radius) var(--pokemon-details-border-radius) 0 0;
     grid-column-start: 1;
     grid-column-end: 4;
-    pointer-events: none;
+    pointer-events: visible;
 }
 
 .loading-part-bottom{
-    background: white;
+    background: var(--pokemon-loading-bottom-bg);
     border-radius: 0 0 var(--pokemon-details-border-radius) var(--pokemon-details-border-radius);
     grid-column-start: 1;
     grid-column-end: 4;
@@ -26,7 +32,7 @@
 }
 
 .loading-part-mid-black{
-    background: black;
+    background: var(--pokemon-loading-mid-bg);
     pointer-events: none;
 }
 
@@ -51,7 +57,7 @@
     height: 100%;
     width: 100%;
 
-    background: black;
+    background: var(--pokemon-loading-mid-bg);
     border-radius: 50%;
 
     display: flex;
@@ -74,7 +80,7 @@
                 background-color var(--pokemon-details-transition-time),
                 border-radius var(--pokemon-details-loading-transition-time);
 
-    background: white;
+    background: var(--pokemon-loading-inner-circle);
     border-radius: 50%;
     overflow: hidden;
 
@@ -139,10 +145,10 @@
 }
 @keyframes loadErrorAnim {
     0%, 20%{
-        background: red;
+        background: var(--pokemon-loading-inner-error);
     }
     100%{
-        background: white;
+        background: var(--pokemon-loading-inner-circle);
     }
 }
 
@@ -154,7 +160,7 @@
     --spinning-animation: none;
     --fade-out-animation-duration: 400ms;
 
-    --shadow-color: #ff9f9f;
+    --shadow-color: #ff9f9f; /* this color will be hue-rotating, so no only change the lightness if needed */
 
     position: absolute;
     right: 0;
@@ -272,4 +278,66 @@
     to {
         transform: translateY(-100%);
     }
+}
+
+
+/*  Page navigation  */
+.loading-part-top{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+    position: relative;
+
+    padding: 0;
+    margin: 0;
+}
+
+.page-navigation-button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--pokemon-loading-top-bg);
+    transition: opacity 200ms;
+    opacity: 1;
+
+    cursor: pointer;
+}
+.page-navigation-button:hover{
+    filter: brightness(0.9);
+}
+
+.disabled.page-navigation-button{
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.loading .page-navigation-button,
+.loaded .page-navigation-button {
+    pointer-events: none;
+    opacity: 0 !important;
+}
+
+.page-navigation-button img{
+    height: 40%;
+    width: auto;
+    transition: transform 200ms;
+    user-select: none;
+}
+.page-navigation-button:hover img{
+    transition-delay: 100ms;
+}
+
+.page-navigation-button-left img{
+    transform: rotateZ(-90deg);
+}
+.allowed.page-navigation-button-left:hover img{
+    transform: translate(-20px) rotateZ(-90deg);
+}
+
+.page-navigation-button-right img{
+    transform: rotateZ(90deg);
+}
+.allowed.page-navigation-button-right:hover img{
+    transform: translateX(20px) rotateZ(90deg);
 }
