@@ -11,7 +11,7 @@ import PokeballGif from './pokeball-big.png'
 
 let lastRotatedTime = new Date().getTime();
 
-export default function PokemonDetails({ pokemonToShow, setPokemonToShow, pageNavigation, apiDataResponse, isPokemonPageLoading }){
+export default function PokemonDetails({ pokemonToShow, setPokemonToShow, pageNavigation, apiDataResponse, loadingInfo }){
 
     let layer1Ref = useRef();
     let [pokemonDetailedState, setPokemonDetailedState] = useState({
@@ -122,11 +122,12 @@ export default function PokemonDetails({ pokemonToShow, setPokemonToShow, pageNa
 
     let loadingCss = '';
     if(loadingState === 0) loadingCss = ' page-navigation';
+    else if(loadingState === 4) loadingCss = ' page-navigation-settings';
     else if(loadingState === 1) loadingCss = ' loading';
     else if(loadingState === 2) loadingCss = ' loaded';
-    else if(loadingState === 4) loadingCss = ' page-navigation-settings';
 
-    if(isPokemonPageLoading)
+
+    if(loadingInfo.loading && !loadingInfo.debugLoading)
         loadingCss = ' loading page-navigation'
 
     if(layer1Ref.current?.classList.contains('load-error'))
@@ -380,6 +381,19 @@ function BacksidePageSettings({apiDataObject, setBackside, pageNavigation}){
         currentPageRef.current.value = apiDataObject.currentPage;
     }, [apiDataObject.currentPage]);
 
+    let setPageData = number => {
+        if(number === apiDataObject.currentPage)
+            return;
+
+        pageNavigation.setPageNumber(number);
+    }
+
+    let setItemsPerPageData = number => {
+        if(number === apiDataObject.resultCount)
+            return;
+
+        pageNavigation.setItemsPerPage(number);
+    }
 
     return (
         <div className="backside-settings-container">
@@ -391,21 +405,21 @@ function BacksidePageSettings({apiDataObject, setBackside, pageNavigation}){
                 <div className={'backside-box'}>Pokemon count: {apiDataObject.count}</div>
                 <div className={'backside-box'}>Pokemon previous url: {apiDataObject.previous}</div>
                 <div className={'backside-box'}>Pokemon next url: {apiDataObject.next}</div>
-                <div className={'backside-box'}>Page: {currentPage} / {apiDataObject.pageCount}</div>
+                <div className={'backside-box'}>Page: {apiDataObject.currentPage} / {apiDataObject.pageCount}</div>
+                <div className={'backside-box'}>
+                    <label>
+                        Go to page:
+                        <input type={'number'} min={1} max={apiDataObject.pageCount} defaultValue={currentPage + ''} onChange={e => setPage(parseInt(e.target.value))} ref={currentPageRef}/>
+                    </label>
+                    <button onClick={() => setPageData(currentPage)}>Apply</button>
+                </div>
                 <div className={'backside-box'}>Items per page: {apiDataObject.resultCount}</div>
                 <div className={'backside-box'}>
                     <label>
                         Items per page:
                         <input type={'number'} min={1} max={200} defaultValue={itemsPerPage + ''} onChange={e => setItemsPerPage(parseInt(e.target.value))} ref={itemsPerPageRef}/>
                     </label>
-                    <button onClick={() => pageNavigation.setItemsPerPage(itemsPerPage)}>Apply</button>
-                </div>
-                <div className={'backside-box'}>
-                    <label>
-                        Go to page:
-                        <input type={'number'} min={1} max={apiDataObject.pageCount} defaultValue={currentPage + ''} onChange={e => setPage(parseInt(e.target.value))} ref={currentPageRef}/>
-                    </label>
-                    <button onClick={() => pageNavigation.setPageNumber(currentPage)}>Apply</button>
+                    <button onClick={() => setItemsPerPageData(itemsPerPage)}>Apply</button>
                 </div>
                 <br/>
                 <div className={'backside-box'}>

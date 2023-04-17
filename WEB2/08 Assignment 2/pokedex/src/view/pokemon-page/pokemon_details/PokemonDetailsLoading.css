@@ -316,7 +316,7 @@
     opacity: 1;
 }
 
-.disabled.page-navigation-button{
+.page-navigation  .disabled.page-navigation-button{
     cursor: not-allowed;
     opacity: 0.6;
 }
