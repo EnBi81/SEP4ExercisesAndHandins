@@ -208,9 +208,13 @@ Pokemon Name
     --title-width: 10px;
 
     position: absolute;
-    overflow: hidden;
+   /* overflow: hidden;*/
     max-width: 250px;
     height: 130px;
+}
+
+.pokemon-name:hover .pokemon-name-absolute:has(.pokemon-name-sliding[data-animation-on-hover='1']){
+    overflow: hidden;
 }
 
 .pokemon-name-sliding[data-animation-on-hover='1'] .pokemon-name-full{
