@@ -8,3 +8,7 @@
 .main{
     z-index: 0;
 }
+
+body{
+    overflow: hidden;
+}

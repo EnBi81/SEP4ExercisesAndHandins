@@ -2,11 +2,15 @@
     position: relative;
     font-size: 2rem;
 
+    box-sizing: border-box;
     padding: 20px;
+
+    height: 100%;
+    width: 100%;
 }
 
-body{
-    overflow: hidden;
+.about-us-text-content{
+    width: calc(100% - 470px);
 }
 
 .about-us-images{
@@ -15,24 +19,26 @@ body{
     left: 0;
     height: 100vh;
     width: 100vw;
+
+    pointer-events: none;
 }
 
 .about-us-images img{
     position: absolute;
 }
 
-.about-us-images img:nth-child(1){
+.about-us-images img:nth-child(1){ /* Dragon */
     right: 0;
     top: 0;
     height: auto;
-    transform: translateX(-50px);
+    transform: translateX(0px);
 }
-.about-us-images img:nth-child(2){
+.about-us-images img:nth-child(2){ /* Eevee */
     transform: scale(1) rotateY(180deg) translate(15%, 3%);
     bottom: 0;
     left: 0
 }
-.about-us-images img:nth-child(3){
+.about-us-images img:nth-child(3){ /* the fat chick */
     bottom: 0;
     right: 0;
     transform: translate(30%, 30%) scale(0.6);
