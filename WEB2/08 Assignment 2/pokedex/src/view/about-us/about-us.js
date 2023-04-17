@@ -23,6 +23,14 @@ export function AboutUs(){
                     Feel free to check out the <a href={'https://github.com/EnBi81/SEP4ExercisesAndHandins/tree/main/WEB2/08%20Assignment%202/pokedex'}>project files</a>, or
                     the <a href={'https://github.com/EnBi81/SEP4ExercisesAndHandins/tree/main/WEB2/08%20Assignment%202'}>assignment description</a>.
                 </div>
+                <br/>
+                <div>
+                    This project consists of:
+                    <ul>
+                        <li>2684 lines of Javascript</li>
+                        <li>1946 lines of CSS</li>
+                    </ul>
+                </div>
             </div>
             <div className={'about-us-images'}>
                 <img src={dragon} alt={'Dragon pokemon'}/>

@@ -11,10 +11,12 @@
 
 .about-us-text-content{
     width: calc(100% - 470px);
+    background: rgba(255, 255, 255, 0.73);
 }
 
 .about-us-images{
     position: absolute;
+    z-index: -1;
     top: 0;
     left: 0;
     height: 100vh;
