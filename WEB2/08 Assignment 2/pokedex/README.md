@@ -17,7 +17,7 @@ View the website here: https://enbi81.github.io/SEP4ExercisesAndHandins/
 ## Design ideas
 - Pokemon list (on the right side): 
   - The movement and the animations came from the popular game <a href="https://osu.ppy.sh/home">Osu!</a>
-  - <a href="https://github.com/CrASH285">Crash285</a> was helping with the inner design of a list item (a single pokemon) 
+  - My helping hand was <a href="https://github.com/CrASH285">Crash285</a> who was there to give me inspiration, and added some fantastic idea 
 - Pokemon detailed view (on the left side):
   - Some parts of this view was inspired by this <a href="https://dribbble.com/shots/6540871-Pokedex-App">beautiful design</a>
 
