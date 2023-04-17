@@ -139,6 +139,7 @@ export default function PokemonDetails({ pokemonToShow, setPokemonToShow, pageNa
         layer1Ref.current.classList.add('load-error');
     }
 
+
     return (
         <div className="pokemon-details-container" style={pokemonDetailedStyle}>
             <div className={'pokemon-details-content-layer-1 no-display' + loadingCss} ref={layer1Ref}>
@@ -210,6 +211,7 @@ function LoadingScreen({content, pageNavigation, triggerError, apiDataObject, se
                 <div className={'loading-part-mid'}>
                     <div className="pokemon-circle">
                         <div className="pokemon-circle-black-inner">
+                            <div className="pokemon-circle-spinning-animation"></div>
                             <div className="pokemon-circle-white-inner">
                                 {content}
                             </div>

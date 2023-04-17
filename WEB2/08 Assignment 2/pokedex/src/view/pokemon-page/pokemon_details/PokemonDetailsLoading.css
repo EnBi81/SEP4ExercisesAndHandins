@@ -59,6 +59,7 @@
 
     background: var(--pokemon-loading-mid-bg);
     border-radius: 50%;
+    position: relative;
 
     display: flex;
     align-items: center;
@@ -153,12 +154,27 @@
 }
 
 /* White circle spinning shadow */
-.pokemon-circle-black-inner:before,
-.pokemon-circle-black-inner:after{
+
+
+.pokemon-circle-spinning-animation{
+    height: 100%;
+    width: 100%;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    animation: animateOuterSpinningCircle 1.5s infinite linear;
+    animation-play-state: paused;
+}
+
+.pokemon-circle-spinning-animation:before,
+.pokemon-circle-spinning-animation:after{
     --spinning-duration: 4s;
     --color-anim-duration: 10s;
     --spinning-animation: none;
     --fade-out-animation-duration: 400ms;
+    --base-transform: translateY(100px);
 
     --shadow-color: #ff9f9f; /* this color will be hue-rotating, so no only change the lightness if needed */
 
@@ -171,31 +187,29 @@
 
     box-shadow: -32px 0 20px 10px var(--shadow-color);
     transform-origin: -111px center;
-    transform: rotateZ(180deg);
 
     animation: var(--spinning-animation), animateSpinningColor var(--color-anim-duration) infinite linear;
 
     transition: opacity 200ms;
     opacity: 0;
 }
-.pokemon-circle-black-inner:before{
+.pokemon-circle-spinning-animation:before{
     --spinning-animation: spinningPseudoAnimation1 var(--spinning-duration) infinite linear;
 }
-.pokemon-circle-black-inner:after{
+.pokemon-circle-spinning-animation:after{
     --spinning-animation: spinningPseudoAnimation2 var(--spinning-duration) infinite linear;
 }
 
-.loading .pokemon-circle-black-inner:before,
-.loading .pokemon-circle-black-inner:after{
-    --spinning-duration: 1s;
-    --color-anim-duration: 1s;
+.loading .pokemon-circle-spinning-animation:before,
+.loading .pokemon-circle-spinning-animation:after{
     --shadow-color: var(--pokemon-detailed-main-color);
-
-    animation: var(--spinning-animation), loadingDisappearAppear var(--fade-out-animation-duration) forwards;
-    animation-delay: var(--fade-out-animation-duration), var(--fade-out-animation-duration), 0s;
 }
-.loaded .pokemon-circle-black-inner:before,
-.loaded .pokemon-circle-black-inner:after{
+.loading .pokemon-circle-spinning-animation{
+    animation-play-state: running;
+}
+
+.loaded .pokemon-circle-spinning-animation:before,
+.loaded .pokemon-circle-spinning-animation:after{
     display: none;
 }
 
@@ -212,21 +226,21 @@
 @keyframes spinningPseudoAnimation1 {
     from{
         opacity: 1;
-        transform: rotateZ(0);
+        transform: var(--base-transform) rotateZ(0);
     }
     to{
         opacity: 1;
-        transform: rotateZ(360deg);
+        transform: var(--base-transform) rotateZ(360deg);
     }
 }
 @keyframes spinningPseudoAnimation2 {
     from{
         opacity: 1;
-        transform: rotateZ(180deg);
+        transform: var(--base-transform) rotateZ(180deg);
     }
     to{
         opacity: 1;
-        transform: rotateZ(540deg);
+        transform: var(--base-transform) rotateZ(540deg);
     }
 }
 
@@ -236,6 +250,15 @@
     }
     to{
         filter: hue-rotate(360deg);
+    }
+}
+
+@keyframes animateOuterSpinningCircle {
+    from{
+        transform: rotateZ(0deg);
+    }
+    to{
+        transform: rotateZ(360deg);
     }
 }
 

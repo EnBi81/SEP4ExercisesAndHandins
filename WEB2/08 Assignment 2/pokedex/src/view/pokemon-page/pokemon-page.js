@@ -42,6 +42,12 @@ export function PokemonPage(){
                     }, 500); // wait for the animation to end
                 }
             })
+            .catch(() => {
+                setPokemonPage({
+                    ...pokemonPage,
+                    loading: false,
+                })
+            })
     }, [pokemonPage.pageNum, pokemonPage.numberOfPokemonPerPage])
 
     function setPokemonDetailed(pokemon){
