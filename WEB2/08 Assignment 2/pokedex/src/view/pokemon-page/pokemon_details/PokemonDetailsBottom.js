@@ -45,7 +45,7 @@ function BaseInfoContainer({pokemonDetailed}){
     let heightElement = (
         <>
             <div>Height</div>
-            <div>{pokemonDetailed.height} dm</div>
+            <div>{pokemonDetailed.height / 10} m</div>
         </>
     );
     let weightElement = (
