@@ -10,7 +10,7 @@ import Color from "color";
 let easterEggArray = [];
 let pokemonColorOrderingState = false;
 
-export default function PokemonList({ pokemonList, selectedPokemonUrl, setPokemonDetailed }){
+export default function PokemonList({ pokemonPage, selectedPokemonUrl, setPokemonDetailed }){
 
     let [state, setState] = React.useState({
         mouseGrabScroll: new MouseGrabScroll('pokemon-list'),
@@ -18,6 +18,8 @@ export default function PokemonList({ pokemonList, selectedPokemonUrl, setPokemo
         scrollHeightHelper: new ScrollHeightHelper(),
         pokemonColorOrdering: false,
     })
+
+    let {pokemonList, loading} = pokemonPage;
 
     const scrollContainerRef = useRef()
 
@@ -74,14 +76,20 @@ export default function PokemonList({ pokemonList, selectedPokemonUrl, setPokemo
             })
         }
 
+        let animationId = 0;
         pokemonListItems = pokemonList.map(pokemon =>
-            <PokemonListItem pokemon={pokemon} selected={selectedPokemonUrl === pokemon.url} setSelectedPokemon={setPokemonDetailed} key={pokemon.id}></PokemonListItem>)
-
+            <PokemonListItem pokemon={pokemon}
+                             selected={selectedPokemonUrl === pokemon.url}
+                             setSelectedPokemon={setPokemonDetailed}
+                             key={pokemon.id}
+                             listItemAnimationNumber={animationId++}></PokemonListItem>)
     }
+
+    let pokemonListLoadingCss = loading ? ' pokemon-list-loading' : '';
 
     return (
         <div className="pokemon-list" onMouseDown={e => state.mouseGrabScroll.mouseDownHandler(e)} ref={scrollContainerRef}>
-            <div className="pokemon-list-content">
+            <div className={'pokemon-list-content' + pokemonListLoadingCss}>
                 {pokemonListItems}
             </div>
         </div>

@@ -299,7 +299,8 @@
 
     background: var(--pokemon-loading-top-bg);
     transition: opacity 200ms;
-    opacity: 1;
+    opacity: 0;
+    pointer-events: none;
 
     cursor: pointer;
 }
@@ -315,10 +316,9 @@
     opacity: 0.6;
 }
 
-.loading .page-navigation-button,
-.loaded .page-navigation-button {
-    pointer-events: none;
-    opacity: 0 !important;
+.page-navigation .page-navigation-button {
+    pointer-events: visible;
+    opacity: 1 !important;
 }
 
 .page-navigation-button img{

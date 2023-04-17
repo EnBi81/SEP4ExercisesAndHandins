@@ -28,3 +28,18 @@
     pointer-events: none;
 }
 
+.pokemon-list-loading.pokemon-list-content .pokemon-list-item{
+    --animation-delay-value: 1;
+
+    animation: pokemonListLoading 500ms forwards;
+    animation-delay: calc(var(--animation-delay-value) * 10ms);
+}
+
+@keyframes pokemonListLoading {
+    from{
+        transform: translateX(0);
+    }
+    to{
+        transform: translateX(800px);
+    }
+}

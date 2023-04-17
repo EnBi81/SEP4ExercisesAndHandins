@@ -1,19 +1,21 @@
-import React, {useRef} from "react";
+import React, {useEffect, useRef} from "react";
 import './PokemonListItem.css'
 import {getAverageRgbOfImg} from '../ViewUtils/ImageColorTools'
 import Color from "color";
 import PokeBall from './poke-ball.png'
 
 
-export default function PokemonListItem({pokemon, selected = false, setSelectedPokemon }){
+export default function PokemonListItem({pokemon, selected = false, setSelectedPokemon, listItemAnimationNumber }){
     let pokemonId = pokemon.id;
 
     let [state, setState] = React.useState({
         pokemonStyle: {
             '--pokemon-simple-bg-color': '#cccccc',
             '--pokemon-simple-img-bg-color': '#838383',
+            '--animation-delay-value': listItemAnimationNumber
         },
         calculatedColors: false,
+        shouldAppear: false,
     });
 
     let { pokemonStyle } = state;
@@ -31,6 +33,7 @@ export default function PokemonListItem({pokemon, selected = false, setSelectedP
 
 
     let imageRef = useRef(null);
+    let pokemonListItemRef = useRef();
 
     function onImageLoad(){
         let imgElement = imageRef.current;
@@ -59,6 +62,8 @@ export default function PokemonListItem({pokemon, selected = false, setSelectedP
         })
     }
 
+
+
     function onImageError(){
         imageRef.current.src = PokeBall;
     }
@@ -67,7 +72,18 @@ export default function PokemonListItem({pokemon, selected = false, setSelectedP
     // styling
     let selectedClass = selected ? ' pokemon-list-item-selected' : '';
 
-    let hiddenCss = state.calculatedColors ? '' : ' pokemon-list-item-hidden';
+    // only appear when the image is loaded
+    useEffect(() => {
+        if(state.calculatedColors){
+            setState({
+                ...state,
+                shouldAppear: true,
+            })
+        }
+    }, [state.calculatedColors]);
+
+    let hiddenCss = state.shouldAppear ? '' : ' pokemon-list-item-hidden';
+
 
     let pokemonName = pokemon.name;
     if(pokemonName.length > 11 && !selected)
@@ -87,7 +103,8 @@ export default function PokemonListItem({pokemon, selected = false, setSelectedP
                  onClick={onClick}
                  data-pokemon-id={pokemonId}
                  tabIndex={0}
-                 onKeyUp={onKeyUp}>
+                 onKeyUp={onKeyUp}
+                 ref={pokemonListItemRef}>
                 <div className="pokemon-simple-left">
                     <div className='pokemon-simple-img'>
                         <img src={pokemon.image} onLoad={onImageLoad} onError={onImageError} ref={imageRef} alt=""/>

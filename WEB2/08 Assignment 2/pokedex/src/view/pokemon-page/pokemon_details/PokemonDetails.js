@@ -11,7 +11,7 @@ import PokeballGif from './pokeball-big.png'
 
 let lastRotatedTime = new Date().getTime();
 
-export default function PokemonDetails({ pokemonToShow, setPokemonToShow, pageNavigation, apiDataResponse }){
+export default function PokemonDetails({ pokemonToShow, setPokemonToShow, pageNavigation, apiDataResponse, isPokemonPageLoading }){
 
     let layer1Ref = useRef();
     let [pokemonDetailedState, setPokemonDetailedState] = useState({
@@ -98,7 +98,7 @@ export default function PokemonDetails({ pokemonToShow, setPokemonToShow, pageNa
         layer1Ref.current.addEventListener('mousemove', e => effect3dMouseMoveListener(e, layer1Ref));
     }, [])
 
-    let {pokemonDetailed, loadingState} = pokemonDetailedState
+    let {pokemonDetailed, loadingState} = pokemonDetailedState;
 
     // set up loaded content
     let content = pokemonDetailed !== undefined && (
@@ -125,6 +125,9 @@ export default function PokemonDetails({ pokemonToShow, setPokemonToShow, pageNa
     else if(loadingState === 1) loadingCss = ' loading';
     else if(loadingState === 2) loadingCss = ' loaded';
     else if(loadingState === 4) loadingCss = ' page-navigation-settings';
+
+    if(isPokemonPageLoading)
+        loadingCss = ' loading page-navigation'
 
     if(layer1Ref.current?.classList.contains('load-error'))
         loadingCss += ' load-error'

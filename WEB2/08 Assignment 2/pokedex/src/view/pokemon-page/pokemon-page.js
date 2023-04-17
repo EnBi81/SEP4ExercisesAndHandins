@@ -13,7 +13,7 @@ export function PokemonPage(){
         numberOfPokemonPerPage: 50,
         canGoToPreviousPage: false,
         canGoToNextPage: true,
-        loading: false,
+        loading: true,
         pokemonList: [],
         pokemonResponse: getEmptyResponse(),
     })
@@ -23,14 +23,16 @@ export function PokemonPage(){
     useEffect(() => {
         getPokemonList(pokemonPage.pageNum, pokemonPage.numberOfPokemonPerPage)
             .then(pokemonResponse => {
-                setPokemonPage({
-                    ...pokemonPage,
-                    canGoToPreviousPage: pokemonResponse.previous != null,
-                    canGoToNextPage: pokemonResponse.next != null,
-                    loading: false,
-                    pokemonResponse: pokemonResponse,
-                    pokemonList: pokemonResponse.results
-                })
+                setTimeout(() => {
+                    setPokemonPage({
+                        ...pokemonPage,
+                        canGoToPreviousPage: pokemonResponse.previous != null,
+                        canGoToNextPage: pokemonResponse.next != null,
+                        loading: false,
+                        pokemonResponse: pokemonResponse,
+                        pokemonList: pokemonResponse.results
+                    })
+                }, 500); // wait for the animation to end
             })
     }, [pokemonPage.pageNum, pokemonPage.numberOfPokemonPerPage])
 
@@ -82,8 +84,8 @@ export function PokemonPage(){
     return (
         <div className={'pokemon'}>
             <PokemonPageBackground></PokemonPageBackground>
-            <PokemonList pokemonList={pokemonPage.pokemonList} selectedPokemonUrl={pokemonDetailed?.url} setPokemonDetailed={setPokemonDetailed}></PokemonList>
-            <PokemonDetails pokemonToShow={pokemonDetailed} setPokemonToShow={setPokemonDetailed} pageNavigation={pageNavigation} apiDataResponse={pokemonPage.pokemonResponse}></PokemonDetails>
+            <PokemonList pokemonPage={pokemonPage} selectedPokemonUrl={pokemonDetailed?.url} setPokemonDetailed={setPokemonDetailed}></PokemonList>
+            <PokemonDetails pokemonToShow={pokemonDetailed} isPokemonPageLoading={pokemonPage.loading} setPokemonToShow={setPokemonDetailed} pageNavigation={pageNavigation} apiDataResponse={pokemonPage.pokemonResponse}></PokemonDetails>
 
             {/*<div className="page-navigation">
                 <div className="previous"><button>Previous</button></div>
