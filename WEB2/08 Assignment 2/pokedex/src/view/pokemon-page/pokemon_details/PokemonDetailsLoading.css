@@ -311,14 +311,14 @@
     filter: brightness(0.8);
 }
 
+.page-navigation .page-navigation-button {
+    pointer-events: visible;
+    opacity: 1;
+}
+
 .disabled.page-navigation-button{
     cursor: not-allowed;
     opacity: 0.6;
-}
-
-.page-navigation .page-navigation-button {
-    pointer-events: visible;
-    opacity: 1 !important;
 }
 
 .page-navigation-button img{
