@@ -23,16 +23,23 @@ export function PokemonPage(){
     useEffect(() => {
         getPokemonList(pokemonPage.pageNum, pokemonPage.numberOfPokemonPerPage)
             .then(pokemonResponse => {
-                setTimeout(() => {
-                    setPokemonPage({
-                        ...pokemonPage,
-                        canGoToPreviousPage: pokemonResponse.previous != null,
-                        canGoToNextPage: pokemonResponse.next != null,
-                        loading: false,
-                        pokemonResponse: pokemonResponse,
-                        pokemonList: pokemonResponse.results
-                    })
-                }, 500); // wait for the animation to end
+                let callback = () => setPokemonPage({
+                    ...pokemonPage,
+                    canGoToPreviousPage: pokemonResponse.previous != null,
+                    canGoToNextPage: pokemonResponse.next != null,
+                    loading: false,
+                    pokemonResponse: pokemonResponse,
+                    pokemonList: pokemonResponse.results
+                });
+
+                if(pokemonPage.pokemonList.length === 0)
+                    callback()
+
+                else{
+                    setTimeout(() => {
+                        callback()
+                    }, 500); // wait for the animation to end
+                }
             })
     }, [pokemonPage.pageNum, pokemonPage.numberOfPokemonPerPage])
 
