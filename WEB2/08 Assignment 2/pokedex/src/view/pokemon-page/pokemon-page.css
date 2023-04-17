@@ -1,5 +1,6 @@
 @font-face {
     font-family: pokemon-solid;
+    font-display: swap;
     src: url(../../fonts/pokemon-solid.ttf);
 }
 

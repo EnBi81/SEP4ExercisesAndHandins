@@ -391,13 +391,17 @@ function BacksidePageSettings({apiDataObject, setBackside, pageNavigation}){
                 <div className={'backside-box'}>Page: {currentPage} / {apiDataObject.pageCount}</div>
                 <div className={'backside-box'}>Items per page: {apiDataObject.resultCount}</div>
                 <div className={'backside-box'}>
-                    Items per page:
-                    <input type={'number'} min={1} max={200} defaultValue={itemsPerPage + ''} onChange={e => setItemsPerPage(parseInt(e.target.value))} ref={itemsPerPageRef}/>
+                    <label>
+                        Items per page:
+                        <input type={'number'} min={1} max={200} defaultValue={itemsPerPage + ''} onChange={e => setItemsPerPage(parseInt(e.target.value))} ref={itemsPerPageRef}/>
+                    </label>
                     <button onClick={() => pageNavigation.setItemsPerPage(itemsPerPage)}>Apply</button>
                 </div>
                 <div className={'backside-box'}>
-                    Go to page:
-                    <input type={'number'} min={1} max={apiDataObject.pageCount} defaultValue={currentPage + ''} onChange={e => setPage(parseInt(e.target.value))} ref={currentPageRef}/>
+                    <label>
+                        Go to page:
+                        <input type={'number'} min={1} max={apiDataObject.pageCount} defaultValue={currentPage + ''} onChange={e => setPage(parseInt(e.target.value))} ref={currentPageRef}/>
+                    </label>
                     <button onClick={() => pageNavigation.setPageNumber(currentPage)}>Apply</button>
                 </div>
                 <br/>

@@ -322,8 +322,8 @@
 }
 
 .page-navigation-button img{
-    height: 40%;
-    width: auto;
+    height: 150px;
+    width: 150px;
     transition: transform 200ms;
     user-select: none;
     pointer-events: none;

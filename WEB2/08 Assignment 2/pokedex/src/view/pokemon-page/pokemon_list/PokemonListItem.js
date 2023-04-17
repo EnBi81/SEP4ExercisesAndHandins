@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from "react";
+import React, {useRef} from "react";
 import './PokemonListItem.css'
 import {getAverageRgbOfImg} from '../ViewUtils/ImageColorTools'
 import Color from "color";
@@ -86,7 +86,7 @@ export default function PokemonListItem({pokemon, selected = false, setSelectedP
                  style={pokemonStyle}
                  onClick={onClick}
                  data-pokemon-id={pokemonId}
-                 tabIndex={2}
+                 tabIndex={0}
                  onKeyUp={onKeyUp}>
                 <div className="pokemon-simple-left">
                     <div className='pokemon-simple-img'>

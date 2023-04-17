@@ -21,7 +21,7 @@ export default class SmoothOverscroll{
         }
 
         this.resetFlag();
-        evt.preventDefault();
+        /*evt.preventDefault();*/
 
         if (!this.states.backFlag && y) {
             this.states.offset += y * (this.constants.maxOffset - Math.abs(this.states.offset))
@@ -56,7 +56,7 @@ export default class SmoothOverscroll{
             'wheel',
             'mousewheel'
         ].forEach(name => {
-            this.container.removeEventListener(name, this.wheelListener);
+            this.container.removeEventListener(name, this.wheelListener, {passive: true});
         });
     }
 
@@ -71,7 +71,7 @@ export default class SmoothOverscroll{
             'wheel',
             'mousewheel'
         ].forEach(name => {
-            this.container.addEventListener(name, this.wheelListener);
+            this.container.addEventListener(name, this.wheelListener, {passive: true});
         });
     }
 
