@@ -450,7 +450,6 @@ function BacksidePageSettings({apiDataObject, setBackside, pageNavigation}){
                     </label>
                     <button onClick={() => setItemsPerPageData(itemsPerPage)}>Apply</button>
                 </div>
-                <div className={'backside-box'}>Page: {apiDataObject.currentPage} / {apiDataObject.pageCount}</div>
                 <br/>
                 <div className={'backside-box'}>Caching:</div>
                 <div className={'backside-box'} onClick={updateCacheSize} title={'Refresh'}>Cache Size: {cacheSizeState} KB (might not be up to date info)</div>
