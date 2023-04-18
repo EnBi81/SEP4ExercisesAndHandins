@@ -419,7 +419,7 @@ function BacksidePageSettings({apiDataObject, setBackside, pageNavigation}){
                 <div className={'backside-box'}>
                     <label>
                         Items per page:
-                        <input type={'number'} min={1} max={200} defaultValue={itemsPerPage + ''} onChange={e => setItemsPerPage(parseInt(e.target.value))} ref={itemsPerPageRef}/>
+                        <input type={'number'} min={1} max={apiDataObject.count} defaultValue={itemsPerPage + ''} onChange={e => setItemsPerPage(parseInt(e.target.value))} ref={itemsPerPageRef}/>
                     </label>
                     <button onClick={() => setItemsPerPageData(itemsPerPage)}>Apply</button>
                 </div>
