@@ -9,7 +9,7 @@ export function AboutUs(){
             <div className="about-us-text-content">
                 <h1>About us</h1>
                 <div>
-                    This website was created for a <b>school assignment</b>, but that ain't stop me making it fancy.
+                    This website was created for a <b>school assignment</b> using React.js, but that ain't stop me making it fancy.
                     It was designed only for desktop users, on mobile the gui is glitched all the way through.
                     If you have any suggestions <i>(pls don't suggest to make it mobile friendly)</i>, feel free to check
                     out the github repo and open an issue :D
@@ -27,8 +27,8 @@ export function AboutUs(){
                 <div>
                     This project consists of:
                     <ul>
-                        <li>2684 lines of Javascript</li>
-                        <li>1950 lines of CSS</li>
+                        <li>2684 lines of Javascript (JSX)</li>
+                        <li>1946 lines of CSS</li>
                     </ul>
                 </div>
             </div>

@@ -93,9 +93,9 @@ progress{
     border-radius: 20px;
 }
 
-progress::-moz-progress-bar{background: var(--progress-bg-color);border-radius: 20px;transition:background-color var(--pokemon-details-transition-time);}
-progress::-webkit-progress-bar {background: var(--progress-bg-color);border-radius: 20px;transition:background-color var(--pokemon-details-transition-time);}
-progress::-webkit-progress-value{background: var(--progress-color);border-radius: 20px;min-width: 8%;transition:background-color var(--pokemon-details-transition-time);}
+progress::-moz-progress-bar      { background: var(--progress-bg-color); border-radius: 20px;                transition:background-color var(--pokemon-details-transition-time); }
+progress::-webkit-progress-bar   { background: var(--progress-bg-color); border-radius: 20px;                transition:background-color var(--pokemon-details-transition-time); }
+progress::-webkit-progress-value { background: var(--progress-color);    border-radius: 20px; min-width: 8%; transition:background-color var(--pokemon-details-transition-time); }
 
 
 /*
@@ -104,7 +104,6 @@ Generation
 -----------------------------------------
  */
 .generation-container{
- /*   background: yellow;*/
     grid-column-start: 1;
     grid-column-end: 3;
 }
