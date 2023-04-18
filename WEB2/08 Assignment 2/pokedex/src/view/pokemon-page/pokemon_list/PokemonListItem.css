@@ -112,8 +112,8 @@
 
 .pokemon-list-item img{
     margin-right: 30px;
-    height: 150px;
-    width: 150px;
+    height: 120px;
+    width: 120px;
     filter: drop-shadow(7px 4px 0px var(--pokemon-simple-bg-color));
     transition: filter var(--transition-hover);
 }

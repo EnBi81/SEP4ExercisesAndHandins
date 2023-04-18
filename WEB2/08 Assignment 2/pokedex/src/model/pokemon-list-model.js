@@ -1,5 +1,5 @@
 import {getPokemonPage} from "../networking/pokedex-api";
-import {cachePokemonImages} from './cachePokemons'
+import {cachePokemonImages, getCachedImage, getUseCaching} from './cachePokemons'
 
 
 export function getPokemonList(page, numberOfPokemonPerPage){
@@ -36,7 +36,7 @@ function convertApiDataToLocal(apiData, page, numberOfPokemonPerPage){
         p.orderNumber = initialOrderNumber++;
         p.id = id;
 
-        let localStorageImage = localStorage[p.orderNumber + ''];
+        let localStorageImage = getCachedImage(p.id + '');
         if(localStorageImage === undefined){
             p.image = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
             p.isImageCached = false;
@@ -57,34 +57,3 @@ function convertApiDataToLocal(apiData, page, numberOfPokemonPerPage){
 }
 
 
-export function getUseCaching(){
-    let useCachingLocalStorage = localStorage['use-caching'];
-    if(useCachingLocalStorage === undefined)
-        return true;
-
-    return useCachingLocalStorage === '1';
-}
-
-export function setUseCaching(useCaching){
-    localStorage['use-caching'] = useCaching ? '1' : '0';
-}
-
-export function clearCache(){
-    let useCaching = getUseCaching();
-    localStorage.clear()
-    setUseCaching(useCaching);
-}
-
-export function getCacheSizeKB(){
-    let _lsTotal = 0,
-        _xLen, _x;
-    for (_x in localStorage) {
-        if (!localStorage.hasOwnProperty(_x) || _x === 'use-caching') {
-            continue;
-        }
-        _xLen = ((localStorage[_x].length + _x.length) * 2);
-        _lsTotal += _xLen;
-    }
-
-    return (_lsTotal / 1024).toFixed(2);
-}

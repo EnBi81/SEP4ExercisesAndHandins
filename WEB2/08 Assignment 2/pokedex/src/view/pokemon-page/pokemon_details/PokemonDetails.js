@@ -7,7 +7,7 @@ import {getPokemonDetailedObject} from '../../../model/pokemon-detailed-model';
 import PokemonArrow from './pokemon-arrows/pokemon-arrow1.png'
 import PokemonSettingsImage from './icons/pokemon-settings-small.png'
 import PokeballGif from './pokeball-big.png'
-import {clearCache, getCacheSizeKB, getUseCaching, setUseCaching} from "../../../model/pokemon-list-model";
+import {clearCache, getCacheSizeKB, getUseCaching, setUseCaching} from "../../../model/cachePokemons";
 
 
 let lastRotatedTime = new Date().getTime();

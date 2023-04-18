@@ -3,6 +3,7 @@ import './PokemonListItem.css'
 import {getAverageRgbOfImg} from '../ViewUtils/ImageColorTools'
 import Color from "color";
 import PokeBall from './poke-ball.png'
+import {addCachedItemListener} from "../../../model/cachePokemons";
 
 
 export default function PokemonListItem({pokemon, selected = false, setSelectedPokemon, listItemAnimationNumber }){
@@ -66,6 +67,8 @@ export default function PokemonListItem({pokemon, selected = false, setSelectedP
 
     function onImageError(){
         imageRef.current.src = PokeBall;
+        console.log('adding event listener for ' + pokemonId)
+        addCachedItemListener(pokemonId + '', newImage => imageRef.current.src = newImage);
     }
 
 

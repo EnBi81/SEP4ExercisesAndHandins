@@ -20,8 +20,11 @@ const main_worker_url = makeWorkerURL( `
     
     for(const res of pokemonImagesToCache){
         let dataUrl = await cacheResource(res.image);
+        if(dataUrl == null)
+            continue;
+        
         let pokemonCached = {
-            orderNumber: res.orderNumber + '',
+            id: res.id + '',
             cachedImage: dataUrl,
         };
         
@@ -34,7 +37,12 @@ const main_worker_url = makeWorkerURL( `
  };
  
  async function cacheResource(resource) {
-    let blob = await fetch(resource).then(r => r.blob());
+    let response = await fetch(resource);
+        
+    if(!response.ok)
+        return null;
+        
+    let blob = await response.blob();
     let dataUrl = await new Promise(resolve => {
         let reader = new FileReader();
         reader.onload = () => resolve(reader.result);
@@ -60,6 +68,9 @@ let utf8Encode = new TextEncoder();
 let utf8Decode = new TextDecoder();
 
 export function cachePokemonImages(pokemonPageResult){
+    if(!getUseCaching())
+        return;
+
     let text = JSON.stringify(pokemonPageResult);
     let dataToSend = utf8Encode.encode(text)
     main_worker.postMessage(dataToSend, [dataToSend.buffer]);
@@ -70,8 +81,58 @@ function addCachedPicturesToLocalStorage(data){
     let results = JSON.parse(text);
 
     for (const result of results) {
-        if(localStorage[result.orderNumber] === undefined){
-            localStorage[result.orderNumber] = result.cachedImage;
+        let id = result.id;
+        if(localStorage[id] === undefined){
+            localStorage[id] = result.cachedImage;
+
+            if(id in cacheItemListener){
+                cacheItemListener[id](result.cachedImage);
+                delete cacheItemListener[id];
+            }
         }
     }
+}
+
+export function getUseCaching(){
+    let useCachingLocalStorage = localStorage['use-caching'];
+    if(useCachingLocalStorage === undefined)
+        return true;
+
+    return useCachingLocalStorage === '1';
+}
+
+export function setUseCaching(useCaching){
+    localStorage['use-caching'] = useCaching ? '1' : '0';
+}
+
+export function clearCache(){
+    let useCaching = getUseCaching();
+    localStorage.clear()
+    setUseCaching(useCaching);
+}
+
+export function getCacheSizeKB(){
+    let _lsTotal = 0,
+        _xLen, _x;
+    for (_x in localStorage) {
+        if (!localStorage.hasOwnProperty(_x) || _x === 'use-caching') {
+            continue;
+        }
+        _xLen = ((localStorage[_x].length + _x.length) * 2);
+        _lsTotal += _xLen;
+    }
+
+    return (_lsTotal / 1024).toFixed(2);
+}
+
+export function getCachedImage(id){
+    return localStorage[id];
+}
+
+let cacheItemListener = {
+
+}
+
+export function addCachedItemListener(id, callback){
+    cacheItemListener[id] = callback;
 }
