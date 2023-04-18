@@ -42,7 +42,9 @@ export function PokemonPage(){
                     }, 500); // wait for the animation to end
                 }
             })
-            .catch(() => {
+            .catch(err => {
+                console.log(err);
+
                 setPokemonPage({
                     ...pokemonPage,
                     loading: false,

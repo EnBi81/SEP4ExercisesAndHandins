@@ -7,6 +7,7 @@ import {getPokemonDetailedObject} from '../../../model/pokemon-detailed-model';
 import PokemonArrow from './pokemon-arrows/pokemon-arrow1.png'
 import PokemonSettingsImage from './icons/pokemon-settings-small.png'
 import PokeballGif from './pokeball-big.png'
+import {clearCache, getCacheSizeKB, getUseCaching, setUseCaching} from "../../../model/pokemon-list-model";
 
 
 let lastRotatedTime = new Date().getTime();
@@ -370,9 +371,13 @@ function PokemonImageContainer({pokemonDetailed}){
 function BacksidePageSettings({apiDataObject, setBackside, pageNavigation}){
     let [itemsPerPage, setItemsPerPage] = useState(apiDataObject.resultCount);
     let [currentPage, setPage] = useState(apiDataObject.currentPage);
+    let [cacheSizeState, setCacheSizeState] = useState(0);
+    let [updateCacheCount, setUpdateCacheCount] = useState(0);
+    let [useCachingCount, setUseCachingCount] = useState(0);
 
     let itemsPerPageRef = useRef();
     let currentPageRef = useRef();
+    let useCacheRef = useRef();
 
     useEffect(() => {
         setItemsPerPage(apiDataObject.resultCount);
@@ -397,6 +402,27 @@ function BacksidePageSettings({apiDataObject, setBackside, pageNavigation}){
         pageNavigation.setItemsPerPage(number);
     }
 
+    // recalculate cache
+    useEffect(() => {
+        setCacheSizeState(getCacheSizeKB());
+    }, [apiDataObject.resultCount, apiDataObject.currentPage, updateCacheCount]);
+
+    // set use cache
+    let changeUseCaching = () => {
+        let newUseCaching = !getUseCaching();
+        setUseCaching(newUseCaching);
+        useCacheRef.current.checked = newUseCaching;
+    }
+
+    // set use caching
+    useEffect(() => {
+        useCacheRef.current.checked = getUseCaching();
+    }, [useCachingCount])
+
+    function updateCacheSize(){
+        setUpdateCacheCount(updateCacheCount + 1)
+    }
+
     return (
         <div className="backside-settings-container">
             <div className="backside-settings-content">
@@ -407,6 +433,7 @@ function BacksidePageSettings({apiDataObject, setBackside, pageNavigation}){
                 <div className={'backside-box'}>Pokemon count: {apiDataObject.count}</div>
                 <div className={'backside-box'}>Pokemon previous url: {apiDataObject.previous}</div>
                 <div className={'backside-box'}>Pokemon next url: {apiDataObject.next}</div>
+                <br/>
                 <div className={'backside-box'}>Page: {apiDataObject.currentPage} / {apiDataObject.pageCount}</div>
                 <div className={'backside-box'}>
                     <label>
@@ -423,6 +450,17 @@ function BacksidePageSettings({apiDataObject, setBackside, pageNavigation}){
                     </label>
                     <button onClick={() => setItemsPerPageData(itemsPerPage)}>Apply</button>
                 </div>
+                <div className={'backside-box'}>Page: {apiDataObject.currentPage} / {apiDataObject.pageCount}</div>
+                <br/>
+                <div className={'backside-box'}>Caching:</div>
+                <div className={'backside-box'} onClick={updateCacheSize} title={'Refresh'}>Cache Size: {cacheSizeState} KB (might not be up to date info)</div>
+                <div className={'backside-box'}> -
+                    <label>Should cache:
+                        <input type={"checkbox"} onClick={() => {changeUseCaching(); setUseCachingCount(useCachingCount + 1)}} ref={useCacheRef}></input>
+                    </label>
+                </div>
+                <div className={'backside-box'}> - <label>Clear current cache: <button onClick={() => {clearCache();updateCacheSize()}}>Clear</button></label></div>
+
                 <br/>
                 <div className={'backside-box'}>
                     Go back: <button onClick={() => setBackside(false)}>Flip this thing back</button>
