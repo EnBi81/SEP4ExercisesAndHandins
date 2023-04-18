@@ -67,7 +67,6 @@ export default function PokemonListItem({pokemon, selected = false, setSelectedP
 
     function onImageError(){
         imageRef.current.src = PokeBall;
-        console.log('adding event listener for ' + pokemonId)
         addCachedItemListener(pokemonId + '', newImage => imageRef.current.src = newImage);
     }
 

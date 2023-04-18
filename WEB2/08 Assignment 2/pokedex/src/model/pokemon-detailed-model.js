@@ -14,19 +14,15 @@ export function getPokemonDetailedObject(id){
 
             // cache image if not cached yet:
             if(getCachedImage(id + '') === undefined){
-                console.log('looking for image for ' + id)
                 let newImage = scanObjectForFrontDefaultProperty(pokemon.sprites.versions);
                 if(newImage != null){
-                    console.log('found image for ' + id);
                     let pokemonToCache = [{
                         id,
                         image: newImage,
                     }]
                     cachePokemonImages(pokemonToCache);
                 }
-                else console.log('couldnt find an image for ' + id);
             }
-            else console.log('image already cached for ' + id);
 
             return new Promise(resolve => resolve(pokemon));
         })
