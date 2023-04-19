@@ -81,7 +81,9 @@
     transform: scale(calc(0.7 * var(--white-circle-scale)), calc(0.6 * var(--white-circle-scale)));
     transition: transform var(--pokemon-details-loading-transition-time),
                 background-color var(--pokemon-details-transition-time),
-                border-radius var(--pokemon-details-loading-transition-time);
+                border-radius var(--pokemon-details-loading-transition-time),
+                box-shadow var(--pokemon-details-transition-time),
+                filter var(--pokemon-details-transition-time);
 
     background: var(--pokemon-loading-inner-circle);
     border-radius: 50%;
@@ -93,6 +95,22 @@
 
     z-index: 1;
 }
+
+
+.page-navigation .pokemon-circle-white-inner{
+    pointer-events: visible;
+    cursor: pointer;
+}
+.page-navigation.loading .pokemon-circle-white-inner{
+    pointer-events: none;
+}
+
+.page-navigation .pokemon-circle-white-inner:hover{
+    box-shadow: inset 0 0 110px 3px black;
+    background: #ff9c9c;
+    animation: animateSpinningColor 4s infinite linear;
+}
+
 .pokemon-circle-white-inner .pokemon-details-content{
     transition: opacity var(--pokemon-details-loading-transition-time);
     opacity: 0;
@@ -167,6 +185,7 @@
 
     animation: animateOuterSpinningCircle 1.5s infinite linear;
     animation-play-state: paused;
+    pointer-events: none;
 }
 
 .pokemon-circle-spinning-animation:before,
@@ -205,8 +224,11 @@
 .loading .pokemon-circle-spinning-animation:after{
     --shadow-color: var(--pokemon-detailed-main-color);
 }
-.loading .pokemon-circle-spinning-animation{
+
+.loading .pokemon-circle-spinning-animation,
+.pokemon-circle-spinning-animation:has(~ .pokemon-circle-white-inner:hover) {
     animation-play-state: running;
+    pointer-events: visible;
 }
 
 .loaded .pokemon-circle-spinning-animation:before,

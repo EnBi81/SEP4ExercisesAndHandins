@@ -13,7 +13,7 @@ import {clearCache, getCacheSizeKB, getUseCaching, setUseCaching} from "../../..
 let lastRotatedTime = new Date().getTime();
 let lastPokemonToShow = undefined;
 
-export default function PokemonDetails({ pokemonToShow, setPokemonToShow, pageNavigation, apiDataResponse, loadingInfo }){
+export default function PokemonDetails({ pokemonToShow, setPokemonToShow, pageNavigation, apiDataResponse, loadingInfo, setRandomPokemon }){
     lastPokemonToShow = pokemonToShow;
 
     let layer1Ref = useRef();
@@ -126,6 +126,11 @@ export default function PokemonDetails({ pokemonToShow, setPokemonToShow, pageNa
         });
     }
 
+    function setRandomPokemonProxy(){
+        if(loadingState === 0)
+            setRandomPokemon();
+    }
+
     let loadingCss = '';
     if(loadingState === 0) loadingCss = ' page-navigation';
     else if(loadingState === 4) loadingCss = ' page-navigation-settings';
@@ -153,13 +158,14 @@ export default function PokemonDetails({ pokemonToShow, setPokemonToShow, pageNa
                                pageNavigation={pageNavigation}
                                triggerError={() => setError()}
                                apiDataObject={apiDataResponse}
-                               setBackside={setBackside}></LoadingScreen>
+                               setBackside={setBackside}
+                               setRandomPokemon={setRandomPokemonProxy}></LoadingScreen>
             </div>
         </div>
     )
 }
 
-function LoadingScreen({content, pageNavigation, triggerError, apiDataObject, setBackside}){
+function LoadingScreen({content, pageNavigation, triggerError, apiDataObject, setBackside, setRandomPokemon}){
 
     let prevPageRef = useRef();
     let nextPageRef = useRef();
@@ -218,7 +224,7 @@ function LoadingScreen({content, pageNavigation, triggerError, apiDataObject, se
                     <div className="pokemon-circle">
                         <div className="pokemon-circle-black-inner">
                             <div className="pokemon-circle-spinning-animation"></div>
-                            <div className="pokemon-circle-white-inner">
+                            <div className="pokemon-circle-white-inner" onClick={() => setRandomPokemon()}>
                                 {content}
                             </div>
                         </div>

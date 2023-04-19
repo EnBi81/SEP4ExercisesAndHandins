@@ -2,6 +2,7 @@ import React from "react";
 import './PokemonDetailsBottom.css'
 import pokemonTypes from "../../../model/pokemon-types";
 import Color from "color";
+import PokemonArrow from "./pokemon-arrows/pokemon-arrow1.png";
 
 export function PokemonExtendedInfoContainer({pokemonDetailed}){
 

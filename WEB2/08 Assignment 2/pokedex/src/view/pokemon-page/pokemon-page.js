@@ -59,6 +59,12 @@ export function PokemonPage(){
             setPokemonDetailedState(pokemon);
     }
 
+    function setRandomDetailedPokemon(){
+        let length = pokemonPage.pokemonList.length;
+        let randomPokemon = pokemonPage.pokemonList[Math.floor(Math.random() * length)];
+        setPokemonDetailed(randomPokemon);
+    }
+
     let pageNavigation = {
         canGoToPreviousPage: pokemonPage.canGoToPreviousPage,
         canGoToNextPage: pokemonPage.canGoToNextPage,
@@ -113,7 +119,8 @@ export function PokemonPage(){
                             setPokemonToShow={setPokemonDetailed}
                             pageNavigation={pageNavigation}
                             apiDataResponse={pokemonPage.pokemonResponse}
-                            loadingInfo={{loading: pokemonPage.loading, debugLoading: pokemonPage.debugLoading}}></PokemonDetails>
+                            loadingInfo={{loading: pokemonPage.loading, debugLoading: pokemonPage.debugLoading}}
+                            setRandomPokemon={setRandomDetailedPokemon}></PokemonDetails>
 
             {/*<div className="page-navigation">
                 <div className="previous"><button>Previous</button></div>
