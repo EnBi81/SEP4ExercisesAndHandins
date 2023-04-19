@@ -39,7 +39,7 @@
     width: 100%;
 
     border-radius: var(--pokemon-details-border-radius);
-    background: var(--pokemon-detailed-secondary-color);
+    /*background: var(--pokemon-detailed-secondary-color);*/
 
     box-sizing: border-box;
 
@@ -58,16 +58,15 @@
 
 
 .pokemon-details-content-layer-1:hover {
-    transform: scale(1) rotateX(var(--layer1-rotate-x)) rotateY(var(--layer1-rotate-y)) translateZ(-15px);
+    transform: scale(1) rotateX(var(--layer1-rotate-x)) rotateY(var(--layer1-rotate-y));
 }
 
 .page-navigation.pokemon-details-content-layer-1{
-    transform: scale(0.8) translateZ(-100px);
+    transform: scale(0.8);
 }
 .page-navigation.pokemon-details-content-layer-1:hover {
-    transform-origin: center center -100px;
     /* the -100px is here because without that the page navigation filter is laggy as hell */
-    transform: scale(1) rotateX(var(--layer1-rotate-x)) rotateY(var(--layer1-rotate-y)) translateZ(-100px);
+    transform: scale(1) rotateX(var(--layer1-rotate-x)) rotateY(var(--layer1-rotate-y));
 }
 
 .page-navigation-settings.pokemon-details-content-layer-1{

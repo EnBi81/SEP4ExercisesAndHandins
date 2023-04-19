@@ -12,6 +12,7 @@
     grid-template-rows: 10fr 1fr 10fr; /* black row height */
     grid-template-columns: 10fr 9fr 10fr; /* black circle height */
 
+    backface-visibility: hidden;
     pointer-events: none;
 }
 
@@ -411,7 +412,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    transform: translateZ(-1px);
+    transform: translateZ(-1px) rotateY(180deg);
 
     height: 100%;
     width: 100%;
@@ -419,6 +420,7 @@
 
     background: white;
     pointer-events: none;
+    backface-visibility: hidden;
 
     overflow: hidden;
 }
@@ -428,8 +430,6 @@
 
 .backside-settings-content{
     box-sizing: border-box;
-
-    transform: rotateY(180deg);
     font-size: 1rem;
 
     max-height: 100%;
