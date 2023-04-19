@@ -27,8 +27,8 @@ export function AboutUs(){
                 <div>
                     This project consists of:
                     <ul>
-                        <li>2953 lines of Javascript (JSX)</li>
-                        <li>1975 lines of CSS</li>
+                        <li>2972 lines of Javascript (JSX)</li>
+                        <li>1997 lines of CSS</li>
                     </ul>
                 </div>
             </div>
