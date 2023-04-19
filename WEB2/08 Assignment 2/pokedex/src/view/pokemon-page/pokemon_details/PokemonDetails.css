@@ -15,7 +15,8 @@
 }
 
 .pokemon-details-container{
-    margin-left: 50px;
+    margin-left: -25px;
+    transform: scale(0.6);
 
     height: var(--pokemon-details-container-height);
     width: var(--pokemon-details-container-width);
@@ -27,6 +28,21 @@
 
     color: var(--pokemon-detailed-ultra-dark);
     pointer-events: none;
+
+    transition: transform 300ms, margin-right 300ms;
+}
+
+@media screen and (min-height: 680px) {
+    .pokemon-details-container{
+        margin-left: 25px;
+        transform: scale(0.8);
+    }
+}
+@media screen and (min-height: 850px) {
+    .pokemon-details-container{
+        margin-left: 50px;
+        transform: none;
+    }
 }
 
 .pokemon-details-content-layer-1{
