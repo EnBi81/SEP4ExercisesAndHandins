@@ -11,8 +11,10 @@ import {clearCache, getCacheSizeKB, getUseCaching, setUseCaching} from "../../..
 
 
 let lastRotatedTime = new Date().getTime();
+let lastPokemonToShow = undefined;
 
 export default function PokemonDetails({ pokemonToShow, setPokemonToShow, pageNavigation, apiDataResponse, loadingInfo }){
+    lastPokemonToShow = pokemonToShow;
 
     let layer1Ref = useRef();
     let [pokemonDetailedState, setPokemonDetailedState] = useState({
@@ -54,6 +56,9 @@ export default function PokemonDetails({ pokemonToShow, setPokemonToShow, pageNa
 
         getPokemonDetailedObject(pokemonToShow.id)
             .then(pokemon => {
+                if(lastPokemonToShow?.id !== pokemonToShow?.id)
+                    return;
+
                 let loadFunction = () => setPokemonDetailedState({
                     ...pokemonDetailedState,
                     pokemonDetailed: pokemon,
