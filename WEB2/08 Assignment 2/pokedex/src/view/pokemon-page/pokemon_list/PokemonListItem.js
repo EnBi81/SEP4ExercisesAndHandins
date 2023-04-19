@@ -3,7 +3,7 @@ import './PokemonListItem.css'
 import {getAverageRgbOfImg} from '../ViewUtils/ImageColorTools'
 import Color from "color";
 import PokeBall from './poke-ball.png'
-import {addCachedItemListener} from "../../../model/cachePokemons";
+import {addCachedItemListener, cachePokemonImageColor} from "../../../model/cachePokemons";
 
 
 export default function PokemonListItem({pokemon, selected = false, setSelectedPokemon, listItemAnimationNumber }){
@@ -16,7 +16,6 @@ export default function PokemonListItem({pokemon, selected = false, setSelectedP
             '--animation-delay-value': listItemAnimationNumber
         },
         calculatedColors: false,
-        shouldAppear: false,
     });
 
     let { pokemonStyle } = state;
@@ -37,15 +36,26 @@ export default function PokemonListItem({pokemon, selected = false, setSelectedP
     let pokemonListItemRef = useRef();
 
     function onImageLoad(){
-        let imgElement = imageRef.current;
-        let rgb = getAverageRgbOfImg(imgElement);
+        let imageMainColor = pokemon.bgColor === undefined ? undefined : new Color(pokemon.bgColor);
 
-        // https://www.htmlgoodies.com/css/color-manipulation-javascript/
-        let imageMainColor = new Color(rgb);
+        if(imageMainColor === undefined){
+            let imgElement = imageRef.current;
+            let rgb = getAverageRgbOfImg(imgElement);
 
-        // if the color is too dark
-        if(imageMainColor.lightness() < 30)
-            imageMainColor = imageMainColor.lighten(1);
+            // https://www.htmlgoodies.com/css/color-manipulation-javascript/
+            imageMainColor = new Color(rgb);
+
+            if(imageMainColor.hex() === '#000000')
+                return;
+
+            // if the color is too dark
+            if(imageMainColor.lightness() < 30)
+                imageMainColor = imageMainColor.lighten(1);
+
+            // only cache the color if the image the pokemon has it's own image
+            if(pokemon.image !== undefined)
+                cachePokemonImageColor(pokemonId, imageMainColor.hex());
+        }
 
         const bgColor = imageMainColor.darken(0.1);
         const imgBgColor = imageMainColor.lighten(0.1).saturate(1.1);
@@ -66,6 +76,7 @@ export default function PokemonListItem({pokemon, selected = false, setSelectedP
 
 
     function onImageError(){
+        pokemon.bgColor = '#BE8157'; // pre-calculated color for the pokeball
         imageRef.current.src = PokeBall;
         addCachedItemListener(pokemonId + '', newImage => imageRef.current.src = newImage);
     }
@@ -74,17 +85,8 @@ export default function PokemonListItem({pokemon, selected = false, setSelectedP
     // styling
     let selectedClass = selected ? ' pokemon-list-item-selected' : '';
 
-    // only appear when the image is loaded
-    useEffect(() => {
-        if(state.calculatedColors){
-            setState({
-                ...state,
-                shouldAppear: true,
-            })
-        }
-    }, [state.calculatedColors]);
 
-    let hiddenCss = state.shouldAppear ? '' : ' pokemon-list-item-hidden';
+    let hiddenCss = state.calculatedColors ? '' : ' pokemon-list-item-hidden';
 
 
     let pokemonName = pokemon.name;

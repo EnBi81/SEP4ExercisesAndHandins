@@ -129,10 +129,22 @@ export function getCachedImage(id){
     return localStorage[id];
 }
 
-let cacheItemListener = {
-
-}
+let cacheItemListener = {}
 
 export function addCachedItemListener(id, callback){
     cacheItemListener[id] = callback;
+}
+
+export function cachePokemonImageColor(id, color){
+    if(!getUseCaching())
+        return;
+
+    let key = id + 'color';
+    if(localStorage[key] === undefined)
+        localStorage[key] = color;
+}
+
+export function getCachePokemonImageColor(id){
+    let key = id + 'color';
+    return localStorage[key];
 }

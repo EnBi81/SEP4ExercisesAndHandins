@@ -1,5 +1,5 @@
 import {getPokemonPage} from "../networking/pokedex-api";
-import {cachePokemonImages, getCachedImage, getUseCaching} from './cachePokemons'
+import {cachePokemonImages, getCachedImage, getCachePokemonImageColor, getUseCaching} from './cachePokemons'
 
 
 export function getPokemonList(page, numberOfPokemonPerPage){
@@ -45,6 +45,8 @@ function convertApiDataToLocal(apiData, page, numberOfPokemonPerPage){
             p.image = localStorageImage;
             p.isImageCached = true;
         }
+
+        p.bgColor = getCachePokemonImageColor(id);
 
         return p;
     });

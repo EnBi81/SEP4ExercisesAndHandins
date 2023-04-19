@@ -57,6 +57,8 @@ export default function PokemonList({ pokemonPage, selectedPokemonUrl, setPokemo
             if(easterEggArray.toLocaleString() === 'h,u,e'){
                 setOppositeEasterEggState()
             }
+
+            console.log(easterEggArray.toLocaleString())
         });
     }, [])
 
