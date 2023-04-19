@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/SEP4ExercisesAndHandins/static/css/main.4c20e57c.css",
-    "main.js": "/SEP4ExercisesAndHandins/static/js/main.4eb15910.js",
+    "main.css": "/SEP4ExercisesAndHandins/static/css/main.290a5c26.css",
+    "main.js": "/SEP4ExercisesAndHandins/static/js/main.c4c9e068.js",
     "static/media/bg-image2.png": "/SEP4ExercisesAndHandins/static/media/bg-image2.9d816a03930b4a0928f3.png",
     "static/media/bg-image10.jpg": "/SEP4ExercisesAndHandins/static/media/bg-image10.97624200cc2cc74e7072.jpg",
     "static/media/snorlax.png": "/SEP4ExercisesAndHandins/static/media/snorlax.c9513de2179461ff7fc8.png",
@@ -18,11 +18,11 @@
     "static/media/pokemon-arrow1.png": "/SEP4ExercisesAndHandins/static/media/pokemon-arrow1.a9e97921b3940f8783e0.png",
     "static/media/pikachu-walking.gif": "/SEP4ExercisesAndHandins/static/media/pikachu-walking.f9a4ed4524f7a367fa67.gif",
     "index.html": "/SEP4ExercisesAndHandins/index.html",
-    "main.4c20e57c.css.map": "/SEP4ExercisesAndHandins/static/css/main.4c20e57c.css.map",
-    "main.4eb15910.js.map": "/SEP4ExercisesAndHandins/static/js/main.4eb15910.js.map"
+    "main.290a5c26.css.map": "/SEP4ExercisesAndHandins/static/css/main.290a5c26.css.map",
+    "main.c4c9e068.js.map": "/SEP4ExercisesAndHandins/static/js/main.c4c9e068.js.map"
   },
   "entrypoints": [
-    "static/css/main.4c20e57c.css",
-    "static/js/main.4eb15910.js"
+    "static/css/main.290a5c26.css",
+    "static/js/main.c4c9e068.js"
   ]
 }
