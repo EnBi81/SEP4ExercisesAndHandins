@@ -153,7 +153,7 @@ export default function PokemonDetails({ pokemonToShow, setPokemonToShow, pageNa
 
     return (
         <div className="pokemon-details-container" style={pokemonDetailedStyle}>
-            <div className={'pokemon-details-content-layer-1 no-display' + loadingCss} ref={layer1Ref}>
+            <div className={'pokemon-details-content-layer-1 no-display' + loadingCss} ref={layer1Ref} onAnimationEnd={() => layer1Ref.current.classList.remove('load-error')}>
                 <LoadingScreen content={content}
                                pageNavigation={pageNavigation}
                                triggerError={() => setError()}
