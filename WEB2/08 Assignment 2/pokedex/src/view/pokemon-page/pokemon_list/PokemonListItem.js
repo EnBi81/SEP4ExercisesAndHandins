@@ -16,6 +16,8 @@ export default function PokemonListItem({pokemon, selected = false, setSelectedP
             '--animation-delay-value': listItemAnimationNumber
         },
         calculatedColors: false,
+        imageSrc: pokemon.image,
+        isImageMissingState: 0, // 0: own image, 1: missing image, 2: found image
     });
 
     let { pokemonStyle } = state;
@@ -38,7 +40,7 @@ export default function PokemonListItem({pokemon, selected = false, setSelectedP
     function onImageLoad(){
         let imageMainColor = pokemon.bgColor === undefined ? undefined : new Color(pokemon.bgColor);
 
-        if(imageMainColor === undefined){
+        if(imageMainColor === undefined || state.isImageMissingState === 2){ // recalculate color if a new image was found
             let imgElement = imageRef.current;
             let rgb = getAverageRgbOfImg(imgElement);
 
@@ -53,7 +55,7 @@ export default function PokemonListItem({pokemon, selected = false, setSelectedP
                 imageMainColor = imageMainColor.lighten(1);
 
             // only cache the color if the image the pokemon has it's own image
-            if(pokemon.image !== undefined)
+            if(state.isImageMissingState !== 1)
                 cachePokemonImageColor(pokemonId, imageMainColor.hex());
         }
 
@@ -77,8 +79,18 @@ export default function PokemonListItem({pokemon, selected = false, setSelectedP
 
     function onImageError(){
         pokemon.bgColor = '#BE8157'; // pre-calculated color for the pokeball
-        imageRef.current.src = PokeBall;
-        addCachedItemListener(pokemonId + '', newImage => imageRef.current.src = newImage);
+        setState({
+            ...state,
+            imageSrc: PokeBall,
+            isImageMissingState: 1,
+        })
+        addCachedItemListener(pokemonId + '', newImage => {
+            setState({
+                ...state,
+                imageSrc: newImage,
+                isImageMissingState: 2,
+            })
+        });
     }
 
 
@@ -111,7 +123,7 @@ export default function PokemonListItem({pokemon, selected = false, setSelectedP
                  ref={pokemonListItemRef}>
                 <div className="pokemon-simple-left">
                     <div className='pokemon-simple-img'>
-                        <img src={pokemon.image} onLoad={onImageLoad} onError={onImageError} ref={imageRef} alt=""/>
+                        <img src={state.imageSrc} onLoad={onImageLoad} onError={onImageError} ref={imageRef} alt=""/>
                     </div>
                     <div className='pokemon-simple-name'>{pokemonName}</div>
                 </div>
