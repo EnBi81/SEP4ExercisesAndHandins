@@ -50,7 +50,7 @@ let getRightCursor = () => {
     if(cursorBlobUrl == null)
         return 'pointer';
 
-    return `url('${cursorBlobUrl}'), auto`;
+    return `url('${cursorBlobUrl}') 25 25, auto`;
 }
 
 let setCursor = cursor => {
