@@ -1,5 +1,6 @@
 import {getPokemonObject} from "../networking/pokedex-api";
 import {cachePokemonImages, getCachedImage} from "./cachePokemons";
+import {getModelPath, has3DModel} from "./pokemon-3d-models";
 
 let pokemonCache = {}
 
@@ -12,7 +13,12 @@ export function getPokemonDetailedObject(id){
         .then(pokemon => {
             pokemonCache[id] = pokemon;
 
-            // cache image if not cached yet:
+            pokemon.model3d = {
+                hasModel: has3DModel(id),
+                path: getModelPath(id),
+            }
+
+            // scan for image if there is none cache image if not cached yet:
             if(getCachedImage(id + '') === undefined){
                 let newImage = scanObjectForFrontDefaultProperty(pokemon.sprites.versions);
                 if(newImage != null){

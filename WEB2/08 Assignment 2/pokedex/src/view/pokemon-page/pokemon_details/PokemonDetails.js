@@ -13,6 +13,7 @@ import {clearCache, getCacheSizeKB, getUseCaching, setUseCaching} from "../../..
 let lastRotatedTime = new Date().getTime();
 let lastPokemonToShow = undefined;
 
+
 export default function PokemonDetails({ pokemonToShow, setPokemonToShow, pageNavigation, apiDataResponse, loadingInfo, setRandomPokemon }){
     lastPokemonToShow = pokemonToShow;
 
@@ -35,6 +36,13 @@ export default function PokemonDetails({ pokemonToShow, setPokemonToShow, pageNa
         });
     }
 
+    if(!pokemonDetailedState.pokemonDetailed?.model3d.hasModel && pokemonDetailedState.loadingState === 3){
+        setPokemonDetailedState(prevState => ({
+            ...prevState,
+            loadingState: 2
+        }))
+    }
+
     // Making get request to the api
     useEffect(() => {
         if(pokemonToShow === undefined){
@@ -46,7 +54,7 @@ export default function PokemonDetails({ pokemonToShow, setPokemonToShow, pageNa
             return;
         }
 
-        if(pokemonDetailedState.loadingState !== 2){
+        if(pokemonDetailedState.loadingState !== 2 && pokemonDetailedState.loadingState !== 3){
             setPokemonDetailedState({
                 ...pokemonDetailedState,
                 loadingState: 1,
@@ -59,21 +67,21 @@ export default function PokemonDetails({ pokemonToShow, setPokemonToShow, pageNa
                 if(lastPokemonToShow?.id !== pokemonToShow?.id)
                     return;
 
-                let loadFunction = () => setPokemonDetailedState({
-                    ...pokemonDetailedState,
+                let loadFunction = () => setPokemonDetailedState(prevState => ({
+                    ...prevState,
                     pokemonDetailed: pokemon,
-                    loadingState: 2,
+                    loadingState: prevState.loadingState === 3 ? 3 : 2,
                     loadingTimeOut: null,
-                });
+                }));
 
                 if(pokemonDetailedState.loadingState === 0 || pokemonDetailedState.loadingState === 4){
                     let timeout = setTimeout(loadFunction, 1000); // set timeout just to show that fancy loading animation
 
-                    setPokemonDetailedState({
-                        ...pokemonDetailedState,
+                    setPokemonDetailedState(prevState => ({
+                        ...prevState,
                         loadingTimeOut: timeout,
                         loadingState: 1,
-                    })
+                    }));
                 }
                 else{
                     if(pokemonDetailedState.loadingTimeOut != null){
@@ -106,12 +114,27 @@ export default function PokemonDetails({ pokemonToShow, setPokemonToShow, pageNa
 
     let {pokemonDetailed, loadingState} = pokemonDetailedState;
 
+    function toggle3D(bool){
+        if(bool){
+            setPokemonDetailedState(prevState => ({
+                ...prevState,
+                loadingState: 3
+            }))
+        }
+        else{
+            setPokemonDetailedState(prevState => ({
+                ...prevState,
+                loadingState: 2
+            }))
+        }
+    }
+
     // set up loaded content
     let content = pokemonDetailed !== undefined && (
             <div className={'pokemon-details-content'}>
                 <PokemonIdTitleContainer pokemonDetailed={pokemonDetailed}></PokemonIdTitleContainer>
                 <PokemonImageContainer pokemonDetailed={pokemonDetailed}></PokemonImageContainer>
-                <PokemonExtendedInfoContainer pokemonDetailed={pokemonDetailed}></PokemonExtendedInfoContainer>
+                <PokemonExtendedInfoContainer pokemonDetailed={pokemonDetailed} toggle3D={toggle3D} ></PokemonExtendedInfoContainer>
             </div>
         );
 
@@ -119,11 +142,11 @@ export default function PokemonDetails({ pokemonToShow, setPokemonToShow, pageNa
     function setBackside(debugMode){
         loadingState = debugMode ? 4 : 0;
 
-        setPokemonDetailedState({
-            ...pokemonDetailedState,
+        setPokemonDetailedState(prevState => ({
+            ...prevState,
             loadingState: loadingState,
             loadingTimeOut: null,
-        });
+        }));
     }
 
     function setRandomPokemonProxy(){
@@ -136,10 +159,12 @@ export default function PokemonDetails({ pokemonToShow, setPokemonToShow, pageNa
     else if(loadingState === 4) loadingCss = ' page-navigation-settings';
     else if(loadingState === 1) loadingCss = ' loading';
     else if(loadingState === 2) loadingCss = ' loaded';
-
+    else if(loadingState === 3) loadingCss = ' loaded view-3d'
 
     if(loadingInfo.loading && !loadingInfo.debugLoading)
         loadingCss = ' loading page-navigation'
+
+
 
     if(layer1Ref.current?.classList.contains('load-error'))
         loadingCss += ' load-error'
@@ -153,7 +178,9 @@ export default function PokemonDetails({ pokemonToShow, setPokemonToShow, pageNa
 
     return (
         <div className="pokemon-details-container" style={pokemonDetailedStyle}>
+
             <div className={'pokemon-details-content-layer-1 no-display' + loadingCss} ref={layer1Ref} onAnimationEnd={() => layer1Ref.current.classList.remove('load-error')}>
+                {loadingState === 3 && pokemonDetailed.model3d.hasModel && <Pokemon3DViewer toggle3d={toggle3D} modelPath={pokemonDetailed.model3d.path}></Pokemon3DViewer>}
                 <LoadingScreen content={content}
                                pageNavigation={pageNavigation}
                                triggerError={() => setError()}
@@ -164,6 +191,30 @@ export default function PokemonDetails({ pokemonToShow, setPokemonToShow, pageNa
         </div>
     )
 }
+
+
+function Pokemon3DViewer({toggle3d, modelPath}){
+    return (
+        <div className={'pokemon-3d-viewer'}>
+            <div className="pokemon-3d-viewer-content">
+                <model-viewer alt="Pokemon model"
+                              src={modelPath}
+                              auto-rotate
+                              camera-controls
+                              disable-tap
+                              disable-zoom
+                              rotation-per-second="30deg"
+                              shadow-intensity="1">
+                </model-viewer>
+
+                <div className="back-button">
+                    <button onClick={() => toggle3d(false)}>Back</button>
+                </div>
+            </div>
+        </div>
+    )
+}
+
 
 function LoadingScreen({content, pageNavigation, triggerError, apiDataObject, setBackside, setRandomPokemon}){
 

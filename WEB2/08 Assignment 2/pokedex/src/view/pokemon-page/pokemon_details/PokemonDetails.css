@@ -12,6 +12,8 @@
 
     --pokemon-details-container-width: 600px;
     --pokemon-details-container-height: 700px;
+
+    --pokemon-details-3d-model-anim: 1s;
 }
 
 .pokemon-details-container{
@@ -92,6 +94,10 @@
     transform: scale(1.1) rotateY(180deg);
 }
 
+.view-3d.pokemon-details-content-layer-1 {
+    transition: var(--pokemon-details-3d-model-anim) transform !important;
+    transform: rotateX(90deg) rotateZ(-90deg) rotateY(-5deg) scale(0.8) translateZ(-200px) translateY(40px);
+}
 
 .pokemon-details-content{
     height: 100%;
@@ -108,6 +114,9 @@
     transition: border var(--pokemon-details-transition-time),
                 transform var(--pokemon-details-movement-transition-time),
                 box-shadow var(--pokemon-details-movement-transition-time);
+
+    transform-style: preserve-3d;
+
 }
 
 .pokemon-details-grid-item:last-child{
@@ -263,3 +272,63 @@ Pokemon Name
 }
 
 
+.pokemon-3d-viewer{
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 300px;
+    height: 300px;
+
+    transform-style: preserve-3d;
+    transform-origin: center center;
+
+    visibility: hidden;
+
+    transform: translateZ(220px) translateY(180px) translateX(-250px) rotateX(90deg) rotateY(90deg);
+    animation: pokemon3DAnimAppear 500ms linear forwards var(--pokemon-details-3d-model-anim);
+}
+
+.pokemon-3d-viewer-content{
+    transform: rotateZ(180deg) rotateY(180deg);
+    position: relative;
+}
+
+model-viewer{
+    height: 300px;
+}
+
+.pokemon-3d-viewer .back-button{
+    position: absolute;
+    display: flex;
+    width: 120%;
+    top: 0;
+    justify-content: flex-end;
+}
+
+.pokemon-3d-viewer .back-button button{
+    height: 30px;
+    width: 70px;
+
+    border: none;
+    border-radius: 3px;
+    background: var(--pokemon-detailed-main-color);
+
+    transition: background-color var(--transition-delay);
+
+    cursor: pointer;
+}
+.pokemon-3d-viewer .back-button button:hover{
+    filter: brightness(0.9);
+}
+
+@keyframes pokemon3DAnimAppear {
+    from{
+        visibility: hidden;
+        opacity: 0;
+    }
+    to{
+        visibility: visible;
+        opacity: 1;
+    }
+}

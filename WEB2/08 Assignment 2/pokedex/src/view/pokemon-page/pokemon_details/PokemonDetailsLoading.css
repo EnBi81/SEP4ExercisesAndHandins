@@ -87,7 +87,7 @@
 
     background: var(--pokemon-loading-inner-circle);
     border-radius: 50%;
-    overflow: hidden;
+    /*overflow: hidden;*/
 
     display: flex;
     align-items: center;

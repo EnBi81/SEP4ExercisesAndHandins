@@ -4,14 +4,14 @@ import pokemonTypes from "../../../model/pokemon-types";
 import Color from "color";
 import PokemonArrow from "./pokemon-arrows/pokemon-arrow1.png";
 
-export function PokemonExtendedInfoContainer({pokemonDetailed}){
+export function PokemonExtendedInfoContainer({pokemonDetailed, toggle3D}){
 
 
     return (
         <div className={'pokemon-details-grid-item pokemon-extended-info-container'}>
             <BaseInfoContainer pokemonDetailed={pokemonDetailed}></BaseInfoContainer>
             <StatisticsContainer pokemonDetailed={pokemonDetailed}></StatisticsContainer>
-            <GenerationContainer></GenerationContainer>
+            <GenerationContainer toggle3d={toggle3D} shouldDisplay3d={pokemonDetailed.model3d.hasModel}></GenerationContainer>
         </div>
     )
 }
@@ -151,10 +151,14 @@ function StatisticListItem({name, title, value, maxValue}){
     )
 }
 
-function GenerationContainer(){
+function GenerationContainer({shouldDisplay3d, toggle3d}){
     return (
         <div className={'generation-container'}>
-
+            {shouldDisplay3d &&
+                <div className="button-3d-on" onClick={() => toggle3d(true)}>
+                    <span>3D</span>
+                </div>
+            }
         </div>
     )
 }
