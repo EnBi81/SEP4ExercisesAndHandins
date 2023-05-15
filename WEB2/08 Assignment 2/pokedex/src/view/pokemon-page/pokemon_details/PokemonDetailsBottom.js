@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import './PokemonDetailsBottom.css'
 import pokemonTypes from "../../../model/pokemon-types";
 import Color from "color";
@@ -151,13 +151,32 @@ function StatisticListItem({name, title, value, maxValue}){
     )
 }
 
+let alreadyClicked = false;
+
 function GenerationContainer({shouldDisplay3d, toggle3d}){
+    const [hadAlreadyClicked, setAlreadyClicked] = useState(alreadyClicked);
+
+    let onclick = () => {
+        if(!hadAlreadyClicked){
+            setAlreadyClicked(true)
+            alreadyClicked = true;
+            return;
+        }
+
+        toggle3d(true);
+    }
+
     return (
         <div className={'generation-container'}>
             {shouldDisplay3d &&
-                <div className="button-3d-on" onClick={() => toggle3d(true)}>
-                    <span>3D</span>
-                </div>
+                <>
+                    <div className="button-3d-on" onClick={onclick}>
+                        <span>3D</span>
+                    </div>
+                    { hadAlreadyClicked && <span>Note: Some models are Corrupted!</span>}
+
+                </>
+
             }
         </div>
     )

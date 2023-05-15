@@ -203,6 +203,7 @@ function Pokemon3DViewer({toggle3d, modelPath}){
                               camera-controls
                               disable-tap
                               disable-zoom
+                              interaction-prompt={'none'}
                               rotation-per-second="30deg"
                               shadow-intensity="1">
                 </model-viewer>
